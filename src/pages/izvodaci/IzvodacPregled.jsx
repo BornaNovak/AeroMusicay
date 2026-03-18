@@ -1,7 +1,5 @@
-import { useState } from 'react'; // Dodano za praćenje stanja playera
-import { Container, Table, Button, Accordion, Card } from 'react-bootstrap';
-import GlazbaRedak from '../../components/GlazbaRedak';
-import IzvodacServices from '../../services/izvodaci/IzvodacServices';
+import { useEffect, useState } from 'react'; // Dodano za praćenje stanja playera
+import IzvodacService from '../../services/izvodaci/IzvodacService';
 
 export default function IzvodacPregled() {
     // Stanje koje čuva trenutno odabranu pjesmu (u početku je null)
@@ -20,9 +18,10 @@ export default function IzvodacPregled() {
    return(
     <>
     <ol>
-        {izvodaci && izvodaci.map((izvodac)=>{
-            <li>{izvodac.naziv</li>
-        })}
+        {izvodaci && izvodaci.map((izvodac)=>(
+            <li>{izvodac.naziv}</li>
+        ))}
     </ol>
     </>
    )
+}
