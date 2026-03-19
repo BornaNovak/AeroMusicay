@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import IzvodacService from '../../services/izvodaci/IzvodacService';
 import { Table } from 'react-bootstrap';
+import FormatDatuma from '../../components/FormatDatuma';
 
 export default function IzvodacPregled() {
    const [izvodaci, setIzvodaci] = useState([])
 
-   useEffect(() => {
-    ucitajIzvodace();
-   }, [])
+   useEffect(() => {ucitajIzvodace()}, [])
 
    async function ucitajIzvodace(){
     await IzvodacService.get().then((odgovor) => {
@@ -37,7 +36,7 @@ export default function IzvodacPregled() {
                     <td>{smjer.album}</td>
                     <td className="text-end">{smjer.trajanje}</td>
                     <td>
-                        <FormaDatuma datum={smjer.datumIzdavanja}/>
+                        <FormatDatuma datum={smjer.datumIzdavanja} prikazZadano='-' />
                     </td>
                 </tr>
             ))}

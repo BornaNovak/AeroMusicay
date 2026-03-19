@@ -2,6 +2,6 @@ export const IME_APLIKACIJE = 'AeroMusicay'
 
 export const RouteNames = {
     HOME: '/',
-    IZVODAC: '/izvodaci',
+    IZVODACI: '/izvodaci',
     GLAZBA: '/glazba',
 }

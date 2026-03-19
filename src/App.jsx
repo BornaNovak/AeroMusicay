@@ -3,10 +3,10 @@ import './App.css';
 import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
 
-import Izbornik from './components/izbornik';
 import Home from './pages/Home';
 import IzvodacPregled from './pages/izvodaci/IzvodacPregled';
 import { RouteNames } from './constants';
+import Izbornik from './components/Izbornik';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Container className="mt-3">
         <Routes>
           <Route path={RouteNames.HOME} element={<Home />} />
-          <Route path={RouteNames.IZVODAC} element={<IzvodacPregled />} />
+          <Route path={RouteNames.IZVODACI} element={<IzvodacPregled />} />
         </Routes>
       </Container>
     </>

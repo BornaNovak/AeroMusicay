@@ -6,7 +6,7 @@ export const izvodaci=[
         pjesma: "Stairway to Heaven",
         album: 'Led Zeppelin IV',
         trajanje: 8.02,
-        DatumIzdavanja: '1971-11-08',
+        datumIzdavanja: '1971-11-08T00:00:00',
     },
     {
         sifra:2,
@@ -15,7 +15,7 @@ export const izvodaci=[
         pjesma: 'Riders on the Storm',
         album: 'L.A.',
         trajanje: 7.02,
-        datumIzdavanja: '1971-06-01',
+        datumIzdavanja: '1971-06-01T00:00:00',
     },
     {
         sifra:3,
@@ -24,6 +24,6 @@ export const izvodaci=[
         pjesma: 'Radio Ga Ga',
         album: 'The Works',
         trajanje: 5.48,
-        DatumIzdavanja: '1984-06-01',
+        datumIzdavanja: '1984-06-01T00:00:00',
     }
 ]
