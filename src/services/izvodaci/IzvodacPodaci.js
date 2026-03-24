@@ -5,7 +5,7 @@ export const izvodaci=[
         zanr:'Rock',
         pjesma: "Stairway to Heaven",
         album: 'Led Zeppelin IV',
-        trajanje: 8.02,
+        trajanje: 482,
         datumIzdavanja: '1971-11-08T00:00:00',
         akcija: 'Nema'
     },
@@ -15,7 +15,7 @@ export const izvodaci=[
         zanr:'Rock, Blues',
         pjesma: 'Riders on the Storm',
         album: 'L.A.',
-        trajanje: 7.02,
+        trajanje: 422,
         datumIzdavanja: '1971-06-01T00:00:00',
         akcija:'Ima'
     },
@@ -25,7 +25,7 @@ export const izvodaci=[
         zanr:'Rock',
         pjesma: 'Radio Ga Ga',
         album: 'The Works',
-        trajanje: 5.48,
+        trajanje: 348,
         datumIzdavanja: '1984-06-01T00:00:00',
         akcija:'Nema'
     },
@@ -35,7 +35,7 @@ export const izvodaci=[
         zanr: 'Rock, Blues Rock',
         pjesma: 'Gimme Shelter',
         album: 'Let It Bleed',
-        trajanje: 4.31,
+        trajanje: 241,
         datumIzdavanja: '1969-12-05T00:00:00',
         akcija:'Nema'
     },
@@ -45,7 +45,7 @@ export const izvodaci=[
         zanr: 'Roots Rock, Swamp Rock',
         pjesma: 'Fortunate Son',
         album: 'Willy and the Poor Boys',
-        trajanje: 2.21,
+        trajanje: 141,
         datumIzdavanja: '1969-11-02T00:00:00',
         akcija:'Ima'
     },
@@ -55,7 +55,7 @@ export const izvodaci=[
         zanr: 'Psych Rock, Blues Rock',
         pjesma: 'Sunshine of Your Love',
         album: 'Disraeli Gears',
-        trajanje: 4.10,
+        trajanje: 250,
         datumIzdavanja: '1967-11-02T00:00:00',
         akcija:'Ima'
     },
@@ -65,7 +65,7 @@ export const izvodaci=[
         zanr: 'Heavy Metal',
         pjesma: 'The Number of the Beast',
         album: 'The Number of the Beast',
-        trajanje: 4.51,
+        trajanje: 261,
         datumIzdavanja: '1982-03-22T00:00:00',
         akcija:'Ima'
     },
@@ -75,7 +75,7 @@ export const izvodaci=[
         zanr: 'Heavy Metal, Doom Metal',
         pjesma: 'Paranoid',
         album: 'Paranoid',
-        trajanje: 2.48,
+        trajanje: 168,
         datumIzdavanja: '1970-09-18T00:00:00',
         akcija:'ima'
     },
@@ -85,7 +85,7 @@ export const izvodaci=[
         zanr: 'Hard Rock, Gothic Rock',
         pjesma: 'She Sells Sanctuary',
         album: 'Love',
-        trajanje: 4.13,
+        trajanje: 253,
         datumIzdavanja: '1985-05-17T00:00:00',
         akcija:'Nema'
     },
@@ -95,7 +95,7 @@ export const izvodaci=[
         zanr: 'Hard Rock, Gothic Rock',
         pjesma: 'Fire Woman',
         album: 'Sonic Temple',
-        trajanje: 5.11,
+        trajanje: 311,
         datumIzdavanja: '1989-05-20T00:00:00',
         akcija:'Nema'
     },
@@ -105,7 +105,7 @@ export const izvodaci=[
         zanr: 'Nu-Metal, Alternative Rock',
         pjesma: 'In the End',
         album: 'Hybrid Theory',
-        trajanje: 3.36,
+        trajanje: 221,
         datumIzdavanja: '2000-10-24T00:00:00',
         akcija: 'Nema'
     },
@@ -115,7 +115,7 @@ export const izvodaci=[
         zanr: 'Nu-Metal, Alternative Rock',
         pjesma: 'Somewhere I Belong',
         album: 'Meteora',
-        trajanje: 3.33,
+        trajanje: 213,
         datumIzdavanja: '2003-03-17T00:00:00',
         akcija: 'Nema'
     },
@@ -125,7 +125,7 @@ export const izvodaci=[
         zanr: 'Nu-Metal, Alternative Rock',
         pjesma: 'Numb',
         album: 'Meteora',
-        trajanje: 3.07,
+        trajanje: 187,
         datumIzdavanja: '2003-03-25T00:00:00',
         akcija: 'Nema'
     },
@@ -135,7 +135,7 @@ export const izvodaci=[
         zanr: 'Alternative Rock',
         pjesma: 'What I\'ve Done',
         album: 'Minutes to Midnight',
-        trajanje: 3.25,
+        trajanje: 205,
         datumIzdavanja: '2007-05-14T00:00:00',
         akcija: 'Nema'
     },
@@ -145,7 +145,7 @@ export const izvodaci=[
         zanr: 'Punk Rock, Pop Punk',
         pjesma: 'American Idiot',
         album: 'American Idiot',
-        trajanje: 2.54,
+        trajanje: 174,
         datumIzdavanja: '2004-09-21T00:00:00',
         akcija: 'Nema'
     },

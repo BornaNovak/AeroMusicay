@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import IzvodacPregled from './pages/izvodaci/IzvodacPregled';
 import { RouteNames } from './constants';
 import Izbornik from './components/Izbornik';
+import IzvodacNovi from './pages/izvodaci/IzvodacNovi';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path={RouteNames.HOME} element={<Home />} />
           <Route path={RouteNames.IZVODACI} element={<IzvodacPregled />} />
+          <Route path={RouteNames.IZVODACI_NOVI} element={<IzvodacNovi />} />
         </Routes>
       </Container>
     </>

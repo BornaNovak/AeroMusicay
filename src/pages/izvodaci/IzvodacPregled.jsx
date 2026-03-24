@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import IzvodacService from '../../services/izvodaci/IzvodacService';
 import { Table } from 'react-bootstrap';
 import FormatDatuma from '../../components/FormatDatuma';
+import { RouteNames } from '../../constants';
+import { Link } from 'react-router-dom';
+import { PatternFormat } from 'react-number-format';
 
 export default function IzvodacPregled() {
    const [izvodaci, setIzvodaci] = useState([])
@@ -13,9 +16,11 @@ export default function IzvodacPregled() {
         setIzvodaci(odgovor.data)
     })
    }
-
    return(
     <>
+    <Link to={RouteNames.IZVODACI_NOVI} className="btn btn-success w-100 my-3">
+        Dodavanje novog izvodaca
+    </Link>
     <Table>
         <thead>
             <tr>
@@ -29,17 +34,23 @@ export default function IzvodacPregled() {
             </tr>
         </thead>
         <tbody>
-            {izvodaci && izvodaci.map((smjer)=>(
+            {izvodaci && izvodaci.map((izvodac)=>(
                 <tr>
-                    <td>{smjer.naziv}</td>
-                    <td>{smjer.zanr}</td>
-                    <td>{smjer.pjesma}</td>
-                    <td>{smjer.album}</td>
-                    <td className="text-end">{smjer.trajanje}</td>
-                    <td>
-                        <FormatDatuma datum={smjer.datumIzdavanja} prikazZadano='-' />
+                    <td>{izvodac.naziv}</td>
+                    <td>{izvodac.zanr}</td>
+                    <td>{izvodac.pjesma}</td>
+                    <td>{izvodac.album}</td>
+                    <td className="text-end">
+                        <PatternFormat 
+                        displayType='text'
+                        format='#:##'
+                        value={izvodac.trajanje}
+                        />
                     </td>
-                    <td>{smjer.akcija}</td>
+                    <td>
+                        <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
+                    </td>
+                    <td>{izvodac.akcija}</td>
                 </tr>
             ))}
         </tbody>
