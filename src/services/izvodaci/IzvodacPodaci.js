@@ -155,7 +155,7 @@ export const izvodaci=[
         zanr: 'Alternative Rock, Pop Punk',
         pjesma: 'Boulevard of Broken Dreams',
         album: 'American Idiot',
-        trajanje: 4.20,
+        trajanje: 260,
         datumIzdavanja: '2004-09-21T00:00:00',
         akcija: 'Nema'
     },
@@ -165,7 +165,7 @@ export const izvodaci=[
         zanr: 'Punk Rock, Alternative Rock',
         pjesma: 'Holiday',
         album: 'American Idiot',
-        trajanje: 3.52,
+        trajanje: 232,
         datumIzdavanja: '2004-09-21T00:00:00',
         akcija: 'Nema'
     },
@@ -175,7 +175,7 @@ export const izvodaci=[
         zanr: 'Pop, Disco',
         pjesma: 'Dancing Queen',
         album: 'Arrival',
-        trajanje: 3.51,
+        trajanje: 231,
         datumIzdavanja: '1976-08-16T00:00:00',
         akcija: 'Nema'
     },
@@ -185,7 +185,7 @@ export const izvodaci=[
         zanr: 'Pop, Disco',
         pjesma: 'Mamma Mia',
         album: 'ABBA',
-        trajanje: 3.32,
+        trajanje: 212,
         datumIzdavanja: '1975-04-21T00:00:00',
         akcija: 'Ima'
     },
@@ -195,7 +195,7 @@ export const izvodaci=[
         zanr: 'Pop, Disco',
         pjesma: 'Gimme! Gimme! Gimme!',
         album: 'Greatest Hits Vol. 2',
-        trajanje: 4.48,
+        trajanje: 288,
         datumIzdavanja: '1979-10-12T00:00:00',
         akcija: 'Ima'
     },
@@ -205,7 +205,7 @@ export const izvodaci=[
         zanr: 'Pop, Disco',
         pjesma: 'The Winner Takes It All',
         album: 'Super Trouper',
-        trajanje: 4.56,
+        trajanje: 296,
         datumIzdavanja: '1980-07-21T00:00:00',
         akcija: 'Nema'
     },
@@ -215,7 +215,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba',
         pjesma: 'Proplakat će zora',
         album: 'Proplakat će zora',
-        trajanje: 3.33,
+        trajanje: 213,
         datumIzdavanja: '1971-09-01T00:00:00',
         akcija: 'Nema'
     },
@@ -225,7 +225,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba',
         pjesma: 'Ti si pjesma moje duše',
         album: 'Ti si pjesma moje duše',
-        trajanje: 4.12,
+        trajanje: 252,
         datumIzdavanja: '1986-01-01T00:00:00',
         akcija: 'Nema'
     },
@@ -235,7 +235,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba',
         pjesma: 'Ako me ostaviš',
         album: 'Malovidi',
-        trajanje: 3.42,
+        trajanje: 222,
         datumIzdavanja: '1985-06-15T00:00:00',
         akcija: 'Nema'
     },
@@ -245,7 +245,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba',
         pjesma: 'Ostala si uvijek ista',
         album: 'Ostala si uvijek ista',
-        trajanje: 3.58,
+        trajanje: 238,
         datumIzdavanja: '1985-01-01T00:00:00',
         akcija: 'Nema'
     },
@@ -255,7 +255,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba',
         pjesma: 'Svi pjevaju, ja ne čujem',
         album: 'Malo mi je jedan život s tobom',
-        trajanje: 4.05,
+        trajanje: 245,
         datumIzdavanja: '1987-10-20T00:00:00',
         akcija: 'Nema'
     },
@@ -265,7 +265,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba, Šansona',
         pjesma: 'Cesarica',
         album: 'Sve najbolje',
-        trajanje: 4.41,
+        trajanje: 285,
         datumIzdavanja: '1993-01-01T00:00:00',
         akcija: 'Nema'
     },
@@ -275,7 +275,7 @@ export const izvodaci=[
         zanr: 'Dalmatinska šansona',
         pjesma: 'Galeb i ja',
         album: 'Galeb i ja',
-        trajanje: 3.42,
+        trajanje: 222,
         datumIzdavanja: '1975-06-10T00:00:00',
         akcija: 'Nema'
     },
@@ -285,7 +285,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba',
         pjesma: 'Magdalena',
         album: 'Poeta',
-        trajanje: 3.58,
+        trajanje: 238,
         datumIzdavanja: '1978-01-01T00:00:00',
         akcija: 'Ima'
     },
@@ -295,7 +295,7 @@ export const izvodaci=[
         zanr: 'Pop, Jazz-pop',
         pjesma: 'Trag u beskraju',
         album: 'Trag u beskraju',
-        trajanje: 4.35,
+        trajanje: 275,
         datumIzdavanja: '2002-09-20T00:00:00',
         akcija: 'Ima'
     },
@@ -305,7 +305,7 @@ export const izvodaci=[
         zanr: 'Zabavna glazba, Šansona',
         pjesma: 'Nadalina',
         album: 'Jubavi, jubavi',
-        trajanje: 4.38,
+        trajanje: 278,
         datumIzdavanja: '1980-01-01T00:00:00',
         akcija: 'Nema'
     },
@@ -315,7 +315,7 @@ export const izvodaci=[
         zanr: 'Eurodance, Reggae-pop',
         pjesma: 'Happy Nation',
         album: 'Happy Nation',
-        trajanje: 4.11,
+        trajanje: 251,
         datumIzdavanja: '1992-11-02T00:00:00',
         akcija: 'Ima'
     },
@@ -325,7 +325,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, New Wave',
         pjesma: 'Enjoy the Silence',
         album: 'Violator',
-        trajanje: 4.15,
+        trajanje: 255,
         datumIzdavanja: '1990-02-05T00:00:00',
         akcija: 'Ima'
     },
@@ -335,7 +335,7 @@ export const izvodaci=[
         zanr: 'Alternative Rock, Industrial',
         pjesma: 'Personal Jesus',
         album: 'Violator',
-        trajanje: 3.44,
+        trajanje: 224,
         datumIzdavanja: '1989-08-29T00:00:00',
         akcija: 'Nema'
     },
@@ -345,7 +345,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, New Wave',
         pjesma: 'Just Can\'t Get Enough',
         album: 'Speak & Spell',
-        trajanje: 3.45,
+        trajanje: 225,
         datumIzdavanja: '1981-09-01T00:00:00',
         akcija: 'Nema'
     },
@@ -355,7 +355,7 @@ export const izvodaci=[
         zanr: 'Rock, Soul',
         pjesma: 'What\'s Love Got to Do with It',
         album: 'Private Dancer',
-        trajanje: 3.49,
+        trajanje: 229,
         datumIzdavanja: '1984-05-01T00:00:00',
         akcija: 'Nema'
     },
@@ -365,7 +365,7 @@ export const izvodaci=[
         zanr: 'Rock, Pop',
         pjesma: 'The Best',
         album: 'Foreign Affair',
-        trajanje: 4.10,
+        trajanje: 250,
         datumIzdavanja: '1989-09-02T00:00:00',
         akcija: 'Nema'
     },
@@ -375,7 +375,7 @@ export const izvodaci=[
         zanr: 'Pop Rock, Soul',
         pjesma: 'Private Dancer',
         album: 'Private Dancer',
-        trajanje: 4.01,
+        trajanje: 241,
         datumIzdavanja: '1984-05-29T00:00:00',
         akcija: 'Ima'
     },
@@ -385,7 +385,7 @@ export const izvodaci=[
         zanr: 'Pop Rock',
         pjesma: 'GoldenEye',
         album: 'Wildest Dreams',
-        trajanje: 4.43,
+        trajanje: 283,
         datumIzdavanja: '1995-11-06T00:00:00',
         akcija: 'Nema'
     },
@@ -395,7 +395,7 @@ export const izvodaci=[
         zanr: 'Rock, Hard Rock',
         pjesma: 'We Don\'t Need Another Hero',
         album: 'Mad Max Beyond Thunderdome',
-        trajanje: 4.16,
+        trajanje: 256,
         datumIzdavanja: '1985-07-08T00:00:00',
         akcija: 'Ima'
     },
@@ -405,7 +405,7 @@ export const izvodaci=[
         zanr: 'Italo Disco, Synth-pop',
         pjesma: 'Self Control',
         album: 'Self Control',
-        trajanje: 4.08,
+        trajanje: 248,
         datumIzdavanja: '1984-04-19T00:00:00',
         akcija: 'Ima'
     },
@@ -415,7 +415,7 @@ export const izvodaci=[
         zanr: 'Pop Rock, Folk Rock',
         pjesma: 'Lipe cvatu, sve je isto k\'o i lani',
         album: 'Bijelo Dugme',
-        trajanje: 4.00,
+        trajanje: 240,
         datumIzdavanja: '1984-12-01T00:00:00',
         akcija: 'Ima'
     },
@@ -425,7 +425,7 @@ export const izvodaci=[
         zanr: 'Hard Rock, Synth-pop',
         pjesma: 'Padaju zvijezde',
         album: 'Bijelo Dugme',
-        trajanje: 4.40,
+        trajanje: 280,
         datumIzdavanja: '1984-12-01T00:00:00',
         akcija: 'Nema'
     },
@@ -435,7 +435,7 @@ export const izvodaci=[
         zanr: 'Rock, New Wave',
         pjesma: 'Meni se ne spava',
         album: 'Bijelo Dugme',
-        trajanje: 4.43,
+        trajanje: 283,
         datumIzdavanja: '1984-12-01T00:00:00',
         akcija: 'Nema'
     },
@@ -445,7 +445,7 @@ export const izvodaci=[
         zanr: 'New Wave, Synth-pop',
         pjesma: 'Bette Davis Eyes',
         album: 'Mistaken Identity',
-        trajanje: 3.47,
+        trajanje: 227,
         datumIzdavanja: '1981-03-10T00:00:00',
         akcija: 'Nema'
     },
@@ -455,7 +455,7 @@ export const izvodaci=[
         zanr: 'New Wave, Post-punk',
         pjesma: 'Eyes Without a Face',
         album: 'Rebel Yell',
-        trajanje: 4.58,
+        trajanje: 298,
         datumIzdavanja: '1984-05-29T00:00:00',
         akcija: 'Nema'
     },
@@ -465,7 +465,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, Euro-disco',
         pjesma: 'You\'re My Heart, You\'re My Soul',
         album: 'The 1st Album',
-        trajanje: 3.48,
+        trajanje: 228,
         datumIzdavanja: '1984-10-29T00:00:00',
         akcija: 'Nema'
     },
@@ -475,7 +475,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, Euro-disco',
         pjesma: 'Cheri Cheri Lady',
         album: 'Let\'s Talk About Love',
-        trajanje: 3.45,
+        trajanje: 225,
         datumIzdavanja: '1985-09-02T00:00:00',
         akcija: 'Nema'
     },
@@ -485,7 +485,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, Euro-disco',
         pjesma: 'Brother Louie',
         album: 'Ready for Romance',
-        trajanje: 3.41,
+        trajanje: 221,
         datumIzdavanja: '1986-01-27T00:00:00',
         akcija: 'Nema'
     },
@@ -495,7 +495,7 @@ export const izvodaci=[
         zanr: 'Pop, Latin Pop',
         pjesma: 'La Isla Bonita',
         album: 'True Blue',
-        trajanje: 4.02,
+        trajanje: 242,
         datumIzdavanja: '1987-02-25T00:00:00',
         akcija: 'Ima'
     },
@@ -505,7 +505,7 @@ export const izvodaci=[
         zanr: 'Italo Dance, Techno',
         pjesma: 'L\'Amour Toujours',
         album: 'L\'Amour Toujours',
-        trajanje: 3.58,
+        trajanje: 238,
         datumIzdavanja: '1999-07-01T00:00:00',
         akcija: 'Ima'
     },
@@ -515,7 +515,7 @@ export const izvodaci=[
         zanr: 'Italo Dance',
         pjesma: 'Bla Bla Bla',
         album: 'L\'Amour Toujours',
-        trajanje: 3.11,
+        trajanje: 191,
         datumIzdavanja: '1999-05-17T00:00:00',
         akcija: 'Nema'
     },
@@ -525,7 +525,7 @@ export const izvodaci=[
         zanr: 'Italo Dance',
         pjesma: 'The Riddle',
         album: 'L\'Amour Toujours',
-        trajanje: 3.24,
+        trajanje: 204,
         datumIzdavanja: '1999-12-01T00:00:00',
         akcija: 'Nema'
     },
@@ -535,7 +535,7 @@ export const izvodaci=[
         zanr: 'Italo Dance',
         pjesma: 'In My Mind',
         album: 'In My Mind (Single)',
-        trajanje: 3.05,
+        trajanje: 185,
         datumIzdavanja: '2018-05-18T00:00:00',
         akcija: 'Ima'
     },
@@ -545,7 +545,7 @@ export const izvodaci=[
         zanr: 'Synthwave, Electro-House',
         pjesma: 'Nightcall',
         album: 'OutRun',
-        trajanje: 4.18,
+        trajanje: 258,
         datumIzdavanja: '2010-04-02T00:00:00',
         akcija: 'Ima'
     },
@@ -555,7 +555,7 @@ export const izvodaci=[
         zanr: 'R&B, Contemporary Pop',
         pjesma: 'Umbrella',
         album: 'Good Girl Gone Bad',
-        trajanje: 4.35,
+        trajanje: 275,
         datumIzdavanja: '2007-03-29T00:00:00',
         akcija: 'Ima'
     },
@@ -565,7 +565,7 @@ export const izvodaci=[
         zanr: 'Dance-pop, EDM',
         pjesma: 'We Found Love',
         album: 'Talk That Talk',
-        trajanje: 3.35,
+        trajanje: 215,
         datumIzdavanja: '2011-09-22T00:00:00',
         akcija: 'Ima'
     },
@@ -575,7 +575,7 @@ export const izvodaci=[
         zanr: 'Dance-pop, Electropop',
         pjesma: 'Bad Romance',
         album: 'The Fame Monster',
-        trajanje: 4.54,
+        trajanje: 294,
         datumIzdavanja: '2009-10-26T00:00:00',
         akcija: 'Ima'
     },
@@ -585,7 +585,7 @@ export const izvodaci=[
         zanr: 'Dance-pop, Synth-pop',
         pjesma: 'Poker Face',
         album: 'The Fame',
-        trajanje: 3.57,
+        trajanje: 237,
         datumIzdavanja: '2008-09-26T00:00:00',
         akcija: 'Ima'
     },
@@ -595,7 +595,7 @@ export const izvodaci=[
         zanr: 'Dance-pop, Electropop',
         pjesma: 'TiK ToK',
         album: 'Animal',
-        trajanje: 3.19,
+        trajanje: 199,
         datumIzdavanja: '2009-08-07T00:00:00',
         akcija: 'Ima'
     },
@@ -605,7 +605,7 @@ export const izvodaci=[
         zanr: 'Dance-pop, Power Pop',
         pjesma: 'Die Young',
         album: 'Warrior',
-        trajanje: 3.31,
+        trajanje: 211,
         datumIzdavanja: '2012-09-25T00:00:00',
         akcija: 'Ima'
     },
@@ -615,7 +615,7 @@ export const izvodaci=[
         zanr: 'Wave, Phonk',
         pjesma: 'The Lost Soul Down',
         album: 'The Lost Soul Down (Single)',
-        trajanje: 2.14,
+        trajanje: 134,
         datumIzdavanja: '2023-01-27T00:00:00',
         akcija: 'Ima'
     },
@@ -625,7 +625,7 @@ export const izvodaci=[
         zanr: 'Wave, Downtempo',
         pjesma: 'Resonance',
         album: 'Jade',
-        trajanje: 2.21,
+        trajanje: 141,
         datumIzdavanja: '2016-01-14T00:00:00',
         akcija: 'Ima'
     },
@@ -635,7 +635,7 @@ export const izvodaci=[
         zanr: 'Phonk, Wave',
         pjesma: 'Downfall',
         album: 'Downfall (Single)',
-        trajanje: 2.30,
+        trajanje: 150,
         datumIzdavanja: '2022-11-18T00:00:00',
         akcija: 'Nema'
     },
@@ -645,7 +645,7 @@ export const izvodaci=[
         zanr: 'Reggae',
         pjesma: 'Three Little Birds',
         album: 'Exodus',
-        trajanje: 3.00,
+        trajanje: 180,
         datumIzdavanja: '1977-06-03T00:00:00',
         akcija: 'Nema'
     },
@@ -655,7 +655,7 @@ export const izvodaci=[
         zanr: 'Reggae',
         pjesma: 'No Woman, No Cry',
         album: 'Live!',
-        trajanje: 7.07,
+        trajanje: 427,
         datumIzdavanja: '1975-12-05T00:00:00',
         akcija: 'Nema'
     },
@@ -665,7 +665,7 @@ export const izvodaci=[
         zanr: 'Reggae',
         pjesma: 'Could You Be Loved',
         album: 'Uprising',
-        trajanje: 3.57,
+        trajanje: 237,
         datumIzdavanja: '1980-06-10T00:00:00',
         akcija: 'Nema'
     },
@@ -675,7 +675,7 @@ export const izvodaci=[
         zanr: 'Reggae, Roots Reggae',
         pjesma: 'Buffalo Soldier',
         album: 'Confrontation',
-        trajanje: 4.17,
+        trajanje: 257,
         datumIzdavanja: '1983-05-23T00:00:00',
         akcija: 'Nema'
     },
@@ -685,7 +685,7 @@ export const izvodaci=[
         zanr: 'Roots Reggae',
         pjesma: 'Redemption Song',
         album: 'Uprising',
-        trajanje: 3.47,
+        trajanje: 227,
         datumIzdavanja: '1980-06-10T00:00:00',
         akcija: 'Nema'
     },
@@ -695,7 +695,7 @@ export const izvodaci=[
         zanr: 'Indie Pop, Synth-pop',
         pjesma: 'Time to Pretend',
         album: 'Oracular Spectacular',
-        trajanje: 4.21,
+        trajanje: 261,
         datumIzdavanja: '2008-03-03T00:00:00',
         akcija: 'Nema'
     },
@@ -705,7 +705,7 @@ export const izvodaci=[
         zanr: 'Indie Pop, Neo-Psychedelia',
         pjesma: 'Kids',
         album: 'Oracular Spectacular',
-        trajanje: 5.02,
+        trajanje: 302,
         datumIzdavanja: '2008-10-13T00:00:00',
         akcija: 'Ima'
     },
@@ -715,7 +715,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, Dark Wave',
         pjesma: 'Little Dark Age',
         album: 'Little Dark Age',
-        trajanje: 4.59,
+        trajanje: 299,
         datumIzdavanja: '2017-10-17T00:00:00',
         akcija: 'Ima'
     },
@@ -725,7 +725,7 @@ export const izvodaci=[
         zanr: 'Synth-pop, Witch House',
         pjesma: 'Crimewave',
         album: 'Crystal Castles (I)',
-        trajanje: 4.18,
+        trajanje: 258,
         datumIzdavanja: '2007-08-13T00:00:00',
         akcija: 'Ima'
     },
@@ -735,7 +735,7 @@ export const izvodaci=[
         zanr: 'Electronic, Shoegaze',
         pjesma: 'Not in Love (feat. Robert Smith)',
         album: 'Crystal Castles (II)',
-        trajanje: 3.48,
+        trajanje: 228,
         datumIzdavanja: '2010-10-26T00:00:00',
         akcija: 'Nema'
     },
@@ -745,7 +745,7 @@ export const izvodaci=[
         zanr: 'Witch House, Electro',
         pjesma: 'Transvestites Can Be Cannibals Too',
         album: 'Crystal Castles (III)',
-        trajanje: 3.12,
+        trajanje: 192,
         datumIzdavanja: '2012-11-07T00:00:00',
         akcija: 'Ima'
     },
@@ -755,7 +755,7 @@ export const izvodaci=[
         zanr: 'Dark Wave, Electronic',
         pjesma: 'Kerosene',
         album: 'Crystal Castles (III)',
-        trajanje: 3.12,
+        trajanje: 192,
         datumIzdavanja: '2013-01-20T00:00:00',
         akcija: 'Ima'
     },
@@ -765,7 +765,7 @@ export const izvodaci=[
         zanr: 'Eurodance, Hands Up',
         pjesma: 'Boten Anna',
         album: 'LOL <(^^,)>',
-        trajanje: 3.29,
+        trajanje: 209,
         datumIzdavanja: '2006-05-09T00:00:00',
         akcija: 'Nema'
     },
@@ -775,7 +775,7 @@ export const izvodaci=[
         zanr: 'Eurodance, Trance',
         pjesma: 'DotA',
         album: 'LOL <(^^,)>',
-        trajanje: 3.21,
+        trajanje: 201,
         datumIzdavanja: '2006-09-04T00:00:00',
         akcija: 'Ima'
     },
@@ -785,7 +785,7 @@ export const izvodaci=[
         zanr: 'Eurodance, Dance-pop',
         pjesma: 'Now You\'re Gone',
         album: 'Now You\'re Gone - The Album',
-        trajanje: 2.30,
+        trajanje: 150,
         datumIzdavanja: '2007-12-31T00:00:00',
         akcija: 'Ima'
     },
@@ -795,7 +795,7 @@ export const izvodaci=[
         zanr: 'Eurodance, Hands Up',
         pjesma: 'All I Ever Wanted',
         album: 'Now You\'re Gone - The Album',
-        trajanje: 2.59,
+        trajanje: 179,
         datumIzdavanja: '2008-06-29T00:00:00',
         akcija: 'Nema'
     },
@@ -805,7 +805,7 @@ export const izvodaci=[
         zanr: 'Rock and Roll, Rhythm and Blues',
         pjesma: 'Johnny B. Goode',
         album: 'Chuck Berry Is on Top',
-        trajanje: 2.41,
+        trajanje: 161,
         datumIzdavanja: '1958-03-31T00:00:00',
         akcija: 'Ima'
     },
@@ -815,7 +815,7 @@ export const izvodaci=[
         zanr: 'Rock and Roll',
         pjesma: 'You Never Can Tell',
         album: 'St. Louis to Liverpool',
-        trajanje: 2.43,
+        trajanje: 163,
         datumIzdavanja: '1964-01-01T00:00:00',
         akcija: 'Nema'
     },
@@ -825,7 +825,7 @@ export const izvodaci=[
         zanr: 'Rock and Roll, R&B',
         pjesma: 'Maybellene',
         album: 'Rock, Rock, Rock!',
-        trajanje: 2.30,
+        trajanje: 150,
         datumIzdavanja: '1955-07-01T00:00:00',
         akcija: 'Nema'
     },
@@ -835,7 +835,7 @@ export const izvodaci=[
         zanr: 'Rock and Roll',
         pjesma: 'Roll Over Beethoven',
         album: 'Rock, Rock, Rock!',
-        trajanje: 2.24,
+        trajanje: 144,
         datumIzdavanja: '1956-05-01T00:00:00',
         akcija: 'Nema'
     },
@@ -845,7 +845,7 @@ export const izvodaci=[
         zanr: 'Rock and Roll, Rockabilly',
         pjesma: 'Oh, Pretty Woman',
         album: 'Orbisongs',
-        trajanje: 2.58,
+        trajanje: 178,
         datumIzdavanja: '1964-08-01T00:00:00',
         akcija: 'Nema'
     },
@@ -855,7 +855,7 @@ export const izvodaci=[
         zanr: 'Rock and Roll, Doo-wop',
         pjesma: 'We Belong Together',
         album: 'Ritchie Valens',
-        trajanje: 1.57,
+        trajanje: 117,
         datumIzdavanja: '1959-02-01T00:00:00',
         akcija: 'Nema'
     },
@@ -865,7 +865,7 @@ export const izvodaci=[
         zanr: 'Pop, Vocal Jazz',
         pjesma: 'Put Your Head on My Shoulder',
         album: 'Paul Anka Sings His Big 15',
-        trajanje: 2.34,
+        trajanje: 154,
         datumIzdavanja: '1959-08-01T00:00:00',
         akcija: 'Nema'
     },
@@ -875,7 +875,7 @@ export const izvodaci=[
         zanr: 'Traditional Pop, Vocal Jazz',
         pjesma: 'My Way',
         album: 'My Way',
-        trajanje: 4.35,
+        trajanje: 275,
         datumIzdavanja: '1969-03-01T00:00:00',
         akcija: 'Ima'
     },
@@ -885,7 +885,7 @@ export const izvodaci=[
         zanr: 'Country, Folk Rock',
         pjesma: 'Take Me Home, Country Roads',
         album: 'Poems, Prayers & Promises',
-        trajanje: 3.08,
+        trajanje: 188,
         datumIzdavanja: '1971-04-12T00:00:00',
         akcija: 'Ima'
     },
@@ -895,7 +895,7 @@ export const izvodaci=[
         zanr: 'Outlaw Country',
         pjesma: 'Highwayman',
         album: 'Highwayman',
-        trajanje: 3.00,
+        trajanje: 180,
         datumIzdavanja: '1985-05-06T00:00:00',
         akcija: 'Nema'
     },
@@ -905,7 +905,7 @@ export const izvodaci=[
         zanr: 'Country, Rockabilly',
         pjesma: 'Ring of Fire',
         album: 'Ring of Fire: The Best of Johnny Cash',
-        trajanje: 2.37,
+        trajanje: 157,
         datumIzdavanja: '1963-03-25T00:00:00',
         akcija: 'Nema'
     },
@@ -915,7 +915,7 @@ export const izvodaci=[
         zanr: 'Outlaw Country',
         pjesma: 'Mammas Don\'t Let Your Babies Grow Up to Be Cowboys',
         album: 'Waylon & Willie',
-        trajanje: 2.32,
+        trajanje: 152,
         datumIzdavanja: '1978-01-01T00:00:00',
         akcija: 'Nema'
     },
@@ -925,7 +925,7 @@ export const izvodaci=[
         zanr: 'Country Pop, Soft Rock',
         pjesma: 'Queen of Hearts',
         album: 'Juice',
-        trajanje: 3.24,
+        trajanje: 204,
         datumIzdavanja: '1981-02-01T00:00:00',
         akcija: 'Nema'
     },
@@ -935,7 +935,7 @@ export const izvodaci=[
         zanr: 'Country',
         pjesma: 'Louisiana Woman, Mississippi Man',
         album: 'Louisiana Woman, Mississippi Man',
-        trajanje: 2.32,
+        trajanje: 152,
         datumIzdavanja: '1973-07-09T00:00:00',
         akcija: 'Ima'
     },
@@ -945,7 +945,7 @@ export const izvodaci=[
         zanr: 'Country',
         pjesma: 'Always Wanting You',
         album: 'Keep Movin\' On',
-        trajanje: 3.07,
+        trajanje: 187,
         datumIzdavanja: '1975-02-01T00:00:00',
         akcija: 'Ima'
     },
@@ -955,7 +955,7 @@ export const izvodaci=[
         zanr: 'Country',
         pjesma: 'All My Ex\'s Live in Texas',
         album: 'Ocean Front Property',
-        trajanje: 3.20,
+        trajanje: 200,
         datumIzdavanja: '1987-04-06T00:00:00',
         akcija: 'Ima'
     },
@@ -965,7 +965,7 @@ export const izvodaci=[
         zanr: 'Western Swing, Country',
         pjesma: 'The Letter That Johnny Walker Read',
         album: 'Texas Gold',
-        trajanje: 3.15,
+        trajanje: 195,
         datumIzdavanja: '1975-06-01T00:00:00',
         akcija: 'Nema'
     },
@@ -975,7 +975,7 @@ export const izvodaci=[
         zanr: 'Country, Nashville Sound',
         pjesma: 'Three Cigarettes in an Ashtray',
         album: 'Patsy Cline (1957)',
-        trajanje: 2.14,
+        trajanje: 134,
         datumIzdavanja: '1957-08-05T00:00:00',
         akcija: 'Nema'
     },
@@ -985,7 +985,7 @@ export const izvodaci=[
         zanr: 'Country, Honky-tonk',
         pjesma: 'Make The World Go Away',
         album: 'You Don\'t Know Me',
-        trajanje: 2.50,
+        trajanje: 170,
         datumIzdavanja: '1981-07-01T00:00:00',
         akcija: 'Ima'
     },
@@ -995,7 +995,7 @@ export const izvodaci=[
         zanr: 'Country Pop, Soft Rock',
         pjesma: 'I Love a Rainy Night',
         album: 'Horizon',
-        trajanje: 3.10,
+        trajanje: 190,
         datumIzdavanja: '1980-11-08T00:00:00',
         akcija: 'Nema'
     },
@@ -1005,7 +1005,7 @@ export const izvodaci=[
         zanr: 'Country, Honky-tonk',
         pjesma: 'It Don\'t Hurt Anymore',
         album: 'K-Rose Country Classics',
-        trajanje: 2.27,
+        trajanje: 147,
         datumIzdavanja: '1974-01-01T00:00:00',
         akcija: 'Nema'
     },
