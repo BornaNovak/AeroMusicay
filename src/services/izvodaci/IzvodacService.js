@@ -1,8 +1,14 @@
 import { izvodaci } from "./IzvodacPodaci"
 
 async function get(){
-    return {data:izvodaci}
+    return {data:[... izvodaci]}
 }
+
+
+async function getBySifra(sifra){
+    return {data: izvodaci.find(s=>s.sifra === parseInt(sifra))}
+}
+
 
 async function dodaj(izvodac){
     if(izvodaci.length===0){
@@ -13,7 +19,20 @@ async function dodaj(izvodac){
     izvodaci.push(izvodac)
 }
 
+
+async function promjeni(sifra,izvodac){
+    const index = nadiIndex(sifra)
+    izvodaci[index] = {...izvodaci[index], ...izvodac}
+}
+
+function nadiIndex(sifra){
+    return izvodaci.findIndex(s=>s.sifra ===parseInt(sifra))
+}
+
+
 export default {
     get,
-    dodaj
+    dodaj,
+    getBySifra,
+    promjeni
 }

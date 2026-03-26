@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import IzvodacService from '../../services/izvodaci/IzvodacService';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import FormatDatuma from '../../components/FormatDatuma';
 import { RouteNames } from '../../constants';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PatternFormat } from 'react-number-format';
 
 export default function IzvodacPregled() {
    const [izvodaci, setIzvodaci] = useState([])
-
+   const navigate = useNavigate();
    useEffect(() => {ucitajIzvodace()}, [])
 
    async function ucitajIzvodace(){
@@ -21,7 +21,7 @@ export default function IzvodacPregled() {
     <Link to={RouteNames.IZVODACI_NOVI} className="btn btn-success w-100 my-3">
         Dodavanje novog izvodaca
     </Link>
-    <Table>
+    <Table striped hover responsive>
         <thead>
             <tr>
                 <th>Naziv izvođača</th>
@@ -35,7 +35,7 @@ export default function IzvodacPregled() {
         </thead>
         <tbody>
             {izvodaci && izvodaci.map((izvodac)=>(
-                <tr>
+                <tr key={izvodac.sifra}>
                     <td>{izvodac.naziv}</td>
                     <td>{izvodac.zanr}</td>
                     <td>{izvodac.pjesma}</td>
@@ -51,6 +51,11 @@ export default function IzvodacPregled() {
                         <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
                     </td>
                     <td>{izvodac.akcija}</td>
+                    <td>
+                        <Button onClick={()=>{navigate(`/izvodaci/${izvodac.sifra}`)}}>
+                            Promjeni
+                        </Button>
+                    </td>
                 </tr>
             ))}
         </tbody>

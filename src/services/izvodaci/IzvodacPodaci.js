@@ -20,16 +20,6 @@ export const izvodaci=[
         akcija:'Ima'
     },
     {
-        sifra:3,
-        naziv:'Queen',
-        zanr:'Rock',
-        pjesma: 'Radio Ga Ga',
-        album: 'The Works',
-        trajanje: 348,
-        datumIzdavanja: '1984-06-01T00:00:00',
-        akcija:'Nema'
-    },
-    {
         sifra: 3,
         naziv: 'The Rolling Stones',
         zanr: 'Rock, Blues Rock',
