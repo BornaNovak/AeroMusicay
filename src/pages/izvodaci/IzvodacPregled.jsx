@@ -16,6 +16,16 @@ export default function IzvodacPregled() {
         setIzvodaci(odgovor.data)
     })
    }
+
+
+   async function obrisi(sifra){
+    if(!confirm('Jeste li sigurni da zelite obrisati? Ukoliko se slazete pritisnite OK')){
+        return
+    }
+    await IzvodacService.obrisi(sifra)
+    ucitajIzvodace()
+   }
+
    return(
     <>
     <Link to={RouteNames.IZVODACI_NOVI} className="btn btn-success w-100 my-3">
@@ -54,6 +64,10 @@ export default function IzvodacPregled() {
                     <td>
                         <Button onClick={()=>{navigate(`/izvodaci/${izvodac.sifra}`)}}>
                             Promjeni
+                        </Button>
+                        &nbsp;&nbsp;
+                        <Button variant="danger" onClick={()=>{obrisi(izvodac.sifra)}}>
+                            Obrisi
                         </Button>
                     </td>
                 </tr>

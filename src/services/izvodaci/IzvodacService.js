@@ -30,9 +30,16 @@ function nadiIndex(sifra){
 }
 
 
+async function obrisi(sifra){
+    const index = nadiIndex(sifra)
+    izvodaci.splice(index,1)
+}
+
+
 export default {
     get,
     dodaj,
     getBySifra,
-    promjeni
+    promjeni,
+    obrisi
 }
