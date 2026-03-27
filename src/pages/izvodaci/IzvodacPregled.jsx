@@ -26,6 +26,13 @@ export default function IzvodacPregled() {
     ucitajIzvodace()
    }
 
+   const formatirajTrajanje = (ukupnoSekundi) => {
+    if (!ukupnoSekundi) return "0:00"
+    const minute = Math.floor(ukupnoSekundi / 60)
+    const sekunde = ukupnoSekundi % 60
+    return `${minute}:${sekunde.toString().padStart(2, '0')}`
+};
+
    return(
     <>
     <Link to={RouteNames.IZVODACI_NOVI} className="btn btn-success w-100 my-3">
@@ -51,11 +58,7 @@ export default function IzvodacPregled() {
                     <td>{izvodac.pjesma}</td>
                     <td>{izvodac.album}</td>
                     <td className="text-end">
-                        <PatternFormat 
-                        displayType='text'
-                        format='#:##'
-                        value={izvodac.trajanje}
-                        />
+                        {formatirajTrajanje(izvodac.trajanje)}
                     </td>
                     <td>
                         <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
