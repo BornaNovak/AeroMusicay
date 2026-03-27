@@ -7,7 +7,7 @@ export const izvodaci=[
         album: 'Led Zeppelin IV',
         trajanje: 482,
         datumIzdavanja: '1971-11-08T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra:2,
@@ -17,7 +17,7 @@ export const izvodaci=[
         album: 'L.A.',
         trajanje: 422,
         datumIzdavanja: '1971-06-01T00:00:00',
-        akcija:'Ima'
+        akcija:''
     },
     {
         sifra: 3,
@@ -27,7 +27,7 @@ export const izvodaci=[
         album: 'Let It Bleed',
         trajanje: 241,
         datumIzdavanja: '1969-12-05T00:00:00',
-        akcija:'Nema'
+        akcija:''
     },
     {
         sifra: 4,
@@ -37,7 +37,7 @@ export const izvodaci=[
         album: 'Willy and the Poor Boys',
         trajanje: 141,
         datumIzdavanja: '1969-11-02T00:00:00',
-        akcija:'Ima'
+        akcija:''
     },
     {
         sifra: 5,
@@ -47,7 +47,7 @@ export const izvodaci=[
         album: 'Disraeli Gears',
         trajanje: 250,
         datumIzdavanja: '1967-11-02T00:00:00',
-        akcija:'Ima'
+        akcija:''
     },
     {
         sifra: 6,
@@ -57,7 +57,7 @@ export const izvodaci=[
         album: 'The Number of the Beast',
         trajanje: 261,
         datumIzdavanja: '1982-03-22T00:00:00',
-        akcija:'Ima'
+        akcija:''
     },
     {
         sifra: 7,
@@ -67,7 +67,7 @@ export const izvodaci=[
         album: 'Paranoid',
         trajanje: 168,
         datumIzdavanja: '1970-09-18T00:00:00',
-        akcija:'ima'
+        akcija:''
     },
     {
         sifra: 8,
@@ -77,7 +77,7 @@ export const izvodaci=[
         album: 'Love',
         trajanje: 253,
         datumIzdavanja: '1985-05-17T00:00:00',
-        akcija:'Nema'
+        akcija:''
     },
     {
         sifra: 9,
@@ -87,7 +87,7 @@ export const izvodaci=[
         album: 'Sonic Temple',
         trajanje: 311,
         datumIzdavanja: '1989-05-20T00:00:00',
-        akcija:'Nema'
+        akcija:''
     },
    {
         sifra: 10,
@@ -97,7 +97,7 @@ export const izvodaci=[
         album: 'Hybrid Theory',
         trajanje: 221,
         datumIzdavanja: '2000-10-24T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 11,
@@ -107,7 +107,7 @@ export const izvodaci=[
         album: 'Meteora',
         trajanje: 213,
         datumIzdavanja: '2003-03-17T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 12,
@@ -117,7 +117,7 @@ export const izvodaci=[
         album: 'Meteora',
         trajanje: 187,
         datumIzdavanja: '2003-03-25T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 13,
@@ -127,7 +127,7 @@ export const izvodaci=[
         album: 'Minutes to Midnight',
         trajanje: 205,
         datumIzdavanja: '2007-05-14T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 14,
@@ -137,7 +137,7 @@ export const izvodaci=[
         album: 'American Idiot',
         trajanje: 174,
         datumIzdavanja: '2004-09-21T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 15,
@@ -147,7 +147,7 @@ export const izvodaci=[
         album: 'American Idiot',
         trajanje: 260,
         datumIzdavanja: '2004-09-21T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 16,
@@ -157,7 +157,7 @@ export const izvodaci=[
         album: 'American Idiot',
         trajanje: 232,
         datumIzdavanja: '2004-09-21T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 17,
@@ -167,7 +167,7 @@ export const izvodaci=[
         album: 'Arrival',
         trajanje: 231,
         datumIzdavanja: '1976-08-16T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 18,
@@ -177,7 +177,7 @@ export const izvodaci=[
         album: 'ABBA',
         trajanje: 212,
         datumIzdavanja: '1975-04-21T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 19,
@@ -187,7 +187,7 @@ export const izvodaci=[
         album: 'Greatest Hits Vol. 2',
         trajanje: 288,
         datumIzdavanja: '1979-10-12T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 20,
@@ -197,7 +197,7 @@ export const izvodaci=[
         album: 'Super Trouper',
         trajanje: 296,
         datumIzdavanja: '1980-07-21T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 21,
@@ -207,7 +207,7 @@ export const izvodaci=[
         album: 'Proplakat će zora',
         trajanje: 213,
         datumIzdavanja: '1971-09-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 22,
@@ -217,7 +217,7 @@ export const izvodaci=[
         album: 'Ti si pjesma moje duše',
         trajanje: 252,
         datumIzdavanja: '1986-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 23,
@@ -227,7 +227,7 @@ export const izvodaci=[
         album: 'Malovidi',
         trajanje: 222,
         datumIzdavanja: '1985-06-15T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 24,
@@ -237,7 +237,7 @@ export const izvodaci=[
         album: 'Ostala si uvijek ista',
         trajanje: 238,
         datumIzdavanja: '1985-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 25,
@@ -247,7 +247,7 @@ export const izvodaci=[
         album: 'Malo mi je jedan život s tobom',
         trajanje: 245,
         datumIzdavanja: '1987-10-20T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 26,
@@ -257,7 +257,7 @@ export const izvodaci=[
         album: 'Sve najbolje',
         trajanje: 285,
         datumIzdavanja: '1993-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 27,
@@ -267,7 +267,7 @@ export const izvodaci=[
         album: 'Galeb i ja',
         trajanje: 222,
         datumIzdavanja: '1975-06-10T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 28,
@@ -277,7 +277,7 @@ export const izvodaci=[
         album: 'Poeta',
         trajanje: 238,
         datumIzdavanja: '1978-01-01T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 29,
@@ -287,7 +287,7 @@ export const izvodaci=[
         album: 'Trag u beskraju',
         trajanje: 275,
         datumIzdavanja: '2002-09-20T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 30,
@@ -297,7 +297,7 @@ export const izvodaci=[
         album: 'Jubavi, jubavi',
         trajanje: 278,
         datumIzdavanja: '1980-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 31,
@@ -307,7 +307,7 @@ export const izvodaci=[
         album: 'Happy Nation',
         trajanje: 251,
         datumIzdavanja: '1992-11-02T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 32,
@@ -317,7 +317,7 @@ export const izvodaci=[
         album: 'Violator',
         trajanje: 255,
         datumIzdavanja: '1990-02-05T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 33,
@@ -327,7 +327,7 @@ export const izvodaci=[
         album: 'Violator',
         trajanje: 224,
         datumIzdavanja: '1989-08-29T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 34,
@@ -337,7 +337,7 @@ export const izvodaci=[
         album: 'Speak & Spell',
         trajanje: 225,
         datumIzdavanja: '1981-09-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 35,
@@ -347,7 +347,7 @@ export const izvodaci=[
         album: 'Private Dancer',
         trajanje: 229,
         datumIzdavanja: '1984-05-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 36,
@@ -357,7 +357,7 @@ export const izvodaci=[
         album: 'Foreign Affair',
         trajanje: 250,
         datumIzdavanja: '1989-09-02T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 37,
@@ -367,7 +367,7 @@ export const izvodaci=[
         album: 'Private Dancer',
         trajanje: 241,
         datumIzdavanja: '1984-05-29T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 38,
@@ -377,7 +377,7 @@ export const izvodaci=[
         album: 'Wildest Dreams',
         trajanje: 283,
         datumIzdavanja: '1995-11-06T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 39,
@@ -387,7 +387,7 @@ export const izvodaci=[
         album: 'Mad Max Beyond Thunderdome',
         trajanje: 256,
         datumIzdavanja: '1985-07-08T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 40,
@@ -397,7 +397,7 @@ export const izvodaci=[
         album: 'Self Control',
         trajanje: 248,
         datumIzdavanja: '1984-04-19T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 41,
@@ -407,7 +407,7 @@ export const izvodaci=[
         album: 'Bijelo Dugme',
         trajanje: 240,
         datumIzdavanja: '1984-12-01T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 42,
@@ -417,7 +417,7 @@ export const izvodaci=[
         album: 'Bijelo Dugme',
         trajanje: 280,
         datumIzdavanja: '1984-12-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 43,
@@ -427,7 +427,7 @@ export const izvodaci=[
         album: 'Bijelo Dugme',
         trajanje: 283,
         datumIzdavanja: '1984-12-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 44,
@@ -437,7 +437,7 @@ export const izvodaci=[
         album: 'Mistaken Identity',
         trajanje: 227,
         datumIzdavanja: '1981-03-10T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 45,
@@ -447,7 +447,7 @@ export const izvodaci=[
         album: 'Rebel Yell',
         trajanje: 298,
         datumIzdavanja: '1984-05-29T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 46,
@@ -457,7 +457,7 @@ export const izvodaci=[
         album: 'The 1st Album',
         trajanje: 228,
         datumIzdavanja: '1984-10-29T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 47,
@@ -467,7 +467,7 @@ export const izvodaci=[
         album: 'Let\'s Talk About Love',
         trajanje: 225,
         datumIzdavanja: '1985-09-02T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 48,
@@ -477,7 +477,7 @@ export const izvodaci=[
         album: 'Ready for Romance',
         trajanje: 221,
         datumIzdavanja: '1986-01-27T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 49,
@@ -487,7 +487,7 @@ export const izvodaci=[
         album: 'True Blue',
         trajanje: 242,
         datumIzdavanja: '1987-02-25T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 50,
@@ -497,7 +497,7 @@ export const izvodaci=[
         album: 'L\'Amour Toujours',
         trajanje: 238,
         datumIzdavanja: '1999-07-01T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 51,
@@ -507,7 +507,7 @@ export const izvodaci=[
         album: 'L\'Amour Toujours',
         trajanje: 191,
         datumIzdavanja: '1999-05-17T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 52,
@@ -517,7 +517,7 @@ export const izvodaci=[
         album: 'L\'Amour Toujours',
         trajanje: 204,
         datumIzdavanja: '1999-12-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 53,
@@ -527,7 +527,7 @@ export const izvodaci=[
         album: 'In My Mind (Single)',
         trajanje: 185,
         datumIzdavanja: '2018-05-18T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 54,
@@ -537,7 +537,7 @@ export const izvodaci=[
         album: 'OutRun',
         trajanje: 258,
         datumIzdavanja: '2010-04-02T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 55,
@@ -547,7 +547,7 @@ export const izvodaci=[
         album: 'Good Girl Gone Bad',
         trajanje: 275,
         datumIzdavanja: '2007-03-29T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 56,
@@ -557,7 +557,7 @@ export const izvodaci=[
         album: 'Talk That Talk',
         trajanje: 215,
         datumIzdavanja: '2011-09-22T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 57,
@@ -567,7 +567,7 @@ export const izvodaci=[
         album: 'The Fame Monster',
         trajanje: 294,
         datumIzdavanja: '2009-10-26T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 58,
@@ -577,7 +577,7 @@ export const izvodaci=[
         album: 'The Fame',
         trajanje: 237,
         datumIzdavanja: '2008-09-26T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 59,
@@ -587,7 +587,7 @@ export const izvodaci=[
         album: 'Animal',
         trajanje: 199,
         datumIzdavanja: '2009-08-07T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 60,
@@ -597,7 +597,7 @@ export const izvodaci=[
         album: 'Warrior',
         trajanje: 211,
         datumIzdavanja: '2012-09-25T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 61,
@@ -607,7 +607,7 @@ export const izvodaci=[
         album: 'The Lost Soul Down (Single)',
         trajanje: 134,
         datumIzdavanja: '2023-01-27T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 62,
@@ -617,7 +617,7 @@ export const izvodaci=[
         album: 'Jade',
         trajanje: 141,
         datumIzdavanja: '2016-01-14T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 63,
@@ -627,7 +627,7 @@ export const izvodaci=[
         album: 'Downfall (Single)',
         trajanje: 150,
         datumIzdavanja: '2022-11-18T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 64,
@@ -637,7 +637,7 @@ export const izvodaci=[
         album: 'Exodus',
         trajanje: 180,
         datumIzdavanja: '1977-06-03T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 65,
@@ -647,7 +647,7 @@ export const izvodaci=[
         album: 'Live!',
         trajanje: 427,
         datumIzdavanja: '1975-12-05T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 66,
@@ -657,7 +657,7 @@ export const izvodaci=[
         album: 'Uprising',
         trajanje: 237,
         datumIzdavanja: '1980-06-10T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 67,
@@ -667,7 +667,7 @@ export const izvodaci=[
         album: 'Confrontation',
         trajanje: 257,
         datumIzdavanja: '1983-05-23T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 68,
@@ -677,7 +677,7 @@ export const izvodaci=[
         album: 'Uprising',
         trajanje: 227,
         datumIzdavanja: '1980-06-10T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 69,
@@ -687,7 +687,7 @@ export const izvodaci=[
         album: 'Oracular Spectacular',
         trajanje: 261,
         datumIzdavanja: '2008-03-03T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 70,
@@ -697,7 +697,7 @@ export const izvodaci=[
         album: 'Oracular Spectacular',
         trajanje: 302,
         datumIzdavanja: '2008-10-13T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 71,
@@ -707,7 +707,7 @@ export const izvodaci=[
         album: 'Little Dark Age',
         trajanje: 299,
         datumIzdavanja: '2017-10-17T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 72,
@@ -717,7 +717,7 @@ export const izvodaci=[
         album: 'Crystal Castles (I)',
         trajanje: 258,
         datumIzdavanja: '2007-08-13T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 73,
@@ -727,7 +727,7 @@ export const izvodaci=[
         album: 'Crystal Castles (II)',
         trajanje: 228,
         datumIzdavanja: '2010-10-26T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 74,
@@ -737,7 +737,7 @@ export const izvodaci=[
         album: 'Crystal Castles (III)',
         trajanje: 192,
         datumIzdavanja: '2012-11-07T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 75,
@@ -747,7 +747,7 @@ export const izvodaci=[
         album: 'Crystal Castles (III)',
         trajanje: 192,
         datumIzdavanja: '2013-01-20T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 76,
@@ -757,7 +757,7 @@ export const izvodaci=[
         album: 'LOL <(^^,)>',
         trajanje: 209,
         datumIzdavanja: '2006-05-09T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 77,
@@ -767,7 +767,7 @@ export const izvodaci=[
         album: 'LOL <(^^,)>',
         trajanje: 201,
         datumIzdavanja: '2006-09-04T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 78,
@@ -777,7 +777,7 @@ export const izvodaci=[
         album: 'Now You\'re Gone - The Album',
         trajanje: 150,
         datumIzdavanja: '2007-12-31T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 79,
@@ -787,7 +787,7 @@ export const izvodaci=[
         album: 'Now You\'re Gone - The Album',
         trajanje: 179,
         datumIzdavanja: '2008-06-29T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 80,
@@ -797,7 +797,7 @@ export const izvodaci=[
         album: 'Chuck Berry Is on Top',
         trajanje: 161,
         datumIzdavanja: '1958-03-31T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 81,
@@ -807,7 +807,7 @@ export const izvodaci=[
         album: 'St. Louis to Liverpool',
         trajanje: 163,
         datumIzdavanja: '1964-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 82,
@@ -817,7 +817,7 @@ export const izvodaci=[
         album: 'Rock, Rock, Rock!',
         trajanje: 150,
         datumIzdavanja: '1955-07-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 83,
@@ -827,7 +827,7 @@ export const izvodaci=[
         album: 'Rock, Rock, Rock!',
         trajanje: 144,
         datumIzdavanja: '1956-05-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 84,
@@ -837,7 +837,7 @@ export const izvodaci=[
         album: 'Orbisongs',
         trajanje: 178,
         datumIzdavanja: '1964-08-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 85,
@@ -847,7 +847,7 @@ export const izvodaci=[
         album: 'Ritchie Valens',
         trajanje: 117,
         datumIzdavanja: '1959-02-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 86,
@@ -857,7 +857,7 @@ export const izvodaci=[
         album: 'Paul Anka Sings His Big 15',
         trajanje: 154,
         datumIzdavanja: '1959-08-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 87,
@@ -867,7 +867,7 @@ export const izvodaci=[
         album: 'My Way',
         trajanje: 275,
         datumIzdavanja: '1969-03-01T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 88,
@@ -877,7 +877,7 @@ export const izvodaci=[
         album: 'Poems, Prayers & Promises',
         trajanje: 188,
         datumIzdavanja: '1971-04-12T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 89,
@@ -887,7 +887,7 @@ export const izvodaci=[
         album: 'Highwayman',
         trajanje: 180,
         datumIzdavanja: '1985-05-06T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 90,
@@ -897,7 +897,7 @@ export const izvodaci=[
         album: 'Ring of Fire: The Best of Johnny Cash',
         trajanje: 157,
         datumIzdavanja: '1963-03-25T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 91,
@@ -907,7 +907,7 @@ export const izvodaci=[
         album: 'Waylon & Willie',
         trajanje: 152,
         datumIzdavanja: '1978-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 92,
@@ -917,7 +917,7 @@ export const izvodaci=[
         album: 'Juice',
         trajanje: 204,
         datumIzdavanja: '1981-02-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 93,
@@ -927,7 +927,7 @@ export const izvodaci=[
         album: 'Louisiana Woman, Mississippi Man',
         trajanje: 152,
         datumIzdavanja: '1973-07-09T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 94,
@@ -937,7 +937,7 @@ export const izvodaci=[
         album: 'Keep Movin\' On',
         trajanje: 187,
         datumIzdavanja: '1975-02-01T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 95,
@@ -947,7 +947,7 @@ export const izvodaci=[
         album: 'Ocean Front Property',
         trajanje: 200,
         datumIzdavanja: '1987-04-06T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 96,
@@ -957,7 +957,7 @@ export const izvodaci=[
         album: 'Texas Gold',
         trajanje: 195,
         datumIzdavanja: '1975-06-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 97,
@@ -967,7 +967,7 @@ export const izvodaci=[
         album: 'Patsy Cline (1957)',
         trajanje: 134,
         datumIzdavanja: '1957-08-05T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 98,
@@ -977,7 +977,7 @@ export const izvodaci=[
         album: 'You Don\'t Know Me',
         trajanje: 170,
         datumIzdavanja: '1981-07-01T00:00:00',
-        akcija: 'Ima'
+        akcija: ''
     },
     {
         sifra: 99,
@@ -987,7 +987,7 @@ export const izvodaci=[
         album: 'Horizon',
         trajanje: 190,
         datumIzdavanja: '1980-11-08T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
     {
         sifra: 100,
@@ -997,6 +997,6 @@ export const izvodaci=[
         album: 'K-Rose Country Classics',
         trajanje: 147,
         datumIzdavanja: '1974-01-01T00:00:00',
-        akcija: 'Nema'
+        akcija: ''
     },
 ]

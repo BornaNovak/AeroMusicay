@@ -68,7 +68,7 @@ export default function IzvodacNovi(){
                 </Form.Group>
 
 
-                <Row className="mt-4">
+                <Row className="mt-5">
                     <Col>
                         <Link to={RouteNames.IZVODACI} className="btn btn-danger">
                         Odustani

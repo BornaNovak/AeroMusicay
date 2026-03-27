@@ -5,7 +5,6 @@ export default function Home() {
         <>
         <h1>Welcome to {IME_APLIKACIJE}</h1>
         <div>
-            
         </div>
         </>
     )

@@ -19,7 +19,7 @@ export default function IzvodacPregled() {
 
 
    async function obrisi(sifra){
-    if(!confirm('Jeste li sigurni da zelite obrisati? Ukoliko se slazete pritisnite OK')){
+    if(!confirm('Jeste li sigurni da želite obrisati?')){
         return
     }
     await IzvodacService.obrisi(sifra)
@@ -60,13 +60,12 @@ export default function IzvodacPregled() {
                     <td>
                         <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
                     </td>
-                    <td>{izvodac.akcija}</td>
                     <td>
-                        <Button onClick={()=>{navigate(`/izvodaci/${izvodac.sifra}`)}}>
+                        <Button size="sm" onClick={()=>{navigate(`/izvodaci/${izvodac.sifra}`)}}>
                             Promjeni
                         </Button>
                         &nbsp;&nbsp;
-                        <Button variant="danger" onClick={()=>{obrisi(izvodac.sifra)}}>
+                        <Button size="sm" variant="danger" onClick={()=>{obrisi(izvodac.sifra)}}>
                             Obrisi
                         </Button>
                     </td>
