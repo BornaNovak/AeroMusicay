@@ -38,8 +38,7 @@ export default function IzvodacPromjena() {
             pjesma: podaci.get('pjesma'),
             album: podaci.get('album'),
             trajanje: parseInt(podaci.get('trajanje')),
-            datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
-            akcija: podaci.get('akcija')
+            datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString()
         })
     }
 
@@ -48,12 +47,12 @@ return(
         <h3>Izmjena podataka glazbe</h3>
         <Form onSubmit={odradiSubmit}>
                 <Form.Group controlID="naziv">
-                    <Form.Label>Naziv izvodaca</Form.Label>
+                    <Form.Label>Naziv izvodača</Form.Label>
                     <Form.Control type="text" name="naziv" required defaultValue={izvodac.naziv}/>
                 </Form.Group>
 
                 <Form.Group controlID="zanr">
-                    <Form.Label>Zanr</Form.Label>
+                    <Form.Label>Žanr</Form.Label>
                     <Form.Control type="text" name="zanr" defaultValue={izvodac.zanr}/>
                 </Form.Group>
 
@@ -77,11 +76,6 @@ return(
                     <Form.Control type="date" name="datumIzdavanja" defaultValue={izvodac.datumIzdavanja}/>
                 </Form.Group>
 
-                <Form.Group controlID="akcija">
-                    <Form.Label>Akcija</Form.Label>
-                    <Form.Control type="text" name="akcija" defaultValue={izvodac.akcija}/>
-                </Form.Group>
-
 
                 <Row className="mt-4">
                     <Col>
@@ -91,7 +85,7 @@ return(
                     </Col>
                     <Col>
                         <Button type="submit" variant="success">
-                            Primjeni
+                            Promjeni
                         </Button>
                     </Col>
                 </Row>

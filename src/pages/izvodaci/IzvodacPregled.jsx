@@ -36,16 +36,13 @@ export default function IzvodacPregled() {
    return(
     <>
     <Link to={RouteNames.IZVODACI_NOVI} className="btn btn-success w-100 my-3">
-        Dodavanje novog izvodaca
+        Dodavanje novog izvodača
     </Link>
     <Table striped hover responsive>
         <thead>
             <tr>
                 <th>Naziv izvođača</th>
-                <th>Zanr</th>
                 <th>Pjesma</th>
-                <th>Album</th>
-                <th>Trajanje</th>
                 <th>Datum izdavanja</th>
                 <th>Akcije</th>
             </tr>
@@ -54,12 +51,9 @@ export default function IzvodacPregled() {
             {izvodaci && izvodaci.map((izvodac)=>(
                 <tr key={izvodac.sifra}>
                     <td>{izvodac.naziv}</td>
-                    <td>{izvodac.zanr}</td>
-                    <td>{izvodac.pjesma}</td>
-                    <td>{izvodac.album}</td>
-                    <td className="text-end">
-                        {formatirajTrajanje(izvodac.trajanje)}
-                    </td>
+                    <td>
+                       {izvodac.zanr}: {izvodac.album} <br />
+                        {izvodac.pjesma} ({formatirajTrajanje(izvodac.trajanje)})</td>
                     <td>
                         <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
                     </td>
@@ -69,7 +63,7 @@ export default function IzvodacPregled() {
                         </Button>
                         &nbsp;&nbsp;
                         <Button size="sm" variant="danger" onClick={()=>{obrisi(izvodac.sifra)}}>
-                            Obrisi
+                            Obriši
                         </Button>
                     </td>
                 </tr>

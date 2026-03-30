@@ -21,8 +21,7 @@ export default function IzvodacNovi(){
             pjesma: podaci.get('pjesma'),
             album: podaci.get('album'),
             trajanje: parseInt(podaci.get('trajanje')),
-            datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
-            akcija: podaci.get('akcija')
+            datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString()
         })
     }
 
@@ -33,12 +32,12 @@ export default function IzvodacNovi(){
             <h3>Unos novog izvodaca</h3>
             <Form onSubmit={odradiSubmit}>
                 <Form.Group controlID="naziv">
-                    <Form.Label>Naziv izvodaca</Form.Label>
+                    <Form.Label>Naziv izvodača</Form.Label>
                     <Form.Control type="text" name="naziv" required/>
                 </Form.Group>
 
                 <Form.Group controlID="zanr">
-                    <Form.Label>Zanr</Form.Label>
+                    <Form.Label>Žanr</Form.Label>
                     <Form.Control type="text" name="zanr"/>
                 </Form.Group>
 
@@ -62,11 +61,6 @@ export default function IzvodacNovi(){
                     <Form.Control type="date" name="datumIzdavanja"/>
                 </Form.Group>
 
-                <Form.Group controlID="akcija">
-                    <Form.Label>Akcija</Form.Label>
-                    <Form.Control type="text" name="akcija"/>
-                </Form.Group>
-
 
                 <Row className="mt-5">
                     <Col>
@@ -76,7 +70,7 @@ export default function IzvodacNovi(){
                     </Col>
                     <Col>
                         <Button type="submit" variant="success">
-                            Dodaj novi smjer
+                            Dodaj novog izvođača
                         </Button>
                     </Col>
                 </Row>
