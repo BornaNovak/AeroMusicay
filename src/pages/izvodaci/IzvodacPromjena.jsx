@@ -16,6 +16,10 @@ export default function IzvodacPromjena() {
 
     async function ucitajIzvodac(){
         await IzvodacService.getBySifra(params.sifra).then((odgovor)=>{
+                        if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
             const s = odgovor.data
             s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
             setIzvodac(s)

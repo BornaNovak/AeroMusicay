@@ -7,3 +7,5 @@ export const RouteNames = {
     IZVODACI_NOVI: '/izvodaci/novi',
     IZVODACI_PROMJENA: '/izvodaci/:sifra'
 }
+
+export const DATA_SOURCE = 'localStorage';

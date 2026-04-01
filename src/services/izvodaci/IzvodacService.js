@@ -1,45 +1,38 @@
-import { izvodaci } from "./IzvodacPodaci"
+import IzvodacServiceMemorija from "./IzvodacServiceMemorija";
+import { DATA_SOURCE } from "../../constants";
+import IzvodacServiceLocalStorage from "./IzvodacServiceLocalStorage";
 
-async function get(){
-    return {data:[... izvodaci]}
+let Servis = null;
+
+
+switch (DATA_SOURCE) {
+    case 'memorija':
+        Servis = IzvodacServiceMemorija;
+        break;
+    case 'localStorage':
+        Servis = IzvodacServiceLocalStorage;
+        break;
+    default:
+        Servis = null;
 }
 
 
-async function getBySifra(sifra){
-    return {data: izvodaci.find(s=>s.sifra === parseInt(sifra))}
-}
+const PrazanServis = {
+    get: async () => ({ success: false, data: []}),
+    getBySifra: async (sifra) => ({ success: false, data: {} }),
+    dodaj: async (izvodac) => { console.error("Servis nije učitan"); },
+    promjeni: async (sifra, izvodac) => { console.error("Servis nije učitan"); },
+    obrisi: async (sifra) => { console.error("Servis nije učitan"); }
+};
 
 
-async function dodaj(izvodac){
-    if(izvodaci.length===0){
-        izvodac.sifra=1
-    }else{
-        izvodac.sifra=izvodaci[izvodaci.length-1].sifra+1
-    }
-    izvodaci.push(izvodac)
-}
 
-
-async function promjeni(sifra,izvodac){
-    const index = nadiIndex(sifra)
-    izvodaci[index] = {...izvodaci[index], ...izvodac}
-}
-
-function nadiIndex(sifra){
-    return izvodaci.findIndex(s=>s.sifra ===parseInt(sifra))
-}
-
-
-async function obrisi(sifra){
-    const index = nadiIndex(sifra)
-    izvodaci.splice(index,1)
-}
-
+const AktivniServis = Servis || PrazanServis;
 
 export default {
-    get,
-    dodaj,
-    getBySifra,
-    promjeni,
-    obrisi
-}
+    get: () => AktivniServis.get(),
+    getBySifra: (sifra) => AktivniServis.getBySifra(sifra),
+    dodaj: (izvodac) => AktivniServis.dodaj(izvodac),
+    promjeni: (sifra, izvodac) => AktivniServis.promjeni(sifra, izvodac),
+    obrisi: (sifra) => AktivniServis.obrisi(sifra)
+};

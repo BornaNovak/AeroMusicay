@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
 import IzvodacPregled from './pages/izvodaci/IzvodacPregled';
-import { RouteNames } from './constants';
+import { IME_APLIKACIJE, RouteNames } from './constants';
 import Izbornik from './components/Izbornik';
 import IzvodacNovi from './pages/izvodaci/IzvodacNovi';
 import IzvodacPromjena from './pages/izvodaci/IzvodacPromjena';
@@ -21,6 +21,7 @@ function App() {
           <Route path={RouteNames.IZVODACI_NOVI} element={<IzvodacNovi />} />
           <Route path={RouteNames.IZVODACI_PROMJENA} element={<IzvodacPromjena />}/>
         </Routes>
+        &copy; {IME_APLIKACIJE}
       </Container>
     </>
   );

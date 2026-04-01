@@ -1,1 +1,6 @@
 obrisati izvodac full folder
+
+album 
+
+napravit albume - pripremit naziv.datum izdavanja i 
+izvodaca(intiger)
