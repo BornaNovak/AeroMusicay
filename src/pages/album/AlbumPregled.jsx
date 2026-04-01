@@ -1,3 +1,10 @@
+import { useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import FormatDatuma from "../../components/FormatDatuma";
+import { RouteNames } from "../../constants";
+import AlbumService from "../../services/albumi/AlbumService";
+
 export default function AlbumPregled(){
     const [albumi, setAlbumi] = useState([])
     const navigate = useNavigate();
@@ -20,4 +27,50 @@ export default function AlbumPregled(){
         await AlbumService.obrisi(sifra)
         ucitajIzvodace()
     }
+
+    const formatirajTrajanje = (ukupnoSekundi) => {
+    if (!ukupnoSekundi) return "0:00"
+    const minute = Math.floor(ukupnoSekundi / 60)
+    const sekunde = ukupnoSekundi % 60
+    return `${minute}:${sekunde.toString().padStart(2, '0')}`
+    };
+
+
+    return(
+        <>
+        <Link to={RouteNames.ALBUMI_NOVI} className="btn btn-success w-100 my-3">
+            Dodavanje novog albuma
+        </Link>
+        <Table striped hover responsive>
+        <thead>
+            <tr>
+                <th>Naziv izvođača</th>
+                <th>Album</th>
+                <th>Datum izdavanja</th>
+            </tr>
+        </thead>
+        <tbody>
+            {albumi && albumi.map((album)=>(
+                <tr key={album.sifra}>
+                    <td>{album.naziv}</td>
+                    <td>
+                        {album.pjesma} ({formatirajTrajanje(album.trajanje)})</td>
+                    <td>
+                        <FormatDatuma datum={album.datumIzdavanja} prikazZadano='-' />
+                    </td>
+                    <td>
+                        <Button size="sm" onClick={()=>{navigate(`/albumi/${album.sifra}`)}}>
+                            Promjeni
+                        </Button>
+                        &nbsp;&nbsp;
+                        <Button size="sm" variant="danger" onClick={()=>{obrisi(album.sifra)}}>
+                            Obriši
+                        </Button>
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+         </Table>
+        </>
+    )
 }

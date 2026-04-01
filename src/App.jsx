@@ -9,6 +9,9 @@ import { IME_APLIKACIJE, RouteNames } from './constants';
 import Izbornik from './components/Izbornik';
 import IzvodacNovi from './pages/izvodaci/IzvodacNovi';
 import IzvodacPromjena from './pages/izvodaci/IzvodacPromjena';
+import AlbumPregled from './pages/album/AlbumPregled';
+import AlbumNovi from './pages/album/AlbumNovi';
+import AlbumPromjena from './pages/album/AlbumPromjena';
 
 function App() {
   return (
@@ -20,6 +23,10 @@ function App() {
           <Route path={RouteNames.IZVODACI} element={<IzvodacPregled />} />
           <Route path={RouteNames.IZVODACI_NOVI} element={<IzvodacNovi />} />
           <Route path={RouteNames.IZVODACI_PROMJENA} element={<IzvodacPromjena />}/>
+
+          <Route path={RouteNames.ALBUMI} element={<AlbumPregled />} />
+          <Route path={RouteNames.ALBUMI_NOVI} element={<AlbumNovi />} />
+          <Route path={RouteNames.ALBUMI_PROMJENA} element={<AlbumPromjena />}/>
         </Routes>
         &copy; {IME_APLIKACIJE}
       </Container>
