@@ -2,7 +2,7 @@ import { use, useEffect, useState } from "react"
 import { RouteNames } from "../../constants"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import AlbumService from "../../services/albumi/AlbumService"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 export default function AlbumPromjena(){
     const navigate = useNavigate()
@@ -23,7 +23,7 @@ export default function AlbumPromjena(){
             const s = odgovor.data
             s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
             setAlbum(s)
-            set.Aktivan(s.aktivan)
+            setAktivan(s.aktivan)
         })
     }
 

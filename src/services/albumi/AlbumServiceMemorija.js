@@ -9,7 +9,7 @@ async function getBySifra(sifra) {
 }   
 
 async function dodaj(album) {
-    if(izvodaci .length === 0){
+    if(albumi.length === 0){
         album.sifra = 1
     }else{
         album.sifra = albumi[albumi.length - 1].sifra + 1
