@@ -37,7 +37,6 @@ export default function AlbumPromjena(){
         const podaci = new FormData(e.target)
         promjeni({
             naziv: podaci.get('naziv'),
-            album: podaci.get('album'),
             datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
         })
     }
@@ -48,17 +47,12 @@ export default function AlbumPromjena(){
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required />
-            </Form.Group>
-
-            <Form.Group controlId="album">
-                <Form.Label>Album</Form.Label>
-                <Form.Control type="text" name="album" required />
+                <Form.Control type="text" name="naziv" required  defaultValue={album.naziv}/>
             </Form.Group>
 
             <Form.Group controlId="datumIzdavanja">
                 <Form.Label>Datum izdavanja</Form.Label>
-                <Form.Control type="date" name="datumIzdavanja" required />
+                <Form.Control type="date" name="datumIzdavanja" required defaultValue={datumIzdavanja}/>
             </Form.Group>
 
         <Row className="mt-5">

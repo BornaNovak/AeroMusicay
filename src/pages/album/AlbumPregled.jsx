@@ -25,7 +25,7 @@ export default function AlbumPregled(){
             return
         }
         await AlbumService.obrisi(sifra)
-        ucitajIzvodace()
+        ucitajAlbume()
     }
 
 

@@ -12,6 +12,7 @@ import IzvodacPromjena from './pages/izvodaci/IzvodacPromjena';
 import AlbumPregled from './pages/album/AlbumPregled';
 import AlbumNovi from './pages/album/AlbumNovi';
 import AlbumPromjena from './pages/album/AlbumPromjena';
+import { DotLottie } from '@lottiefiles/dotlottie-react';
 
 function App() {
   return (
@@ -28,7 +29,10 @@ function App() {
           <Route path={RouteNames.ALBUMI_NOVI} element={<AlbumNovi />} />
           <Route path={RouteNames.ALBUMI_PROMJENA} element={<AlbumPromjena />}/>
         </Routes>
+        <DotLottie
+        <footer className="fixed-bottom text-center py-3 bg-light">
         &copy; {IME_APLIKACIJE}
+      </footer>
       </Container>
     </>
   );

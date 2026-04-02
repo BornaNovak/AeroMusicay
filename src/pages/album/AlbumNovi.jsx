@@ -28,13 +28,8 @@ export default function AlbumNovi(){
         <h3>Unos novog albuma</h3>
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
-                <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required />
-            </Form.Group>
-
-            <Form.Group controlId="album">
                 <Form.Label>Album</Form.Label>
-                <Form.Control type="text" name="album" required />
+                <Form.Control type="text" name="naziv" required />
             </Form.Group>
 
             <Form.Group controlId="datumIzdavanja">
