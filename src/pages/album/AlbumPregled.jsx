@@ -28,12 +28,6 @@ export default function AlbumPregled(){
         ucitajIzvodace()
     }
 
-    const formatirajTrajanje = (ukupnoSekundi) => {
-    if (!ukupnoSekundi) return "0:00"
-    const minute = Math.floor(ukupnoSekundi / 60)
-    const sekunde = ukupnoSekundi % 60
-    return `${minute}:${sekunde.toString().padStart(2, '0')}`
-    };
 
 
     return(
@@ -44,8 +38,7 @@ export default function AlbumPregled(){
         <Table striped hover responsive>
         <thead>
             <tr>
-                <th>Naziv izvođača</th>
-                <th>Album</th>
+                <th>Naziv albuma</th>
                 <th>Datum izdavanja</th>
             </tr>
         </thead>
@@ -53,8 +46,6 @@ export default function AlbumPregled(){
             {albumi && albumi.map((album)=>(
                 <tr key={album.sifra}>
                     <td>{album.naziv}</td>
-                    <td>
-                        {album.pjesma} ({formatirajTrajanje(album.trajanje)})</td>
                     <td>
                         <FormatDatuma datum={album.datumIzdavanja} prikazZadano='-' />
                     </td>
