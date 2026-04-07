@@ -43,7 +43,7 @@ export default function AlbumNovi(){
         const podaci = new FormData(e.target)
         dodaj({
             naziv: podaci.get('naziv'),
-            izvodac: podaci.get('izvodac'), // Uzima vrijednost iz odabranog <option>
+            izvodac: podaci.get('izvodac'),
             datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
         })
     }
@@ -72,7 +72,10 @@ export default function AlbumNovi(){
 
             <Form.Group controlId="datumIzdavanja">
                 <Form.Label>Datum izdavanja</Form.Label>
-                <Form.Control type="date" name="datumIzdavanja" required />
+                <Form.Control type="date" name="datumIzdavanja" required 
+                onClick={(e) => e.target.showPicker()}
+                onFocus={(e) => e.target.showPicker()}
+                />
             </Form.Group>
 
         <Row className="mt-5">
