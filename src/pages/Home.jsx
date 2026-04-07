@@ -5,14 +5,6 @@ export default function Home() {
     return (
         <>
         <h1>Welcome to {IME_APLIKACIJE}</h1>
-        <div style={{maxWidth: '500px',position: 'fixed', top: '60px', left: '2px'}}>
-            <DotLottieReact
-                src="/PepeStickerMusic.lottie"
-
-                loop
-                autoplay
-            />
-        </div>
         </>
     )
 }
