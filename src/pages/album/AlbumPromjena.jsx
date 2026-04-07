@@ -2,28 +2,48 @@ import { useEffect, useState } from "react"
 import { RouteNames } from "../../constants"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import AlbumService from "../../services/albumi/AlbumService"
+import IzvodacService from "../../services/izvodaci/IzvodacService"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
 export default function AlbumPromjena(){
     const navigate = useNavigate()
     const params = useParams()
+    
     const [album, setAlbum] = useState({})
+    const [izvodaci, setIzvodaci] = useState([])
 
     useEffect(()=>{
-        ucitajAlbum()
+        ucitajPodatke()
     },[])
 
-    async function ucitajAlbum(){
-        await AlbumService.getBySifra(params.sifra).then((odgovor)=>{
-            if(!odgovor.success){
-                alert('Nije implementiran servis')
-                return
+    async function ucitajPodatke(){
+        await Promise.all([
+            AlbumService.getBySifra(params.sifra),
+            IzvodacService.get()
+        ]).then(([odgovorAlbum, odgovorIzvodaci]) => {
+            
+            if(odgovorAlbum.success){
+                const s = odgovorAlbum.data
+                if(s.datumIzdavanja) {
+                    s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+                }
+                setAlbum(s)
             }
-            const s = odgovor.data
-            if(s.datumIzdavanja) {
-                s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+
+            if(odgovorIzvodaci.success){
+                const jedinstveniIzvodaci = [];
+                const nazivi = new Set();
+
+                odgovorIzvodaci.data.forEach(izv => {
+                    // Ako naziv nepostoji u setu onda ga dodaje u listu
+                    if (!nazivi.has(izv.naziv)) {
+                        nazivi.add(izv.naziv);
+                        jedinstveniIzvodaci.push(izv);
+                    }
+                });
+
+                setIzvodaci(jedinstveniIzvodaci);
             }
-            setAlbum(s)
         })
     }
 
@@ -49,12 +69,23 @@ export default function AlbumPromjena(){
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required  defaultValue={album.naziv}/>
+                <Form.Control type="text" name="naziv" required defaultValue={album.naziv}/>
             </Form.Group>
 
             <Form.Group controlId="izvodac">
                 <Form.Label>Izvođač</Form.Label>
-                <Form.Control type="text" name="izvodac" required defaultValue={album.izvodac}/>
+                <Form.Select 
+                    name="izvodac" 
+                    value={album.izvodac || ""} 
+                    onChange={(e) => setAlbum({...album, izvodac: e.target.value})}
+                >
+                    <option value="">Odaberite izvođača</option>
+                    {izvodaci && izvodaci.map((i) => (
+                        <option key={i.sifra} value={i.sifra}>
+                            {i.naziv}
+                        </option>
+                    ))}
+                </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="datumIzdavanja">

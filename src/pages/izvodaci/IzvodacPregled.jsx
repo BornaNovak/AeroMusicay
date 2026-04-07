@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import IzvodacService from '../../services/izvodaci/IzvodacService';
-import { Button, Table } from 'react-bootstrap';
-import FormatDatuma from '../../components/FormatDatuma'; // Ostavljeno (zakomentirano dolje)
-import { RouteNames } from '../../constants';
-import { Link, useNavigate } from 'react-router-dom';
-import { PatternFormat } from 'react-number-format';
+import { useEffect, useState } from 'react'
+import IzvodacService from '../../services/izvodaci/IzvodacService'
+import { Button, Table } from 'react-bootstrap'
+import FormatDatuma from '../../components/FormatDatuma'
+import { RouteNames } from '../../constants'
+import { Link, useNavigate } from 'react-router-dom'
+import { PatternFormat } from 'react-number-format'
 
 export default function IzvodacPregled() {
    const [izvodaci, setIzvodaci] = useState([])

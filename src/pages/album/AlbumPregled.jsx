@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import FormatDatuma from "../../components/FormatDatuma";
-import { RouteNames } from "../../constants";
-import AlbumService from "../../services/albumi/AlbumService";
+import { useEffect, useState } from "react"
+import { Button, Table } from "react-bootstrap"
+import { Link, useNavigate } from "react-router-dom"
+import FormatDatuma from "../../components/FormatDatuma"
+import { RouteNames } from "../../constants"
+import AlbumService from "../../services/albumi/AlbumService"
 
 export default function AlbumPregled(){
     const [albumi, setAlbumi] = useState([])

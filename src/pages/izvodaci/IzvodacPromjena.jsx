@@ -1,8 +1,8 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import IzvodacService from "../../services/izvodaci/IzvodacService";
-import { RouteNames } from "../../constants";
-import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom"
+import IzvodacService from "../../services/izvodaci/IzvodacService"
+import { RouteNames } from "../../constants"
+import { useEffect, useState } from "react"
+import { Button, Col, Form, Row } from "react-bootstrap"
 
 export default function IzvodacPromjena() {
     const navigate = useNavigate()
