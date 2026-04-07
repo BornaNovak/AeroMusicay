@@ -90,7 +90,9 @@ export default function AlbumPromjena(){
 
             <Form.Group controlId="datumIzdavanja">
                 <Form.Label>Datum izdavanja</Form.Label>
-                <Form.Control type="date" name="datumIzdavanja" required defaultValue={album.datumIzdavanja}/>
+                <Form.Control type="date" name="datumIzdavanja" required defaultValue={album.datumIzdavanja}
+                        onClick={(e) => e.target.showPicker()}
+                        onFocus={(e) => e.target.showPicker()}/>
             </Form.Group>
 
         <Row className="mt-5">
