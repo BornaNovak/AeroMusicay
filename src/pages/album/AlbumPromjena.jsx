@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { RouteNames } from "../../constants"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import AlbumService from "../../services/albumi/AlbumService"
@@ -8,7 +8,6 @@ export default function AlbumPromjena(){
     const navigate = useNavigate()
     const params = useParams()
     const [album, setAlbum] = useState({})
-    const [aktivan, setAktivan] = useState(false)
 
     useEffect(()=>{
         ucitajAlbum()
@@ -21,22 +20,25 @@ export default function AlbumPromjena(){
                 return
             }
             const s = odgovor.data
-            s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+            if(s.datumIzdavanja) {
+                s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+            }
             setAlbum(s)
-            setAktivan(s.aktivan)
         })
     }
 
-    async function promjeni(album){
-        await AlbumService.promjeni(params.sifra,album).then(()=>{
+    async function promjeni(noviAlbum){
+        await AlbumService.promjeni(params.sifra, noviAlbum).then(()=>{
             navigate(RouteNames.ALBUMI)
         })
     }
 
     function odradiSubmit(e){
+        e.preventDefault()
         const podaci = new FormData(e.target)
         promjeni({
             naziv: podaci.get('naziv'),
+            izvodac: podaci.get('izvodac'),
             datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
         })
     }
@@ -50,9 +52,14 @@ export default function AlbumPromjena(){
                 <Form.Control type="text" name="naziv" required  defaultValue={album.naziv}/>
             </Form.Group>
 
+            <Form.Group controlId="izvodac">
+                <Form.Label>Izvođač</Form.Label>
+                <Form.Control type="text" name="izvodac" required defaultValue={album.izvodac}/>
+            </Form.Group>
+
             <Form.Group controlId="datumIzdavanja">
                 <Form.Label>Datum izdavanja</Form.Label>
-                <Form.Control type="date" name="datumIzdavanja" required defaultValue={datumIzdavanja}/>
+                <Form.Control type="date" name="datumIzdavanja" required defaultValue={album.datumIzdavanja}/>
             </Form.Group>
 
         <Row className="mt-5">
@@ -63,7 +70,7 @@ export default function AlbumPromjena(){
             </Col>
             <Col>
             <Button type="submit" variant="success">
-                Dodaj novi album
+                Spremi promjene
             </Button>
             </Col>
         </Row>

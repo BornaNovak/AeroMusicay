@@ -17,19 +17,23 @@ export default function AlbumNovi(){
         const podaci = new FormData(e.target)
         dodaj({
             naziv: podaci.get('naziv'),
-            album: podaci.get('album'),
+            izvodac: podaci.get('izvodac'),
             datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
         })
     }
 
-
     return ( 
-                <>
+        <>
         <h3>Unos novog albuma</h3>
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
-                <Form.Label>Album</Form.Label>
+                <Form.Label>Naziv Albuma</Form.Label>
                 <Form.Control type="text" name="naziv" required />
+            </Form.Group>
+
+            <Form.Group controlId="izvodac">
+                <Form.Label>Izvođač</Form.Label>
+                <Form.Control type="text" name="izvodac" required />
             </Form.Group>
 
             <Form.Group controlId="datumIzdavanja">

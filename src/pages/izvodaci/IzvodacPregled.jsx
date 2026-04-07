@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import IzvodacService from '../../services/izvodaci/IzvodacService';
 import { Button, Table } from 'react-bootstrap';
-import FormatDatuma from '../../components/FormatDatuma';
+import FormatDatuma from '../../components/FormatDatuma'; // Ostavljeno (zakomentirano dolje)
 import { RouteNames } from '../../constants';
 import { Link, useNavigate } from 'react-router-dom';
 import { PatternFormat } from 'react-number-format';
@@ -46,8 +46,8 @@ export default function IzvodacPregled() {
         <thead>
             <tr>
                 <th>Naziv izvođača</th>
-                <th>Pjesma</th>
-                <th>Datum izdavanja</th>
+                <th>Žanr pjesme</th>
+                {/* <th>Datum izdavanja</th> */}
                 <th>Akcije</th>
             </tr>
         </thead>
@@ -56,11 +56,20 @@ export default function IzvodacPregled() {
                 <tr key={izvodac.sifra}>
                     <td>{izvodac.naziv}</td>
                     <td>
-                       {izvodac.zanr}: {izvodac.album} <br />
-                        {izvodac.pjesma} ({formatirajTrajanje(izvodac.trajanje)})</td>
+                        {izvodac.zanr}
+                        
+                        {/*
+                        {izvodac.zanr}: {izvodac.album} <br />
+                        {izvodac.pjesma} ({formatirajTrajanje(izvodac.trajanje)}) 
+                        */}
+                    </td>
+                    
+                    {/*
                     <td>
                         <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
-                    </td>
+                    </td> 
+                    */}
+                    
                     <td>
                         <Button size="sm" onClick={()=>{navigate(`/izvodaci/${izvodac.sifra}`)}}>
                             Promjeni

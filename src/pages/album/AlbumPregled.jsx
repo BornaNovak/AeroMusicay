@@ -28,8 +28,6 @@ export default function AlbumPregled(){
         ucitajAlbume()
     }
 
-
-
     return(
         <>
         <Link to={RouteNames.ALBUMI_NOVI} className="btn btn-success w-100 my-3">
@@ -39,13 +37,16 @@ export default function AlbumPregled(){
         <thead>
             <tr>
                 <th>Naziv albuma</th>
+                <th>Izvođač</th>
                 <th>Datum izdavanja</th>
+                <th>Akcije</th>
             </tr>
         </thead>
         <tbody>
             {albumi && albumi.map((album)=>(
                 <tr key={album.sifra}>
                     <td>{album.naziv}</td>
+                    <td>{album.izvodac}</td>
                     <td>
                         <FormatDatuma datum={album.datumIzdavanja} prikazZadano='-' />
                     </td>
