@@ -4,11 +4,17 @@ import { Link, useNavigate } from "react-router-dom"
 import FormatDatuma from "../../components/FormatDatuma"
 import { RouteNames } from "../../constants"
 import AlbumService from "../../services/albumi/AlbumService"
+import IzvodacService from "../../services/izvodaci/IzvodacService"
 
 export default function AlbumPregled(){
     const [albumi, setAlbumi] = useState([])
+    const [izvodaci, setIzvodaci] = useState([]) 
     const navigate = useNavigate();
-    useEffect(() => {ucitajAlbume()}, [])
+
+    useEffect(() => {
+        ucitajAlbume()
+        ucitajIzvodace()
+    }, [])
 
     async function ucitajAlbume(){
         await AlbumService.get().then((odgovor) => {
@@ -20,12 +26,27 @@ export default function AlbumPregled(){
         })
     }
 
+    async function ucitajIzvodace(){
+        await IzvodacService.get().then((odgovor) => {
+            if(!odgovor.success){
+                alert('Nije implementiran servis za izvođače')
+                return
+            }
+            setIzvodaci(odgovor.data)
+        })
+    }
+
     async function obrisi(sifra){
         if(!confirm('Jeste li sigurni da zelite obrisati?')){
             return
         }
         await AlbumService.obrisi(sifra)
         ucitajAlbume()
+    }
+
+    function dohvatiNazivIzvodaca(sifraIzvodaca) {
+        const izvodac = izvodaci.find(i => i.sifra == sifraIzvodaca)
+        return izvodac ? izvodac.naziv : 'Nepoznat izvođač'
     }
 
     return(
@@ -46,7 +67,7 @@ export default function AlbumPregled(){
             {albumi && albumi.map((album)=>(
                 <tr key={album.sifra}>
                     <td>{album.naziv}</td>
-                    <td>{album.izvodac}</td>
+                    <td>{dohvatiNazivIzvodaca(album.izvodac)}</td>
                     <td>
                         <FormatDatuma datum={album.datumIzdavanja} prikazZadano='-' />
                     </td>
