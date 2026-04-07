@@ -1,3 +1,4 @@
 obrisati izvodac full folder
 
 // u izvodaci maknit pjesma(stavit zanr) i datum izdavanja, na albume dodat izvodaca
+//samo naziv i zanr

@@ -22,32 +22,34 @@ export default function IzvodacNovi() {
             return
         }
 
+        /* --- ZAKOMENTIRANE KONTROLE KOJE VIŠE NISU POTREBNE ---
         // --- KONTROLA 2: Pjesma ---
         if (!podaci.get('pjesma') || podaci.get('pjesma').trim().length === 0) {
             alert('Naziv pjesme je obavezan!')
             return
         }
 
-        // --- KONTROLA 3: Trajanje (Logički raspon) ---
+        // --- KONTROLA 3: Trajanje ---
         const trajanje = parseInt(podaci.get('trajanje'))
         if (isNaN(trajanje) || trajanje < 1 || trajanje > 500) {
             alert('Trajanje pjesme mora biti broj između 1 i 500 sekundi/minuta!')
             return
         }
 
-        // --- KONTROLA 4: Datum izdavanja (ne smije biti u budućnosti - opcionalno, ali logično za izvođača) ---
+        // --- KONTROLA 4: Datum izdavanja ---
         if (!podaci.get('datumIzdavanja') || podaci.get('datumIzdavanja') === "") {
             alert("Morate odabrati datum izdavanja!");
             return;
         }
+        */
 
         dodaj({
             naziv: podaci.get('naziv'),
             zanr: podaci.get('zanr'),
-            pjesma: podaci.get('pjesma'),
-            album: podaci.get('album'),
-            trajanje: trajanje,
-            datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString()
+            pjesma: '', 
+            album: '',
+            trajanje: 0,
+            datumIzdavanja: new Date().toISOString() 
         })
     }
 
@@ -57,8 +59,7 @@ export default function IzvodacNovi() {
                 <Card.Body>
                     <Card.Title className="mb-4">Unos novog izvođača</Card.Title>
                     <Form onSubmit={odradiSubmit}>
-                        
-                        {/* Naziv i Žanr */}
+                    
                         <Row>
                             <Col md={6}>
                                 <Form.Group controlId="naziv" className="mb-3">
@@ -83,8 +84,8 @@ export default function IzvodacNovi() {
                             </Col>
                         </Row>
 
-                        {/* Pjesma i Album */}
-                        <Row>
+                        {/* zakomentirani dijelovi form */}
+                        {/* <Row>
                             <Col md={6}>
                                 <Form.Group controlId="pjesma" className="mb-3">
                                     <Form.Label className="fw-bold">Pjesma</Form.Label>
@@ -92,7 +93,6 @@ export default function IzvodacNovi() {
                                         type="text" 
                                         name="pjesma" 
                                         placeholder="Naziv pjesme"
-                                        required 
                                     />
                                 </Form.Group>
                             </Col>
@@ -108,7 +108,6 @@ export default function IzvodacNovi() {
                             </Col>
                         </Row>
 
-                        {/* Trajanje i Datum */}
                         <Row>
                             <Col md={6}>
                                 <Form.Group controlId="trajanje" className="mb-3">
@@ -116,7 +115,6 @@ export default function IzvodacNovi() {
                                     <Form.Control 
                                         type="number" 
                                         name="trajanje" 
-                                        step={1} 
                                         placeholder="u sekundama"
                                     />
                                 </Form.Group>
@@ -127,12 +125,11 @@ export default function IzvodacNovi() {
                                     <Form.Control 
                                         type="date" 
                                         name="datumIzdavanja"
-                                        onClick={(e) => e.target.showPicker()}
-                                        onFocus={(e) => e.target.showPicker()}
                                     />
                                 </Form.Group>
                             </Col>
-                        </Row>
+                        </Row> 
+                        */}
 
                         <hr />
 

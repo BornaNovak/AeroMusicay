@@ -1,4 +1,4 @@
-import {Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import IzvodacService from "../../services/izvodaci/IzvodacService";
 import { RouteNames } from "../../constants";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ export default function IzvodacPromjena() {
     const navigate = useNavigate()
     const params = useParams()
     const [izvodac, setIzvodac] = useState({})
-    const [aktivan, setAktivan] = useState(false)
+    // const [aktivan, setAktivan] = useState(false) //
 
     useEffect(() => {
         ucitajIzvodac()
@@ -16,19 +16,22 @@ export default function IzvodacPromjena() {
 
     async function ucitajIzvodac(){
         await IzvodacService.getBySifra(params.sifra).then((odgovor)=>{
-                        if(!odgovor.success){
+            if(!odgovor.success){
                 alert('Nije implementiran servis')
                 return
             }
             const s = odgovor.data
-            s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+            // Provjera postoji li datum prije substringa da se izbjegne error
+            if (s.datumIzdavanja) {
+                s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+            }
             setIzvodac(s)
-            set.Aktivan(s.aktivan)
+            // setAktivan(s.aktivan) //
         })
     }
 
-    async function promjeni(izvodac){
-        await IzvodacService.promjeni(params.sifra,izvodac).then(()=>{
+    async function promjeni(izvodacPodaci){
+        await IzvodacService.promjeni(params.sifra, izvodacPodaci).then(()=>{
             navigate(RouteNames.IZVODACI)
         })
     }
@@ -36,60 +39,63 @@ export default function IzvodacPromjena() {
     function odradiSubmit(e){
         e.preventDefault()
         const podaci = new FormData(e.target)
+        
         promjeni({
             naziv: podaci.get('naziv'),
             zanr: podaci.get('zanr'),
-            pjesma: podaci.get('pjesma'),
-            album: podaci.get('album'),
-            trajanje: parseInt(podaci.get('trajanje')),
-            datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString()
+            // Zadržavamo stare podatke ili šaljemo prazno za zakomentirana polja
+            pjesma: izvodac.pjesma || '', 
+            album: izvodac.album || '',
+            trajanje: izvodac.trajanje || 0,
+            datumIzdavanja: izvodac.datumIzdavanja ? new Date(izvodac.datumIzdavanja).toISOString() : new Date().toISOString()
         })
     }
 
 return(
     <>
-        <h3>Izmjena podataka glazbe</h3>
+        <h3>Izmjena podataka izvođača</h3>
         <Form onSubmit={odradiSubmit}>
-                <Form.Group controlID="naziv">
-                    <Form.Label>Naziv izvodača</Form.Label>
+                <Form.Group controlId="naziv">
+                    <Form.Label>Naziv izvođača</Form.Label>
                     <Form.Control type="text" name="naziv" required defaultValue={izvodac.naziv}/>
                 </Form.Group>
 
-                <Form.Group controlID="zanr">
+                <Form.Group controlId="zanr" className="mt-3">
                     <Form.Label>Žanr</Form.Label>
                     <Form.Control type="text" name="zanr" defaultValue={izvodac.zanr}/>
                 </Form.Group>
 
-                <Form.Group controlID="pjesma">
+                {/* <Form.Group controlId="pjesma" className="mt-3">
                     <Form.Label>Pjesma</Form.Label>
                     <Form.Control type="text" name="pjesma" required defaultValue={izvodac.pjesma}/>
                 </Form.Group>
 
-                <Form.Group controlID="album">
+                <Form.Group controlId="album" className="mt-3">
                     <Form.Label>Album</Form.Label>
-                    <Form.Control type="text,number" name="album" defaultValue={izvodac.album}/>
+                    <Form.Control type="text" name="album" defaultValue={izvodac.album}/>
                 </Form.Group>
 
-                <Form.Group controlID="trajanje">
+                <Form.Group controlId="trajanje" className="mt-3">
                     <Form.Label>Trajanje</Form.Label>
                     <Form.Control type="number" name="trajanje" step={1} defaultValue={izvodac.trajanje}/>
                 </Form.Group>
 
-                <Form.Group controlID="datumIzdavanja">
+                <Form.Group controlId="datumIzdavanja" className="mt-3">
                     <Form.Label>Datum izdavanja</Form.Label>
                     <Form.Control type="date" name="datumIzdavanja" defaultValue={izvodac.datumIzdavanja}/>
-                </Form.Group>
+                </Form.Group> 
+                */}
 
 
-                <Row className="mt-4">
+                <Row className="mt-5">
                     <Col>
-                        <Link to={RouteNames.IZVODACI} className="btn btn-danger">
+                        <Link to={RouteNames.IZVODACI} className="btn btn-danger w-100">
                         Odustani
                         </Link>
                     </Col>
                     <Col>
-                        <Button type="submit" variant="success">
-                            Promjeni
+                        <Button type="submit" variant="success" className="w-100">
+                            Spremi promjene
                         </Button>
                     </Col>
                 </Row>
