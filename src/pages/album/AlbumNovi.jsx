@@ -51,7 +51,6 @@ export default function AlbumNovi() {
         <Container className="mt-5">
             <Row className="justify-content-center">
                 <Col md={8} lg={6}>
-                    {/* Kartica sa zelenom linijom na vrhu i jakom sjenom */}
                     <Card className="shadow-lg border-0" style={{ borderTop: '5px solid #198754', borderRadius: '15px' }}>
                         <Card.Body className="p-4">
                             <div className="text-center mb-4">
@@ -59,7 +58,6 @@ export default function AlbumNovi() {
                             </div>
 
                             <Form onSubmit={odradiSubmit}>
-                                {/* Naziv albuma sa ikonom */}
                                 <Form.Group className="mb-4">
                                     <Form.Label className="fw-semibold text-dark">Naziv Albuma</Form.Label>
                                     <InputGroup>
@@ -74,7 +72,6 @@ export default function AlbumNovi() {
                                 </Form.Group>
 
                                 <Row>
-                                    {/* Izvođač - Lijeva strana */}
                                     <Col md={6}>
                                         <Form.Group className="mb-4">
                                             <Form.Label className="fw-semibold text-dark">Izvođač</Form.Label>
@@ -93,7 +90,6 @@ export default function AlbumNovi() {
                                         </Form.Group>
                                     </Col>
 
-                                    {/* Datum izdavanja - Desna strana */}
                                     <Col md={6}>
                                         <Form.Group className="mb-4">
                                             <Form.Label className="fw-semibold text-dark">Datum izdavanja</Form.Label>
@@ -108,11 +104,8 @@ export default function AlbumNovi() {
                                         </Form.Group>
                                     </Col>
                                 </Row>
-
-                                {/* Suptilna linija prije gumba */}
                                 <hr className="my-4 opacity-25" />
 
-                                {/* Gumbi jedan pored drugog (50/50 širina) */}
                                 <Row>
                                     <Col xs={6}>
                                         <Link to={RouteNames.ALBUMI} className="text-decoration-none">

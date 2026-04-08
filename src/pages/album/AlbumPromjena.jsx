@@ -111,7 +111,6 @@ export default function AlbumPromjena(){
                                     </Col>
                                 </Row>
 
-                                {/* Linija koja odvaja formu od gumba */}
                                 <hr className="my-4 opacity-25" />
 
                                 <Row>

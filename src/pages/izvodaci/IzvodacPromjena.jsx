@@ -51,7 +51,6 @@ export default function IzvodacPromjena() {
         <Container className="mt-5">
             <Row className="justify-content-center">
                 <Col md={8} lg={6}>
-                    {/* Kartica sa zelenim vrhom, sjenom i zaobljenim rubovima */}
                     <Card className="shadow-lg border-0" style={{ borderTop: '5px solid #198754', borderRadius: '15px' }}>
                         <Card.Body className="p-4">
                             <div className="text-center mb-4">
@@ -59,7 +58,6 @@ export default function IzvodacPromjena() {
                             </div>
 
                             <Form onSubmit={odradiSubmit}>
-                                {/* Naziv izvođača */}
                                 <Form.Group className="mb-4">
                                     <Form.Label className="fw-semibold text-dark">Naziv izvođača</Form.Label>
                                     <Form.Control 
@@ -71,7 +69,6 @@ export default function IzvodacPromjena() {
                                     />
                                 </Form.Group>
 
-                                {/* Žanr */}
                                 <Form.Group className="mb-4">
                                     <Form.Label className="fw-semibold text-dark">Žanr</Form.Label>
                                     <Form.Control 
@@ -82,10 +79,8 @@ export default function IzvodacPromjena() {
                                     />
                                 </Form.Group>
 
-                                {/* Razdjelna linija */}
                                 <hr className="my-4 opacity-25" />
 
-                                {/* Gumbi simetrično postavljeni (50/50) */}
                                 <Row>
                                     <Col xs={6}>
                                         <Link to={RouteNames.IZVODACI} className="text-decoration-none">

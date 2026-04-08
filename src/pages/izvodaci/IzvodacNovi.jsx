@@ -35,7 +35,6 @@ export default function IzvodacNovi() {
         <Container className="mt-5">
             <Row className="justify-content-center">
                 <Col md={8} lg={6}>
-                    {/* Kartica sa zelenom linijom na vrhu i jakom sjenom */}
                     <Card className="shadow-lg border-0" style={{ borderTop: '5px solid #198754', borderRadius: '15px' }}>
                         <Card.Body className="p-4">
                             <div className="text-center mb-4">
@@ -66,11 +65,7 @@ export default function IzvodacNovi() {
                                         placeholder="npr. Pop, Rock"
                                     />
                                 </Form.Group>
-
-                                {/* Suptilna linija koja odvaja formu od gumba */}
                                 <hr className="my-4 opacity-25" />
-
-                                {/* Gumbi jedan pored drugog (50/50 širina) */}
                                 <Row>
                                     <Col xs={6}>
                                         <Link to={RouteNames.IZVODACI} className="text-decoration-none">
