@@ -23,7 +23,7 @@ async function getBySifra(sifra) {
 async function dodaj(izvodac) {
     const izvodaci = dohvatiSveIzStorage();
     
-    if (izvodaci.length === 0) {
+    if (izvodaci.length === 0) {        
         izvodac.sifra = 1;
     } else {
         const maxSifra = Math.max(...izvodaci.map(s => s.sifra));

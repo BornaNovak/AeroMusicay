@@ -19,9 +19,14 @@ export default function Izbornik() {
                             <NavDropdown.Item 
                             onClick={()=>navigate(RouteNames.IZVODACI)}
                             >Izvodači</NavDropdown.Item>
+
                             <NavDropdown.Item
                             onClick={()=>navigate(RouteNames.ALBUMI)}
                             >Albumi</NavDropdown.Item>
+                            
+                            <NavDropdown.Item
+                            onClick={()=>navigate(RouteNames.PJESME)}
+                            >Pjesme</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
