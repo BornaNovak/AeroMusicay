@@ -37,13 +37,13 @@ export default function IzvodacPromjena() {
         e.preventDefault();
         const podaci = new FormData(e.target);
 
+         if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 3) {
+            alert('Naziv izvođača mora imati najmanje 3 znaka!')
+            return
+        }
+
         promjeni({
-            naziv: podaci.get('naziv'),
-            zanr: podaci.get('zanr'),
-            pjesma: izvodac.pjesma || '',
-            album: izvodac.album || '',
-            trajanje: izvodac.trajanje || 0,
-            datumIzdavanja: izvodac.datumIzdavanja ? new Date(izvodac.datumIzdavanja).toISOString() : new Date().toISOString()
+            naziv: podaci.get('naziv')
         });
     }
 
@@ -69,15 +69,7 @@ export default function IzvodacPromjena() {
                                     />
                                 </Form.Group>
 
-                                <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold text-dark">Žanr</Form.Label>
-                                    <Form.Control 
-                                        className="bg-light"
-                                        type="text" 
-                                        name="zanr" 
-                                        defaultValue={izvodac.zanr} 
-                                    />
-                                </Form.Group>
+            
 
                                 <hr className="my-4 opacity-25" />
 

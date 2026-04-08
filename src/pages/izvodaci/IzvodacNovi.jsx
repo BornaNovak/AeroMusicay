@@ -22,12 +22,7 @@ export default function IzvodacNovi() {
         }
 
         dodaj({
-            naziv: podaci.get('naziv'),
-            zanr: podaci.get('zanr'),
-            pjesma: '', 
-            album: '',
-            trajanje: 0,
-            datumIzdavanja: new Date().toISOString() 
+            naziv: podaci.get('naziv')
         })
     }
 
@@ -56,15 +51,7 @@ export default function IzvodacNovi() {
                                     </InputGroup>
                                 </Form.Group>
 
-                                <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold text-dark">Žanr</Form.Label>
-                                    <Form.Control 
-                                        className="bg-light"
-                                        type="text" 
-                                        name="zanr" 
-                                        placeholder="npr. Pop, Rock"
-                                    />
-                                </Form.Group>
+                                
                                 <hr className="my-4 opacity-25" />
                                 <Row>
                                     <Col xs={6}>

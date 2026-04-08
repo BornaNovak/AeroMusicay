@@ -1,5 +1,9 @@
 export const pjesme= [
     {
-        // mozete napravit primjer pjesme "Black Dog" i "Stairway to Heaven" koji pripadaju Led zeppelin IV albumu
+       sifra: 1,
+       album: 1,
+       naziv: 'Stairway to Heaven',
+       trajanje: 182,
+       
     }
 ]

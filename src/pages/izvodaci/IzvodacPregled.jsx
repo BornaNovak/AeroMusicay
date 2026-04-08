@@ -46,8 +46,6 @@ export default function IzvodacPregled() {
         <thead>
             <tr>
                 <th>Naziv izvođača</th>
-                <th>Žanr pjesme</th>
-                {/* <th>Datum izdavanja</th> */}
                 <th>Akcije</th>
             </tr>
         </thead>
@@ -55,20 +53,9 @@ export default function IzvodacPregled() {
             {izvodaci && izvodaci.map((izvodac)=>(
                 <tr key={izvodac.sifra}>
                     <td>{izvodac.naziv}</td>
-                    <td>
-                        {izvodac.zanr}
-                        
-                        {/*
-                        {izvodac.zanr}: {izvodac.album} <br />
-                        {izvodac.pjesma} ({formatirajTrajanje(izvodac.trajanje)}) 
-                        */}
-                    </td>
                     
-                    {/*
-                    <td>
-                        <FormatDatuma datum={izvodac.datumIzdavanja} prikazZadano='-' />
-                    </td> 
-                    */}
+                    
+                   
                     
                     <td>
                         <Button size="sm" onClick={()=>{navigate(`/izvodaci/${izvodac.sifra}`)}}>

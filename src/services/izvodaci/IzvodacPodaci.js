@@ -1,43 +1,35 @@
 export const izvodaci = [
     {
         sifra: 1,
-        naziv: 'Led Zeppelin',
-        datumIzdavanja: '1971-11-08T00:00:00'
+        naziv: 'Led Zeppelin'
     },
     {
         sifra: 2,
-        naziv: 'The Doors',
-        datumIzdavanja: '1971-06-01T00:00:00'
+        naziv: 'The Doors'
     },
     {
         sifra: 3,
-        naziv: 'The Rolling Stones',
-        datumIzdavanja: '1969-12-05T00:00:00'
+        naziv: 'The Rolling Stones'
     },
     {
         sifra: 4,
-        naziv: 'Creedence Clearwater Revival',
-        datumIzdavanja: '1969-11-02T00:00:00'
+        naziv: 'Creedence Clearwater Revival'
     },
     {
         sifra: 5,
-        naziv: 'Cream',
-        datumIzdavanja: '1967-11-02T00:00:00'
+        naziv: 'Cream'
     },
     {
         sifra: 6,
-        naziv: 'Iron Maiden',
-        datumIzdavanja: '1982-03-22T00:00:00'
+        naziv: 'Iron Maiden'
     },
     {
         sifra: 7,
-        naziv: 'Black Sabbath',
-        datumIzdavanja: '1970-09-18T00:00:00'
+        naziv: 'Black Sabbath'
     },
     {
         sifra: 8,
-        naziv: 'The Cult',
-        datumIzdavanja: '1985-05-17T00:00:00'
+        naziv: 'The Cult'
     },
     {
         sifra: 9,
