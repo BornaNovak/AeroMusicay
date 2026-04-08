@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { RouteNames } from "../../constants"
-import { Button, Col, Form, Row } from "react-bootstrap"
+import { Button, Col, Form, Row, Container, Card, InputGroup } from "react-bootstrap"
 import AlbumService from "../../services/albumi/AlbumService"
 import IzvodacService from "../../services/izvodaci/IzvodacService"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -21,36 +21,27 @@ export default function AlbumPromjena(){
             AlbumService.getBySifra(params.sifra),
             IzvodacService.get()
         ]).then(([odgovorAlbum, odgovorIzvodaci]) => {
-            
             if(odgovorAlbum.success){
                 const s = odgovorAlbum.data
-                if(s.datumIzdavanja) {
-                    s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
-                }
+                if(s.datumIzdavanja) s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
                 setAlbum(s)
             }
-
             if(odgovorIzvodaci.success){
-                const jedinstveniIzvodaci = [];
+                const jedinstveni = [];
                 const nazivi = new Set();
-
                 odgovorIzvodaci.data.forEach(izv => {
-                    // Ako naziv nepostoji u setu onda ga dodaje u listu
                     if (!nazivi.has(izv.naziv)) {
                         nazivi.add(izv.naziv);
-                        jedinstveniIzvodaci.push(izv);
+                        jedinstveni.push(izv);
                     }
                 });
-
-                setIzvodaci(jedinstveniIzvodaci);
+                setIzvodaci(jedinstveni);
             }
         })
     }
 
     async function promjeni(noviAlbum){
-        await AlbumService.promjeni(params.sifra, noviAlbum).then(()=>{
-            navigate(RouteNames.ALBUMI)
-        })
+        await AlbumService.promjeni(params.sifra, noviAlbum).then(()=> navigate(RouteNames.ALBUMI))
     }
 
     function odradiSubmit(e){
@@ -64,50 +55,90 @@ export default function AlbumPromjena(){
     }
 
     return (
-        <>
-        <h3>Izmjena albuma</h3>
-        <Form onSubmit={odradiSubmit}>
-            <Form.Group controlId="naziv">
-                <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required defaultValue={album.naziv}/>
-            </Form.Group>
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col md={8} lg={6}>
+                    <Card className="shadow-lg border-0" style={{ borderTop: '5px solid #198754', borderRadius: '15px' }}>
+                        <Card.Body className="p-4">
+                            <div className="text-center mb-4">
+                                <h3 className="fw-bold text-secondary"> Uredi Album</h3>
+                            </div>
 
-            <Form.Group controlId="izvodac">
-                <Form.Label>Izvođač</Form.Label>
-                <Form.Select 
-                    name="izvodac" 
-                    value={album.izvodac || ""} 
-                    onChange={(e) => setAlbum({...album, izvodac: e.target.value})}
-                >
-                    <option value="">Odaberite izvođača</option>
-                    {izvodaci && izvodaci.map((i) => (
-                        <option key={i.sifra} value={i.sifra}>
-                            {i.naziv}
-                        </option>
-                    ))}
-                </Form.Select>
-            </Form.Group>
+                            <Form onSubmit={odradiSubmit}>
+                                <Form.Group className="mb-4">
+                                    <Form.Label className="fw-semibold text-dark">Naziv albuma</Form.Label>
+                                    <InputGroup>
+                                        <Form.Control 
+                                            className="border-start-0 bg-light"
+                                            type="text" 
+                                            name="naziv" 
+                                            required 
+                                            defaultValue={album.naziv}
+                                        />
+                                    </InputGroup>
+                                </Form.Group>
 
-            <Form.Group controlId="datumIzdavanja">
-                <Form.Label>Datum izdavanja</Form.Label>
-                <Form.Control type="date" name="datumIzdavanja" required defaultValue={album.datumIzdavanja}
-                        onClick={(e) => e.target.showPicker()}
-                        onFocus={(e) => e.target.showPicker()}/>
-            </Form.Group>
+                                <Row>
+                                    <Col md={6}>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="fw-semibold text-dark">Izvođač</Form.Label>
+                                            <Form.Select 
+                                                className="bg-light cursor-pointer"
+                                                name="izvodac" 
+                                                value={album.izvodac || ""} 
+                                                onChange={(e) => setAlbum({...album, izvodac: e.target.value})}
+                                            >
+                                                <option value="">Odaberite...</option>
+                                                {izvodaci.map((i) => (
+                                                    <option key={i.sifra} value={i.sifra}>{i.naziv}</option>
+                                                ))}
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </Col>
 
-        <Row className="mt-5">
-            <Col>
-            <Link to={RouteNames.ALBUMI} className="btn btn-danger">
-                Odustani
-            </Link>
-            </Col>
-            <Col>
-            <Button type="submit" variant="success">
-                Spremi promjene
-            </Button>
-            </Col>
-        </Row>
-        </Form>
-        </>
+                                    <Col md={6}>
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="fw-semibold text-dark">Datum izdanja</Form.Label>
+                                            <Form.Control 
+                                                className="bg-light"
+                                                type="date" 
+                                                name="datumIzdavanja" 
+                                                required 
+                                                defaultValue={album.datumIzdavanja}
+                                                onClick={(e) => e.target.showPicker()}
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+
+                                {/* Linija koja odvaja formu od gumba */}
+                                <hr className="my-4 opacity-25" />
+
+                                <Row>
+                                    <Col xs={6}>
+                                        <Link to={RouteNames.ALBUMI} className="text-decoration-none">
+                                            <Button 
+                                                variant="danger" 
+                                                className="w-100 py-2 shadow-sm fw-bold rounded-pill" >
+                                                Odustani
+                                            </Button>
+                                        </Link>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <Button 
+                                            type="submit" 
+                                            variant="success" 
+                                            className="w-100 py-2 shadow-sm fw-bold rounded-pill"
+                                        >
+                                            Spremi promjene
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     )
 }

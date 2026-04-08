@@ -1,105 +1,117 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
-import IzvodacService from "../../services/izvodaci/IzvodacService"
-import { RouteNames } from "../../constants"
-import { useEffect, useState } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
+import { Link, useNavigate, useParams } from "react-router-dom";
+import IzvodacService from "../../services/izvodaci/IzvodacService";
+import { RouteNames } from "../../constants";
+import { useEffect, useState } from "react";
+import { Button, Col, Form, Row, Container, Card, InputGroup } from "react-bootstrap";
 
 export default function IzvodacPromjena() {
-    const navigate = useNavigate()
-    const params = useParams()
-    const [izvodac, setIzvodac] = useState({})
-    // const [aktivan, setAktivan] = useState(false) //
+    const navigate = useNavigate();
+    const params = useParams();
+    const [izvodac, setIzvodac] = useState({});
 
     useEffect(() => {
-        ucitajIzvodac()
-    },[])
+        ucitajIzvodac();
+    }, []);
 
-    async function ucitajIzvodac(){
-        await IzvodacService.getBySifra(params.sifra).then((odgovor)=>{
-            if(!odgovor.success){
-                alert('Nije implementiran servis')
-                return
+    async function ucitajIzvodac() {
+        await IzvodacService.getBySifra(params.sifra).then((odgovor) => {
+            if (!odgovor.success) {
+                alert('Nije moguće učitati podatke o izvođaču');
+                return;
             }
-            const s = odgovor.data
-            // Provjera postoji li datum prije substringa da se izbjegne error
+            const s = odgovor.data;
             if (s.datumIzdavanja) {
-                s.datumIzdavanja = s.datumIzdavanja.substring(0,10)
+                s.datumIzdavanja = s.datumIzdavanja.substring(0, 10);
             }
-            setIzvodac(s)
-            // setAktivan(s.aktivan) //
-        })
+            setIzvodac(s);
+        });
     }
 
-    async function promjeni(izvodacPodaci){
-        await IzvodacService.promjeni(params.sifra, izvodacPodaci).then(()=>{
-            navigate(RouteNames.IZVODACI)
-        })
+    async function promjeni(izvodacPodaci) {
+        await IzvodacService.promjeni(params.sifra, izvodacPodaci).then(() => {
+            navigate(RouteNames.IZVODACI);
+        });
     }
 
-    function odradiSubmit(e){
-        e.preventDefault()
-        const podaci = new FormData(e.target)
-        
+    function odradiSubmit(e) {
+        e.preventDefault();
+        const podaci = new FormData(e.target);
+
         promjeni({
             naziv: podaci.get('naziv'),
             zanr: podaci.get('zanr'),
-            // Zadržavamo stare podatke ili šaljemo prazno za zakomentirana polja
-            pjesma: izvodac.pjesma || '', 
+            pjesma: izvodac.pjesma || '',
             album: izvodac.album || '',
             trajanje: izvodac.trajanje || 0,
             datumIzdavanja: izvodac.datumIzdavanja ? new Date(izvodac.datumIzdavanja).toISOString() : new Date().toISOString()
-        })
+        });
     }
 
-return(
-    <>
-        <h3>Izmjena podataka izvođača</h3>
-        <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv">
-                    <Form.Label>Naziv izvođača</Form.Label>
-                    <Form.Control type="text" name="naziv" required defaultValue={izvodac.naziv}/>
-                </Form.Group>
+    return (
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col md={8} lg={6}>
+                    {/* Kartica sa zelenim vrhom, sjenom i zaobljenim rubovima */}
+                    <Card className="shadow-lg border-0" style={{ borderTop: '5px solid #198754', borderRadius: '15px' }}>
+                        <Card.Body className="p-4">
+                            <div className="text-center mb-4">
+                                <h3 className="fw-bold text-secondary"> Uredi Izvođača</h3>
+                            </div>
 
-                <Form.Group controlId="zanr" className="mt-3">
-                    <Form.Label>Žanr</Form.Label>
-                    <Form.Control type="text" name="zanr" defaultValue={izvodac.zanr}/>
-                </Form.Group>
+                            <Form onSubmit={odradiSubmit}>
+                                {/* Naziv izvođača */}
+                                <Form.Group className="mb-4">
+                                    <Form.Label className="fw-semibold text-dark">Naziv izvođača</Form.Label>
+                                    <Form.Control 
+                                        className="bg-light"
+                                        type="text" 
+                                        name="naziv" 
+                                        required 
+                                        defaultValue={izvodac.naziv} 
+                                    />
+                                </Form.Group>
 
-                {/* <Form.Group controlId="pjesma" className="mt-3">
-                    <Form.Label>Pjesma</Form.Label>
-                    <Form.Control type="text" name="pjesma" required defaultValue={izvodac.pjesma}/>
-                </Form.Group>
+                                {/* Žanr */}
+                                <Form.Group className="mb-4">
+                                    <Form.Label className="fw-semibold text-dark">Žanr</Form.Label>
+                                    <Form.Control 
+                                        className="bg-light"
+                                        type="text" 
+                                        name="zanr" 
+                                        defaultValue={izvodac.zanr} 
+                                    />
+                                </Form.Group>
 
-                <Form.Group controlId="album" className="mt-3">
-                    <Form.Label>Album</Form.Label>
-                    <Form.Control type="text" name="album" defaultValue={izvodac.album}/>
-                </Form.Group>
+                                {/* Razdjelna linija */}
+                                <hr className="my-4 opacity-25" />
 
-                <Form.Group controlId="trajanje" className="mt-3">
-                    <Form.Label>Trajanje</Form.Label>
-                    <Form.Control type="number" name="trajanje" step={1} defaultValue={izvodac.trajanje}/>
-                </Form.Group>
-
-                <Form.Group controlId="datumIzdavanja" className="mt-3">
-                    <Form.Label>Datum izdavanja</Form.Label>
-                    <Form.Control type="date" name="datumIzdavanja" defaultValue={izvodac.datumIzdavanja}/>
-                </Form.Group> 
-                */}
-
-
-                <Row className="mt-5">
-                    <Col>
-                        <Link to={RouteNames.IZVODACI} className="btn btn-danger w-100">
-                        Odustani
-                        </Link>
-                    </Col>
-                    <Col>
-                        <Button type="submit" variant="success" className="w-100">
-                            Spremi promjene
-                        </Button>
-                    </Col>
-                </Row>
-            </Form>
-    </>
-)
+                                {/* Gumbi simetrično postavljeni (50/50) */}
+                                <Row>
+                                    <Col xs={6}>
+                                        <Link to={RouteNames.IZVODACI} className="text-decoration-none">
+                                            <Button 
+                                                variant="danger" 
+                                                className="w-100 py-2 shadow-sm fw-bold rounded-pill"
+                                            >
+                                                Odustani
+                                            </Button>
+                                        </Link>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <Button 
+                                            type="submit" 
+                                            variant="success" 
+                                            className="w-100 py-2 shadow-sm fw-bold rounded-pill"
+                                        >
+                                            Spremi izmjene
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
