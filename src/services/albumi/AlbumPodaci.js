@@ -24,7 +24,7 @@ export const albumi = [
     { sifra: 23, naziv: 'Self Control', izvodac: 40, datumIzdavanja: '1984-04-19T00:00:00' },
     { sifra: 24, naziv: 'Bijelo Dugme (Kosovka djevojka)', izvodac: 41, datumIzdavanja: '1984-12-01T00:00:00' },
     { sifra: 25, naziv: 'Mistaken Identity', izvodac: 44, datumIzdavanja: '1981-03-10T00:00:00' },
-    { sifra: 26, naziv: 'Let\'s Dance', izvodac: 46, datumIzdavanja: '1984-10-29T00:00:00' }, // Modern Talking
+    { sifra: 26, naziv: 'Let\'s Dance', izvodac: 46, datumIzdavanja: '1984-10-29T00:00:00' },
     { sifra: 27, naziv: 'L\'Amour Toujours', izvodac: 50, datumIzdavanja: '1999-07-01T00:00:00' },
     { sifra: 28, naziv: 'Good Girl Gone Bad', izvodac: 55, datumIzdavanja: '2007-03-29T00:00:00' },
     { sifra: 29, naziv: 'The Fame Monster', izvodac: 57, datumIzdavanja: '2009-10-26T00:00:00' },

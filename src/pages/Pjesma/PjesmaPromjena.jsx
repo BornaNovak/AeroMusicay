@@ -3,8 +3,7 @@ import PjesmaService from "../../services/pjesme/PjesmaService";
 import { RouteNames } from "../../constants";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row, Container, Card } from "react-bootstrap";
-import { albumi } from "../../services/pjesme/albumipodaci";
-import { zanrovi } from "../../services/pjesme/zanrpodaci";
+import { albumi } from "../../services/albumi/AlbumPodaci";
 
 export default function PjesmaPromjena() {
     const navigate = useNavigate();
