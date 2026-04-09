@@ -1,15 +1,30 @@
 import { Button, Col, Form, Row, Container, Card } from "react-bootstrap";
 import { RouteNames } from "../../constants";
 import PjesmaService from "../../services/pjesme/PjesmaService";
-import { albumi } from "../../services/pjesme/albumipodaci";
-import { zanrovi } from "../../services/pjesme/zanrpodaci";
+
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 
 
 // treba pregledati i popraviti
 export default function PjesmaNovi() {
     const navigate = useNavigate();
+    const [albumi, setAlbumi] = useState([])
+
+    useEffect(() => {
+            ucitajAlbume()
+        }, [])
+
+    async function ucitajAlbume(){
+            await AlbumService.get().then((odgovor) => {
+                if(!odgovor.success){
+                    alert('Nije implementiran album')
+                    return
+                }
+                setAlbumi(odgovor.data)
+            })
+        }
 
     async function dodaj(pjesma) {
         const odgovor = await PjesmaService.dodaj(pjesma);
