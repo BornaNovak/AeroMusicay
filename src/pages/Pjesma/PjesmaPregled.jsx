@@ -7,8 +7,6 @@ import { albumi } from '../../services/pjesme/albumipodaci'
 import { zanrovi } from '../../services/pjesme/zanrpodaci'
 
 
-
-//treba pregledati i popraviti
 export default function PjesmaPregled() {
     const [pjesme, setPjesme] = useState([])
     const navigate = useNavigate();
