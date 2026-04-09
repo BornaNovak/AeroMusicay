@@ -3,8 +3,7 @@ import PjesmaService from '../../services/pjesme/PjesmaService'
 import { Button, Table, Container } from 'react-bootstrap'
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
-import { albumi } from '../../services/pjesme/albumipodaci'
-import { zanrovi } from '../../services/pjesme/zanrpodaci'
+
 
 
 export default function PjesmaPregled() {
@@ -39,13 +38,15 @@ export default function PjesmaPregled() {
         return `${minute}:${sekunde.toString().padStart(2, '0')}`;
     };
     const dohvatiNazivAlbuma = (sifraAlbuma) => {
-        const album = albumi.find(a => a.sifra === sifraAlbuma);
-        return album ? album.naziv : 'Nepoznat album';
+       // const album = albumi.find(a => a.sifra === sifraAlbuma);
+      //  return album ? album.naziv : 'Nepoznat album';
+      return "zavrsi"
     };
 
     const dohvatiNazivZanra = (sifraZanra) => {
-        const zanr = zanrovi.find(z => z.sifra === sifraZanra);
-        return zanr ? zanr.naziv : 'Nepoznat žanr';
+        //const zanr = zanrovi.find(z => z.sifra === sifraZanra);
+       // return zanr ? zanr.naziv : 'Nepoznat žanr';
+       return "zavrsi"
     };
 
     return (
