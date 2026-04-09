@@ -8,8 +8,12 @@ export const RouteNames = {
 
     ALBUMI: '/albumi',
     ALBUMI_NOVI: '/albumi/novi',
-    ALBUMI_PROMJENA: '/albumi/:sifra'
+    ALBUMI_PROMJENA: '/albumi/:sifra',
 
+
+    PJESME: '/pjesme',
+    PJESME_NOVI: '/pjesme/novi',
+    PJESME_PROMJENA: '/pjesme/:sifra'
 }
 
 export const DATA_SOURCE = 'memorija';
