@@ -1,0 +1,61 @@
+
+.text-gradient {
+    background: linear-gradient(90deg, #1DB954, #0d6efd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main-title {
+    letter-spacing: -2px;
+}
+
+.lottie-container {
+    max-width: 550px;
+    margin: 0 auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+}
+
+.statistikaPanel {
+    border: none !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.statistikaPanel:hover {
+    transform: scale(1.05) translateY(-5px) !important;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+}
+
+.card-pjesme {
+    background: linear-gradient(135deg, #1db954 0%, #158a3d 100%) !important;
+}
+
+.card-albumi {
+    background: linear-gradient(135deg, #191414 0%, #404040 100%) !important;
+}
+
+.card-izvodaci {
+    background: linear-gradient(135deg, #0d6efd 0%, #0848a8 100%) !important;
+}
+
+.statistikaTekst {
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    color: white;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+    line-height: 1;
+}
+
+.statistikaPanel::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
