@@ -43,7 +43,7 @@ function App() {
           <Route path={RouteNames.ZANR_PROMJENA} element={<ZanrPromjena />}/>
         </Routes>
         
-        <footer className="fixed-bottom text-center py-3 bg-light">
+        <footer className="text-center py-3 bg-light">
         &copy; {IME_APLIKACIJE}
       </footer>
       </Container>

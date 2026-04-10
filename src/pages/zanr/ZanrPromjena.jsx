@@ -25,7 +25,7 @@ export default function ZanrPromjena() {
     async function promjeni(zanrPodaci) {
         const odgovor = await ZanrService.promjeni(params.sifra, zanrPodaci);
         if (odgovor.success) {
-            navigate(RouteNames.ZANROVI || RouteNames.ZANR_PREGLED); 
+            navigate(RouteNames.ZANROVI); 
         } else {
             alert(odgovor.message);
         }
@@ -78,7 +78,7 @@ export default function ZanrPromjena() {
 
                                 <Row>
                                     <Col xs={6}>
-                                        <Link to={RouteNames.ZANR_PREGLED} className="text-decoration-none">
+                                        <Link to={RouteNames.ZANROVI} className="text-decoration-none">
                                             <Button variant="danger" className="w-100 py-2 shadow-sm fw-bold rounded-pill">
                                                 Odustani
                                             </Button>

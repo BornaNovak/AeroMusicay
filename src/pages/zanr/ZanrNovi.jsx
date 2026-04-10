@@ -9,7 +9,7 @@ export default function ZanrNovi() {
     async function dodaj(zanr) {
         const odgovor = await ZanrService.dodaj(zanr);
         if (odgovor.success) {
-            navigate(RouteNames.ZANR_PREGLED); 
+            navigate(RouteNames.ZANROVI); 
         }
     }
 
@@ -59,7 +59,7 @@ export default function ZanrNovi() {
                                 
                                 <Row>
                                     <Col xs={6}>
-                                        <Link to={RouteNames.ZANR_PREGLED} className="text-decoration-none">
+                                        <Link to={RouteNames.ZANROVI} className="text-decoration-none">
                                             <Button 
                                                 variant="danger" 
                                                 className="w-100 py-2 shadow-sm fw-bold rounded-pill"
