@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Izbornik />
-      <Container className="mt-3">
+      <Container className="mt-3" style={{marginBottom:'50px'}}>
         <Routes>
           <Route path={RouteNames.HOME} element={<Home />} />
           <Route path={RouteNames.IZVODACI} element={<IzvodacPregled />} />
@@ -42,11 +42,10 @@ function App() {
           <Route path={RouteNames.ZANR_NOVI} element={<ZanrNovi />} />
           <Route path={RouteNames.ZANR_PROMJENA} element={<ZanrPromjena />}/>
         </Routes>
-        
-        <footer className="text-center py-3 bg-light">
+      </Container>
+      <footer className="fixed-bottom text-center py-3 bg-light">
         &copy; {IME_APLIKACIJE}
       </footer>
-      </Container>
     </>
   );
 }
