@@ -7,14 +7,13 @@ import ZanrService from "../../services/zanrovi/ZanrService";
 export default function ZanrPromjena() {
     const navigate = useNavigate();
     const params = useParams();
-    const [zanr, setZanr] = useState(null);
+    const [zanr, setZanr] = useState({});
 
     useEffect(() => {
         ucitajZanr();
     }, []);
 
     async function ucitajZanr() {
-        // params.sifra dolazi iz URL-a (npr. /zanrovi/promjena/1)
         const odgovor = await ZanrService.getBySifra(params.sifra);
         if (!odgovor.success) {
             alert('Nije moguće učitati podatke o žanru');
@@ -26,7 +25,7 @@ export default function ZanrPromjena() {
     async function promjeni(zanrPodaci) {
         const odgovor = await ZanrService.promjeni(params.sifra, zanrPodaci);
         if (odgovor.success) {
-            navigate(RouteNames.ZANR_PREGLED);
+            navigate(RouteNames.ZANROVI || RouteNames.ZANR_PREGLED); 
         } else {
             alert(odgovor.message);
         }
@@ -35,7 +34,6 @@ export default function ZanrPromjena() {
     function odradiSubmit(e) {
         e.preventDefault();
         const podaci = new FormData(e.target);
-
         const nazivZanra = podaci.get('naziv');
 
         if (!nazivZanra || nazivZanra.trim().length < 2) {

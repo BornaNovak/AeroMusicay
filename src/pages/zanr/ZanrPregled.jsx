@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Table, Container } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
 import ZanrService from '../../services/zanrovi/ZanrService'
@@ -13,77 +13,52 @@ export default function ZanrPregled() {
     }, [])
 
     async function ucitajZanrove() {
-        const odgovor = await ZanrService.get();
-        if (!odgovor.success) {
-            alert('Nije moguće učitati žanrove.');
-            return;
-        }
-        setZanrovi(odgovor.data);
+        await ZanrService.get().then((odgovor) => {
+            if (!odgovor.success) {
+                alert('Nije moguće učitati žanrove.')
+                return
+            }
+            setZanrovi(odgovor.data)
+        })
     }
 
     async function obrisi(sifra) {
-        if (!confirm('Jeste li sigurni da želite obrisati žanr?')) {
-            return;
+        if (!confirm('Jeste li sigurni da želite obrisati?')) {
+            return
         }
-        const odgovor = await ZanrService.obrisi(sifra);
-        if (odgovor.success) {
-            ucitajZanrove();
-        } else {
-            alert(odgovor.message);
-        }
+        await ZanrService.obrisi(sifra)
+        ucitajZanrove()
     }
 
     return (
-        <Container className="mt-4">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2 className="fw-bold text-secondary">Pregled Žanrova</h2>
-                <Link to={RouteNames.ZANR_NOVI} className="btn btn-success fw-bold shadow-sm px-4">
-                     Dodaj novi žanr
-                </Link>
-            </div>
-
-            <Table striped hover responsive className="shadow-sm rounded overflow-hidden">
-                <thead className="table-dark text-uppercase small">
+        <>
+            <Link to={RouteNames.ZANR_NOVI} className="btn btn-success w-100 my-3">
+                Dodavanje novog žanra
+            </Link>
+            <Table striped hover responsive>
+                <thead>
                     <tr>
                         <th>Naziv žanra</th>
-                        <th className="text-end">Akcije</th>
+                        <th>Akcije</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {zanrovi && zanrovi.length > 0 ? (
-                        zanrovi.map((z) => (
-                            <tr key={z.sifra}>
-                                <td className="fw-bold align-middle">
-                                    {z.naziv}
-                                </td>
-                                <td className="text-end align-middle">
-                                    <Button 
-                                        variant="outline-primary" 
-                                        size="sm" 
-                                        className="me-2"
-                                        onClick={() => { navigate(`${RouteNames.ZANR_PROMJENA.replace(':sifra', z.sifra)}`) }}
-                                    >
-                                        Uredi
-                                    </Button>
-                                    <Button 
-                                        variant="outline-danger" 
-                                        size="sm" 
-                                        onClick={() => { obrisi(z.sifra) }}
-                                    >
-                                        Obriši
-                                    </Button>
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="2" className="text-center py-4 text-muted">
-                                Nema pronađenih žanrova.
+                    {zanrovi && zanrovi.map((z) => (
+                        <tr key={z.sifra}>
+                            <td>{z.naziv}</td>
+                            <td>
+                                <Button size="sm" onClick={() => { navigate(`/zanrovi/${z.sifra}`) }}>
+                                    Promjeni
+                                </Button>
+                                &nbsp;&nbsp;
+                                <Button size="sm" variant="danger" onClick={() => { obrisi(z.sifra) }}>
+                                    Obriši
+                                </Button>
                             </td>
                         </tr>
-                    )}
+                    ))}
                 </tbody>
             </Table>
-        </Container>
-    );
+        </>
+    )
 }

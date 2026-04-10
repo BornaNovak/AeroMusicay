@@ -13,7 +13,11 @@ export const RouteNames = {
 
     PJESME: '/pjesme',
     PJESME_NOVI: '/pjesme/novi',
-    PJESME_PROMJENA: '/pjesme/:sifra'
+    PJESME_PROMJENA: '/pjesme/:sifra',
+
+    ZANROVI: '/zanrovi',
+    ZANR_NOVI: '/zanrovi/novi',
+    ZANR_PROMJENA: '/zanrovi/:sifra',
 }
 
 export const DATA_SOURCE = 'memorija';

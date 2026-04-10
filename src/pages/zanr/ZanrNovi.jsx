@@ -9,7 +9,6 @@ export default function ZanrNovi() {
     async function dodaj(zanr) {
         const odgovor = await ZanrService.dodaj(zanr);
         if (odgovor.success) {
-            // Pripazi da u constants.js imaš definiran ZANROVI_PREGLED ili slično
             navigate(RouteNames.ZANR_PREGLED); 
         }
     }

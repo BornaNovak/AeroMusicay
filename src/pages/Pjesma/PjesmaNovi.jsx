@@ -1,30 +1,41 @@
 import { Button, Col, Form, Row, Container, Card } from "react-bootstrap";
 import { RouteNames } from "../../constants";
 import PjesmaService from "../../services/pjesme/PjesmaService";
+import AlbumService from "../../services/albumi/AlbumService";
+import ZanrService from "../../services/zanrovi/ZanrService";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-
-
-// treba pregledati i popraviti
 export default function PjesmaNovi() {
     const navigate = useNavigate();
-    const [albumi, setAlbumi] = useState([])
+    const [albumi, setAlbumi] = useState([]);
+    const [zanrovi, setZanrovi] = useState([]);
 
     useEffect(() => {
-            ucitajAlbume()
-        }, [])
+        ucitajAlbume();
+        ucitajZanrove();
+    }, []);
 
-    async function ucitajAlbume(){
-            await AlbumService.get().then((odgovor) => {
-                if(!odgovor.success){
-                    alert('Nije implementiran album')
-                    return
-                }
-                setAlbumi(odgovor.data)
-            })
-        }
+    async function ucitajAlbume() {
+        await AlbumService.get().then((odgovor) => {
+            if (!odgovor.success) {
+                alert('Nije moguće učitati albume');
+                return;
+            }
+            setAlbumi(odgovor.data);
+        });
+    }
+
+    async function ucitajZanrove() {
+        await ZanrService.get().then((odgovor) => {
+            if (!odgovor.success) {
+                alert('Nije moguće učitati žanrove');
+                return;
+            }
+            setZanrovi(odgovor.data);
+        });
+    }
 
     async function dodaj(pjesma) {
         const odgovor = await PjesmaService.dodaj(pjesma);
@@ -79,7 +90,7 @@ export default function PjesmaNovi() {
                                             <Form.Label className="fw-semibold text-dark">Album</Form.Label>
                                             <Form.Select name="album" className="bg-light" required>
                                                 <option value="">Odaberi album...</option>
-                                                {albumi.map(a => (
+                                                {albumi && albumi.map(a => (
                                                     <option key={a.sifra} value={a.sifra}>
                                                         {a.naziv}
                                                     </option>
@@ -93,7 +104,7 @@ export default function PjesmaNovi() {
                                             <Form.Label className="fw-semibold text-dark">Žanr</Form.Label>
                                             <Form.Select name="zanr" className="bg-light" required>
                                                 <option value="">Odaberi žanr...</option>
-                                                {zanrovi.map(z => (
+                                                {zanrovi && zanrovi.map(z => (
                                                     <option key={z.sifra} value={z.sifra}>
                                                         {z.naziv}
                                                     </option>

@@ -3,7 +3,10 @@ import PjesmaService from "../../services/pjesme/PjesmaService";
 import { RouteNames } from "../../constants";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row, Container, Card } from "react-bootstrap";
+
+// 1. POPRAVAK IMPORTA (Pazi na velika/mala slova i točne putanje)
 import { albumi } from "../../services/albumi/AlbumPodaci";
+import { zanrovi } from "../../services/zanrovi/ZanrPodaci"; 
 
 export default function PjesmaPromjena() {
     const navigate = useNavigate();
@@ -15,6 +18,7 @@ export default function PjesmaPromjena() {
     }, []);
 
     async function ucitajPjesmu() {
+        // Dohvaćanje podataka o pjesmi preko servisa
         const odgovor = await PjesmaService.getBySifra(params.sifra);
         if (!odgovor.success) {
             alert('Nije moguće učitati podatke o pjesmi');
@@ -47,6 +51,7 @@ export default function PjesmaPromjena() {
         });
     }
 
+    // Dok se podaci ne učitaju, prikazuje se poruka (sprječava greške pri renderiranju praznih polja)
     if (!pjesma) return <div className="text-center mt-5">Učitavanje...</div>;
 
     return (
@@ -78,7 +83,7 @@ export default function PjesmaPromjena() {
                                         <Form.Group className="mb-3">
                                             <Form.Label className="fw-semibold text-dark">Album</Form.Label>
                                             <Form.Select name="album" className="bg-light" defaultValue={pjesma.album} required>
-                                                {albumi.map(a => (
+                                                {albumi && albumi.map(a => (
                                                     <option key={a.sifra} value={a.sifra}>
                                                         {a.naziv}
                                                     </option>
@@ -91,7 +96,8 @@ export default function PjesmaPromjena() {
                                         <Form.Group className="mb-3">
                                             <Form.Label className="fw-semibold text-dark">Žanr</Form.Label>
                                             <Form.Select name="zanr" className="bg-light" defaultValue={pjesma.zanr} required>
-                                                {zanrovi.map(z => (
+                                                {/* 2. SADA ĆE OVO RADITI JER JE zanrovi IMPORTAN GORE */}
+                                                {zanrovi && zanrovi.map(z => (
                                                     <option key={z.sifra} value={z.sifra}>
                                                         {z.naziv}
                                                     </option>

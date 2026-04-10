@@ -15,6 +15,9 @@ import AlbumPromjena from './pages/album/AlbumPromjena';
 import PjesmaPregled from './pages/Pjesma/PjesmaPregled';
 import PjesmaNovi from './pages/Pjesma/PjesmaNovi';
 import PjesmaPromjena from './pages/Pjesma/PjesmaPromjena';
+import ZanrPregled from './pages/zanr/ZanrPregled';
+import ZanrNovi from './pages/zanr/ZanrNovi';
+import ZanrPromjena from './pages/zanr/ZanrPromjena';
 
 function App() {
   return (
@@ -34,6 +37,10 @@ function App() {
           <Route path={RouteNames.PJESME} element={<PjesmaPregled />} />
           <Route path={RouteNames.PJESME_NOVI} element={<PjesmaNovi />} />
           <Route path={RouteNames.PJESME_PROMJENA} element={<PjesmaPromjena />}/>
+
+          <Route path={RouteNames.ZANROVI} element={<ZanrPregled />} />
+          <Route path={RouteNames.ZANR_NOVI} element={<ZanrNovi />} />
+          <Route path={RouteNames.ZANR_PROMJENA} element={<ZanrPromjena />}/>
         </Routes>
         
         <footer className="fixed-bottom text-center py-3 bg-light">
