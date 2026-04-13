@@ -3,36 +3,36 @@ import PjesmaService from '../../services/pjesme/PjesmaService'
 import AlbumService from '../../services/albumi/AlbumService'
 import ZanrService from '../../services/zanrovi/ZanrService'
 
-import { Button, Table } from 'react-bootstrap'
+import { Button, Table, Container } from 'react-bootstrap'
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
-import { albumi } from '../../services/albumi/AlbumPodaci'
-import { zanrovi } from '../../services/zanrovi/ZanrPodaci'
 
 export default function PjesmaPregled() {
     const [pjesme, setPjesme] = useState([])
+    const [albumi, setAlbumi] = useState([])
+    const [zanrovi, setZanrovi] = useState([]) // Dodano za dohvat svih žanrova
     const navigate = useNavigate();
 
     useEffect(() => {
-        ucitajPjesme()
+        ucitajPodatke()
     }, [])
 
-    async function ucitajPjesme() {
-        await PjesmaService.get().then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije moguće učitati pjesme.')
-                return
-            }
-            setPjesme(odgovor.data)
-        })
+    async function ucitajPodatke() {
+        // Učitavamo sve kako bismo imali nazive za prikaz
+        const resPjesme = await PjesmaService.get();
+        const resAlbumi = await AlbumService.get();
+        const resZanrovi = await ZanrService.get();
+
+        if (resPjesme.success) setPjesme(resPjesme.data);
+        if (resAlbumi.success) setAlbumi(resAlbumi.data);
+        if (resZanrovi.success) setZanrovi(resZanrovi.data);
     }
 
     async function obrisi(sifra) {
-        if (!confirm('Jeste li sigurni da želite obrisati?')) {
-            return
-        }
-        await PjesmaService.obrisi(sifra)
-        ucitajPjesme()
+        if (!confirm('Jeste li sigurni da želite obrisati?')) return;
+        await PjesmaService.obrisi(sifra);
+        const res = await PjesmaService.get();
+        if (res.success) setPjesme(res.data);
     }
 
     const formatirajTrajanje = (ukupnoSekundi) => {
@@ -47,13 +47,28 @@ export default function PjesmaPregled() {
         return album ? album.naziv : 'Nepoznat album'
     }
 
-    const dohvatiNazivZanra = (sifraZanra) => {
-        const zanr = zanrovi.find(z => z.sifra === parseInt(sifraZanra))
-        return zanr ? zanr.naziv : 'Nepoznat žanr'
+    // --- KLJUČNA IZMJENA ZA PRIKAZ NAZIVA ŽANROVA ---
+    const dohvatiNaziveZanrova = (pjesmaZanrovi) => {
+        if (!pjesmaZanrovi || pjesmaZanrovi.length === 0) return 'Nema žanra';
+
+        // Ako je podatak niz (novo rješenje)
+        if (Array.isArray(pjesmaZanrovi)) {
+            return pjesmaZanrovi
+                .map(sifra => {
+                    const z = zanrovi.find(g => g.sifra === sifra);
+                    return z ? z.naziv : null;
+                })
+                .filter(n => n !== null)
+                .join(', '); // Spaja nazive zarezom: "Rock, Pop"
+        }
+
+        // Ako je podatak samo jedna šifra (stari format)
+        const zanr = zanrovi.find(z => z.sifra === parseInt(pjesmaZanrovi));
+        return zanr ? zanr.naziv : 'Nepoznat žanr';
     }
 
     return (
-        <>
+        <Container>
             <Link to={RouteNames.PJESME_NOVI} className="btn btn-success w-100 my-3">
                 Dodavanje nove pjesme
             </Link>
@@ -62,7 +77,7 @@ export default function PjesmaPregled() {
                     <tr>
                         <th>Naziv pjesme</th>
                         <th>Album</th>
-                        <th>Žanr</th>
+                        <th>Žanrovi</th> {/* Promijenjeno u množinu */}
                         <th>Trajanje</th>
                         <th>Akcije</th>
                     </tr>
@@ -72,7 +87,8 @@ export default function PjesmaPregled() {
                         <tr key={pjesma.sifra}>
                             <td>{pjesma.naziv}</td>
                             <td>{dohvatiNazivAlbuma(pjesma.album)}</td>
-                            <td>{dohvatiNazivZanra(pjesma.zanr)}</td>
+                            {/* Ovdje se sada ispisuju imena žanrova spojena zarezom */}
+                            <td>{dohvatiNaziveZanrova(pjesma.zanr)}</td>
                             <td>{formatirajTrajanje(pjesma.trajanje)}</td>
                             <td>
                                 <Button size="sm" onClick={() => { navigate(`/pjesme/${pjesma.sifra}`) }}>
@@ -87,6 +103,6 @@ export default function PjesmaPregled() {
                     ))}
                 </tbody>
             </Table>
-        </>
+        </Container>
     )
 }
