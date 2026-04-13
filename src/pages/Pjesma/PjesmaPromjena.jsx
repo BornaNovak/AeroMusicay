@@ -43,6 +43,12 @@ export default function PjesmaPromjena() {
             return;
         }
 
+        const trajanjeSec = parseInt(podaci.get('trajanje'));
+        if (trajanjeSec < 0) {
+            alert('Trajanje pjesme ne može biti negativan broj!');
+            return;
+        }
+
         promjeni({
             naziv: podaci.get('naziv'),
             album: parseInt(podaci.get('album')),
@@ -51,7 +57,6 @@ export default function PjesmaPromjena() {
         });
     }
 
-    // Dok se podaci ne učitaju, prikazuje se poruka (sprječava greške pri renderiranju praznih polja)
     if (!pjesma) return <div className="text-center mt-5">Učitavanje...</div>;
 
     return (

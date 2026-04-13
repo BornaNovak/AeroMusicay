@@ -53,6 +53,12 @@ export default function PjesmaNovi() {
             return;
         }
 
+        const trajanjeSec = parseInt(podaci.get('trajanje'));
+        if (trajanjeSec < 0) {
+            alert('Trajanje pjesme ne može biti negativan broj!');
+            return;
+        }
+
         dodaj({
             naziv: podaci.get('naziv'),
             album: parseInt(podaci.get('album')), 
