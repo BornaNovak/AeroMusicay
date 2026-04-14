@@ -25,6 +25,10 @@ function App() {
       <Izbornik />
       <Container className="mt-3" style={{marginBottom:'50px'}}>
         <Routes>
+          <Route path={RouteNames.ZANROVI} element={<ZanrPregled />} />
+          <Route path={RouteNames.ZANR_NOVI} element={<ZanrNovi />} />
+          <Route path={RouteNames.ZANR_PROMJENA} element={<ZanrPromjena />}/>
+
           <Route path={RouteNames.HOME} element={<Home />} />
           <Route path={RouteNames.IZVODACI} element={<IzvodacPregled />} />
           <Route path={RouteNames.IZVODACI_NOVI} element={<IzvodacNovi />} />
@@ -37,10 +41,6 @@ function App() {
           <Route path={RouteNames.PJESME} element={<PjesmaPregled />} />
           <Route path={RouteNames.PJESME_NOVI} element={<PjesmaNovi />} />
           <Route path={RouteNames.PJESME_PROMJENA} element={<PjesmaPromjena />}/>
-
-          <Route path={RouteNames.ZANROVI} element={<ZanrPregled />} />
-          <Route path={RouteNames.ZANR_NOVI} element={<ZanrNovi />} />
-          <Route path={RouteNames.ZANR_PROMJENA} element={<ZanrPromjena />}/>
         </Routes>
       </Container>
       <footer className="fixed-bottom text-center py-3 bg-light">

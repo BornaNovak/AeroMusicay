@@ -1,6 +1,10 @@
 export const IME_APLIKACIJE = 'AeroMusicay'
 
 export const RouteNames = {
+    ZANROVI: '/zanrovi',
+    ZANR_NOVI: '/zanrovi/novi',
+    ZANR_PROMJENA: '/zanrovi/:sifra',
+
     HOME: '/',
     IZVODACI: '/izvodaci',
     IZVODACI_NOVI: '/izvodaci/novi',
@@ -14,10 +18,6 @@ export const RouteNames = {
     PJESME: '/pjesme',
     PJESME_NOVI: '/pjesme/novi',
     PJESME_PROMJENA: '/pjesme/:sifra',
-
-    ZANROVI: '/zanrovi',
-    ZANR_NOVI: '/zanrovi/novi',
-    ZANR_PROMJENA: '/zanrovi/:sifra',
 }
 
 export const DATA_SOURCE = 'memorija';
