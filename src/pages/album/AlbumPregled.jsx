@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import AlbumService from "../../services/albumi/AlbumService"
 import IzvodacService from "../../services/izvodaci/IzvodacService"
-import PjesmaService from "../../services/pjesme/PjesmaService" // Dodano za pametnije brisanje
+import PjesmaService from "../../services/pjesme/PjesmaService"
 import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
@@ -11,7 +11,7 @@ import AlbumPregledTablica from "./AlbumPregledTablica"
 export default function AlbumPregled() {
 
     const navigate = useNavigate();
-    const sirina = useBreakpoint(); // Hook za responzivnost
+    const sirina = useBreakpoint();
 
     const [albumi, setAlbumi] = useState([])
     const [izvodaci, setIzvodaci] = useState([])

@@ -1,5 +1,4 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
-import { NumericFormat } from "react-number-format";
 import FormatDatuma from "../../components/FormatDatuma";
 
 export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNazivIzvodaca }) {
@@ -8,26 +7,22 @@ export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNa
             <Row>
                 {albumi && albumi.map((album) => (
                     <Col key={album.sifra} xs={12} md={6} lg={4} className="mb-4">
-                        <Card className="shadow-sm h-100 border-0">
-                            <Card.Header className="d-flex justify-content-between align-items-center bg-white py-3 border-bottom-0">
-                                <span className="fw-bold text-dark" style={{ fontSize: '1.1rem' }}>
-                                    {album.naziv}
-                                </span>
-                            </Card.Header>
-
+                        <Card className="shadow-sm h-100">
                             <Card.Body>
-                                <div className="d-flex justify-content-between mb-2">
-                                    <span className="text-muted">Izvođač:</span>
-                                    <span className="fw-semibold text-primary">
+                                <Card.Title className="fw-bold text-dark mb-3">
+                                    {album.naziv}
+                                </Card.Title>
+                                
+                                <div className="mb-2">
+                                    <span className="text-muted">Izvođač: </span>
+                                    <span className="fw-semibold">
                                         {dohvatiNazivIzvodaca(album.izvodac)}
                                     </span>
                                 </div>
 
-                            
-
-                                <div className="d-flex justify-content-between">
-                                    <span className="text-muted">Datum izdavanja:</span>
-                                    <span className="fw-bold">
+                                <div className="mb-0">
+                                    <span className="text-muted">Datum izdavanja: </span>
+                                    <span>
                                         <FormatDatuma datum={album.datumIzdavanja} />
                                     </span>
                                 </div>
@@ -35,15 +30,16 @@ export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNa
 
                             <Card.Footer className="bg-white border-top-0 d-flex gap-2 pb-3">
                                 <Button
-                                    variant="outline-primary"
-                                    className="flex-fill rounded-pill"
+                                    size="sm"
+                                    className="flex-fill"
                                     onClick={() => navigate(`/albumi/${album.sifra}`)}
                                 >
-                                    Promijeni
+                                    Promjeni
                                 </Button>
                                 <Button
-                                    variant="outline-danger"
-                                    className="flex-fill rounded-pill"
+                                    size="sm"
+                                    variant="danger"
+                                    className="flex-fill"
                                     onClick={() => brisanje(album.sifra)}
                                 >
                                     Obriši

@@ -1,39 +1,29 @@
 import { Button, Table } from "react-bootstrap";
-import FormatDatuma from "../../components/FormatDatuma";
 
-export default function AlbumPregledTablica({ 
-    albumi, 
+export default function IzvodacPregledTablica({ 
+    izvodaci, 
     navigate, 
-    brisanje, 
-    dohvatiNazivIzvodaca
+    brisanje 
 }) {
     
     return (
         <Table striped hover responsive className="shadow-sm">
             <thead>
                 <tr>
-                    <th>Naziv albuma</th>
-                    <th>Izvođač</th>
-                    <th className="text-center">Datum izdavanja</th>
+                    <th>Naziv izvođača</th>
                     <th className="text-center">Akcije</th>
                 </tr>
             </thead>
             <tbody>
-                {albumi && albumi.map((album) => (
-                    <tr key={album.sifra}>
+                {izvodaci && izvodaci.map((izvodac) => (
+                    <tr key={izvodac.sifra}>
                         <td className="align-middle">
-                            {album.naziv}
-                        </td>
-                        <td className="align-middle">
-                            {dohvatiNazivIzvodaca(album.izvodac)}
-                        </td>
-                        <td className="text-center align-middle">
-                            <FormatDatuma datum={album.datumIzdavanja} />
+                            {izvodac.naziv}
                         </td>
                         <td className="text-center align-middle">
                             <Button 
                                 size="sm" 
-                                onClick={() => navigate(`/albumi/${album.sifra}`)}
+                                onClick={() => navigate(`/izvodaci/${izvodac.sifra}`)}
                             >
                                 Promjeni
                             </Button>
@@ -41,17 +31,17 @@ export default function AlbumPregledTablica({
                             <Button 
                                 size="sm" 
                                 variant="danger" 
-                                onClick={() => brisanje(album.sifra)}
+                                onClick={() => brisanje(izvodac.sifra)}
                             >
                                 Obriši
                             </Button>
                         </td>
                     </tr>
                 ))}
-                {(!albumi || albumi.length === 0) && (
+                {(!izvodaci || izvodaci.length === 0) && (
                     <tr>
-                        <td colSpan="4" className="text-center text-muted">
-                            Nema dostupnih albuma.
+                        <td colSpan="2" className="text-center text-muted">
+                            Nema dostupnih izvođača.
                         </td>
                     </tr>
                 )}

@@ -1,6 +1,6 @@
 export const albumi = [
-    { sifra: 1, naziv: 'Led Zeppelin IV', izvodac: [1,4,5,7,8,12,15,22], datumIzdavanja: '1971-11-08T00:00:00' },
-    { sifra: 2, naziv: 'L.A. Woman', izvodac: [2,22], datumIzdavanja: '1971-04-19T00:00:00' },
+    { sifra: 1, naziv: 'Led Zeppelin IV', izvodac: [1], datumIzdavanja: '1971-11-08T00:00:00' },
+    { sifra: 2, naziv: 'L.A. Woman', izvodac: [2], datumIzdavanja: '1971-04-19T00:00:00' },
     { sifra: 3, naziv: 'Let It Bleed', izvodac: [3], datumIzdavanja: '1969-12-05T00:00:00' },
     { sifra: 4, naziv: 'Cosmo\'s Factory', izvodac: [4], datumIzdavanja: '1970-07-25T00:00:00' },
     { sifra: 5, naziv: 'Sonic Temple', izvodac: [8], datumIzdavanja: '1989-05-20T00:00:00' },
