@@ -1,7 +1,8 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
+import FormatDatuma from "../../components/FormatDatuma";
 
-export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNazivIzvodaca, dohvatiNazivZanra }) {
+export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNazivIzvodaca }) {
     return (
         <Container className="py-3 px-0">
             <Row>
@@ -22,22 +23,12 @@ export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNa
                                     </span>
                                 </div>
 
-                                <div className="d-flex justify-content-between mb-2">
-                                    <span className="text-muted">Žanr:</span>
-                                    <span className="badge bg-light text-dark border">
-                                        {dohvatiNazivZanra(album.zanr)}
-                                    </span>
-                                </div>
+                            
 
                                 <div className="d-flex justify-content-between">
-                                    <span className="text-muted">Godina:</span>
+                                    <span className="text-muted">Datum izdavanja:</span>
                                     <span className="fw-bold">
-                                        {/* Ako imaš cijenu ili godinu, koristi NumericFormat */}
-                                        <NumericFormat
-                                            value={album.godinaIzdavanja}
-                                            displayType={'text'}
-                                            thousandSeparator=''
-                                        />
+                                        <FormatDatuma datum={album.datumIzdavanja} />
                                     </span>
                                 </div>
                             </Card.Body>

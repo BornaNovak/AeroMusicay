@@ -1,12 +1,12 @@
 import { Button, Table } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
+import FormatDatuma from "../../components/FormatDatuma";
 
 export default function AlbumPregledTablica({ 
     albumi, 
     navigate, 
     brisanje, 
-    dohvatiNazivIzvodaca, 
-    dohvatiNazivZanra 
+    dohvatiNazivIzvodaca
 }) {
     
     return (
@@ -15,8 +15,7 @@ export default function AlbumPregledTablica({
                 <tr>
                     <th>Naziv albuma</th>
                     <th>Izvođač</th>
-                    <th>Žanr</th>
-                    <th className="text-center">Godina izdavanja</th>
+                    <th className="text-center">Datum izdavanja</th>
                     <th className="text-center">Akcija</th>
                 </tr>
             </thead>
@@ -29,15 +28,8 @@ export default function AlbumPregledTablica({
                         <td className="align-middle">
                             {dohvatiNazivIzvodaca(album.izvodac)}
                         </td>
-                        <td className="align-middle">
-                            {dohvatiNazivZanra(album.zanr)}
-                        </td>
                         <td className="text-center align-middle">
-                            <NumericFormat
-                                value={album.godinaIzdavanja}
-                                displayType={'text'}
-                                thousandSeparator=''
-                            />
+                            <FormatDatuma datum={album.datumIzdavanja} />
                         </td>
                         <td className="text-center align-middle">
                             <Button 
