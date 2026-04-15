@@ -38,5 +38,21 @@ export const zanrovi = [
     {
         sifra: 10,
         naziv: 'Reggae'
+    },
+    {
+        sifra: 11,
+        naziv: 'Hard Rock'
+    },
+    {
+        sifra: 12,
+        naziv: 'Jazz'
+    },
+    {
+        sifra: 13,
+        naziv: 'Synth-pop'
+    },
+    {
+        sifra: 14,
+        naziv: 'Soft Rock'
     }
 ];
