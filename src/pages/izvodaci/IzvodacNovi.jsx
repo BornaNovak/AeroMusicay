@@ -1,10 +1,27 @@
 import { Button, Col, Form, Row, Container, Card, InputGroup } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import IzvodacService from "../../services/izvodaci/IzvodacService"
+import ZanrService from "../../services/zanrovi/ZanrService" // 1. Uvezi ZanrService
 import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react" // 2. Uvezi hookove
 
 export default function IzvodacNovi() {
     const navigate = useNavigate()
+    const [zanrovi, setZanrovi] = useState([]) // State za pohranu žanrova
+
+    // 3. Dohvati žanrove prilikom učitavanja komponente
+    useEffect(() => {
+        ucitajZanrove()
+    }, [])
+
+    async function ucitajZanrove() {
+        const odgovor = await ZanrService.get()
+        if (odgovor.success) {
+            setZanrovi(odgovor.data)
+        } else {
+            alert('Greška pri učitavanju žanrova')
+        }
+    }
 
     async function dodaj(izvodac) {
         await IzvodacService.dodaj(izvodac).then(() => {
@@ -22,7 +39,8 @@ export default function IzvodacNovi() {
         }
 
         dodaj({
-            naziv: podaci.get('naziv')
+            naziv: podaci.get('naziv'),
+            dominantniZanr: parseInt(podaci.get('dominantniZanr'))
         })
     }
 
@@ -51,7 +69,23 @@ export default function IzvodacNovi() {
                                     </InputGroup>
                                 </Form.Group>
 
-                                
+                                {/* 5. Padajuća lista za odabir žanra */}
+                                <Form.Group className="mb-4">
+                                    <Form.Label className="fw-semibold text-dark">Odabir žanra</Form.Label>
+                                    <Form.Select 
+                                        name="dominantniZanr" 
+                                        className="bg-light"
+                                        required
+                                    >
+                                        <option value="">Odaberite dominantni žanr...</option>
+                                        {zanrovi && zanrovi.map((z) => (
+                                            <option key={z.sifra} value={z.sifra}>
+                                                {z.naziv}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                </Form.Group>
+
                                 <hr className="my-4 opacity-25" />
                                 <Row>
                                     <Col xs={6}>

@@ -3,6 +3,7 @@ import { RouteNames } from "../../constants";
 import PjesmaService from "../../services/pjesme/PjesmaService";
 import AlbumService from "../../services/albumi/AlbumService";
 import ZanrService from "../../services/zanrovi/ZanrService";
+import IzvodacService from "../../services/izvodaci/IzvodacService"; // 1. Uvezi IzvodacService
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,8 +11,8 @@ import { useEffect, useState } from "react";
 export default function PjesmaNovi() {
     const navigate = useNavigate();
     const [albumi, setAlbumi] = useState([]);
-    const [zanrovi, setZanrovi] = useState([]); // Svi žanrovi s backenda
-    const [odabraniZanrovi, setOdabraniZanrovi] = useState([]); // Žanrovi dodani u tablicu
+    const [zanrovi, setZanrovi] = useState([]);
+    const [odabraniZanrovi, setOdabraniZanrovi] = useState([]);
     const [pretragaZanrova, setPretragaZanrova] = useState('');
     const [prikaziAutocomplete, setPrikaziAutocomplete] = useState(false);
     const [odabraniIndex, setOdabraniIndex] = useState(-1);
@@ -31,7 +32,33 @@ export default function PjesmaNovi() {
         if (odgovor.success) setZanrovi(odgovor.data);
     }
 
-    // --- Logika za rad sa žanrovima (kao s polaznicima) ---
+    // --- NOVA LOGIKA: Automatsko dodavanje dominantnog žanra ---
+    async function handleAlbumChange(e) {
+        const albumSifra = parseInt(e.target.value);
+        if (!albumSifra) return;
+
+        // 1. Pronađi odabrani album u listi
+        const album = albumi.find(a => a.sifra === albumSifra);
+        
+        if (album && album.izvodac) {
+            // 2. Dohvati podatke o izvođaču tog albuma
+            // Napomena: album.izvodac je obično šifra izvođača
+            const resIzvodac = await IzvodacService.getBySifra(album.izvodac);
+            
+            if (resIzvodac.success) {
+                const izvodac = resIzvodac.data;
+                
+                // 3. Ako izvođač ima dominantniZanr, pronađi taj žanr u listi žanrova
+                if (izvodac.dominantniZanr) {
+                    const domZanr = zanrovi.find(z => z.sifra == izvodac.dominantniZanr);
+                    if (domZanr) {
+                        dodajZanr(domZanr); // Automatski ga dodaj u tablicu desno
+                    }
+                }
+            }
+        }
+    }
+
     function dodajZanr(zanr) {
         if (!odabraniZanrovi.find(z => z.sifra === zanr.sifra)) {
             setOdabraniZanrovi([...odabraniZanrovi, zanr]);
@@ -41,6 +68,7 @@ export default function PjesmaNovi() {
         setOdabraniIndex(-1);
     }
 
+    // ... (ostatak funkcija ukloniZanr, filtrirajZanrove, handleKeyDown ostaje isti) ...
     function ukloniZanr(sifra) {
         setOdabraniZanrovi(odabraniZanrovi.filter(z => z.sifra !== sifra));
     }
@@ -81,7 +109,6 @@ export default function PjesmaNovi() {
         e.preventDefault();
         const podaci = new FormData(e.target);
 
-        // Validacija
         if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 2) {
             alert('Naziv pjesme mora imati najmanje 2 znaka!');
             return;
@@ -90,7 +117,6 @@ export default function PjesmaNovi() {
         dodaj({
             naziv: podaci.get('naziv'),
             album: parseInt(podaci.get('album')), 
-            // Šaljemo niz šifri odabranih žanrova
             zanr: odabraniZanrovi.map(z => z.sifra), 
             trajanje: parseInt(podaci.get('trajanje')) || 0
         });
@@ -101,7 +127,6 @@ export default function PjesmaNovi() {
             <h3 className="mb-4">Unos nove pjesme</h3>
             <Form onSubmit={odradiSubmit}>
                 <Row>
-                    {/* LIJEVA STRANA: Osnovni podaci */}
                     <Col md={6}>
                         <Card className="shadow-sm border-0">
                             <Card.Body>
@@ -119,7 +144,12 @@ export default function PjesmaNovi() {
 
                                 <Form.Group className="mb-3">
                                     <Form.Label className="fw-bold">Album</Form.Label>
-                                    <Form.Select name="album" required>
+                                    {/* DODANO: onChange={handleAlbumChange} */}
+                                    <Form.Select 
+                                        name="album" 
+                                        required 
+                                        onChange={handleAlbumChange}
+                                    >
                                         <option value="">Odaberite album</option>
                                         {albumi && albumi.map(a => (
                                             <option key={a.sifra} value={a.sifra}>{a.naziv}</option>
@@ -139,7 +169,6 @@ export default function PjesmaNovi() {
                         </Card>
                     </Col>
 
-                    {/* DESNA STRANA: Autocomplete za Žanrove */}
                     <Col md={6}>
                         <Card className="shadow-sm border-0">
                             <Card.Body>

@@ -6,36 +6,43 @@ import AlbumService from '../../services/albumi/AlbumService'
 import useBreakpoint from "../../hooks/useBreakpoint"
 import IzvodacPregledGrid from "./IzvodacPregledGrid"
 import IzvodacPregledTablica from "./IzvodacPregledTablica"
+import ZanrService from '../../services/zanrovi/ZanrService'
 
 export default function IzvodacPregled() {
     const [izvodaci, setIzvodaci] = useState([])
+    const [zanrovi, setZanrovi] = useState([]) // 2. State za žanrove
     const navigate = useNavigate();
     const sirina = useBreakpoint();
 
     useEffect(() => {
-        ucitajIzvodace()
+        ucitajPodatke()
     }, [])
 
-    async function ucitajIzvodace() {
-        await IzvodacService.get().then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije moguće učitati izvođače')
-                return
-            }
-            setIzvodaci(odgovor.data)
-        })
+    async function ucitajPodatke() {
+        // 3. Učitavamo paralelno izvođače i žanrove
+        const resZanrovi = await ZanrService.get();
+        if (resZanrovi.success) setZanrovi(resZanrovi.data);
+
+        const resIzvodaci = await IzvodacService.get();
+        if (resIzvodaci.success) {
+            setIzvodaci(resIzvodaci.data);
+        } else {
+            alert('Nije moguće učitati izvođače');
+        }
     }
 
-    // PAMETNIJE BRISANJE
-    async function brisanje(sifra) {
-        if (!confirm('Jeste li sigurni da želite obrisati izvođača?')) {
-            return
-        }
+    // 4. Pomoćna funkcija koju šaljemo u Grid i Tablicu
+    const dohvatiNazivZanra = (sifraZanra) => {
+        if (!sifraZanra) return 'Nema žanra';
+        const zanr = zanrovi.find(z => z.sifra == sifraZanra);
+        return zanr ? zanr.naziv : 'Nepoznat žanr';
+    }
 
-        // Provjera jesu li albumi vezani za ovog izvođača
+    async function brisanje(sifra) {
+        if (!confirm('Jeste li sigurni da želite obrisati izvođača?')) return;
+
         const albumiRezultat = await AlbumService.get();
         if (albumiRezultat.success) {
-            // Filtriramo albume koji u svom nizu izvođača imaju ovu šifru
             const povezaniAlbumi = albumiRezultat.data.filter(album => 
                 Array.isArray(album.izvodac) 
                 ? album.izvodac.includes(sifra) 
@@ -43,14 +50,14 @@ export default function IzvodacPregled() {
             );
 
             if (povezaniAlbumi.length > 0) {
-                alert(`Ne možete obrisati ovog izvođača jer je povezan s ${povezaniAlbumi.length} albuma. Prvo uklonite izvođača iz tih albuma.`);
+                alert(`Ne možete obrisati ovog izvođača jer je povezan s ${povezaniAlbumi.length} albuma.`);
                 return;
             }
         }
 
         const odgovor = await IzvodacService.obrisi(sifra);
         if (odgovor.success) {
-            ucitajIzvodace();
+            ucitajPodatke(); // Ponovno učitaj sve
         }
     }
 
@@ -60,18 +67,19 @@ export default function IzvodacPregled() {
                 Dodavanje novog izvođača
             </Link>
 
-            {/* Logika za promjenu prikaza ovisno o širini ekrana */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <IzvodacPregledGrid 
                     izvodaci={izvodaci} 
                     navigate={navigate} 
                     brisanje={brisanje}
+                    dohvatiNazivZanra={dohvatiNazivZanra} // 5. Proslijedi funkciju
                 />
             ) : (
                 <IzvodacPregledTablica
                     izvodaci={izvodaci} 
                     navigate={navigate} 
                     brisanje={brisanje}
+                    dohvatiNazivZanra={dohvatiNazivZanra} // 5. Proslijedi funkciju
                 />
             )}
         </>

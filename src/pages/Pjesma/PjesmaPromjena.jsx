@@ -1,44 +1,70 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PjesmaService from "../../services/pjesme/PjesmaService";
+import AlbumService from "../../services/albumi/AlbumService"; // Dodano
+import IzvodacService from "../../services/izvodaci/IzvodacService"; // Dodano
+import ZanrService from "../../services/zanrovi/ZanrService"; // Dodano
 import { RouteNames } from "../../constants";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row, Container, Card, Table } from "react-bootstrap";
-import { albumi } from "../../services/albumi/AlbumPodaci";
-import { zanrovi } from "../../services/zanrovi/ZanrPodaci"; 
 
 export default function PjesmaPromjena() {
     const navigate = useNavigate();
     const params = useParams();
     
     const [pjesma, setPjesma] = useState(null);
+    const [albumi, setAlbumi] = useState([]); // Prebačeno na state
+    const [sviZanrovi, setSviZanrovi] = useState([]); // Prebačeno na state
     const [odabraniZanrovi, setOdabraniZanrovi] = useState([]);
     const [pretragaZanrova, setPretragaZanrova] = useState('');
     const [prikaziAutocomplete, setPrikaziAutocomplete] = useState(false);
     const [odabraniIndex, setOdabraniIndex] = useState(-1);
 
     useEffect(() => {
-        ucitajPjesmu();
+        ucitajPodatke();
     }, []);
 
-    // Kada se pjesma učita, sinkroniziraj niz odabranih žanrova
-    useEffect(() => {
-        if (pjesma && pjesma.zanr) {
-            // Filtriramo podatke iz ZanrPodaci na temelju šifri u pjesma.zanr nizu
-            const postojeci = zanrovi.filter(z => pjesma.zanr.includes(z.sifra));
-            setOdabraniZanrovi(postojeci);
-        }
-    }, [pjesma]);
+    async function ucitajPodatke() {
+        // Učitavamo sve paralelno
+        const [resPjesma, resAlbumi, resZanrovi] = await Promise.all([
+            PjesmaService.getBySifra(params.sifra),
+            AlbumService.get(),
+            ZanrService.get()
+        ]);
 
-    async function ucitajPjesmu() {
-        const odgovor = await PjesmaService.getBySifra(params.sifra);
-        if (!odgovor.success) {
+        if (resAlbumi.success) setAlbumi(resAlbumi.data);
+        if (resZanrovi.success) setSviZanrovi(resZanrovi.data);
+
+        if (resPjesma.success) {
+            setPjesma(resPjesma.data);
+            // Inicijalizacija odabranih žanrova iz baze
+            if (resPjesma.data.zanr && resZanrovi.success) {
+                const postojeci = resZanrovi.data.filter(z => resPjesma.data.zanr.includes(z.sifra));
+                setOdabraniZanrovi(postojeci);
+            }
+        } else {
             alert('Nije moguće učitati podatke o pjesmi');
-            return;
         }
-        setPjesma(odgovor.data);
     }
 
-    // --- FUNKCIJE ZA ŽANROVE (Autocomplete logika) ---
+    // --- NOVA LOGIKA: Automatsko dodavanje kod promjene albuma ---
+    async function handleAlbumChange(e) {
+        const albumSifra = parseInt(e.target.value);
+        if (!albumSifra) return;
+
+        // Pronađi album da dobijemo šifru izvođača
+        const album = albumi.find(a => a.sifra === albumSifra);
+        
+        if (album && album.izvodac) {
+            const resIzvodac = await IzvodacService.getBySifra(album.izvodac);
+            if (resIzvodac.success && resIzvodac.data.dominantniZanr) {
+                const domZanr = sviZanrovi.find(z => z.sifra == resIzvodac.data.dominantniZanr);
+                if (domZanr) {
+                    dodajZanr(domZanr);
+                }
+            }
+        }
+    }
+
     function dodajZanr(zanr) {
         if (!odabraniZanrovi.find(z => z.sifra === zanr.sifra)) {
             setOdabraniZanrovi([...odabraniZanrovi, zanr]);
@@ -54,7 +80,7 @@ export default function PjesmaPromjena() {
 
     function filtrirajZanrove() {
         if (!pretragaZanrova) return [];
-        return zanrovi.filter(z => 
+        return sviZanrovi.filter(z => 
             !odabraniZanrovi.find(oz => oz.sifra === z.sifra) &&
             z.naziv.toLowerCase().includes(pretragaZanrova.toLowerCase())
         );
@@ -95,7 +121,6 @@ export default function PjesmaPromjena() {
         promjeni({
             naziv: podaci.get('naziv'),
             album: parseInt(podaci.get('album')),
-            // Šaljemo niz šifri žanrova
             zanr: odabraniZanrovi.map(z => z.sifra), 
             trajanje: parseInt(podaci.get('trajanje')) || 0
         });
@@ -108,7 +133,6 @@ export default function PjesmaPromjena() {
             <h3 className="mb-4">Uredi pjesmu: {pjesma.naziv}</h3>
             <Form onSubmit={odradiSubmit}>
                 <Row>
-                    {/* LIJEVA STRANA: Podaci o pjesmi */}
                     <Col md={6}>
                         <Card className="shadow-sm">
                             <Card.Body>
@@ -126,7 +150,13 @@ export default function PjesmaPromjena() {
 
                                 <Form.Group className="mb-3">
                                     <Form.Label className="fw-bold">Album</Form.Label>
-                                    <Form.Select name="album" defaultValue={pjesma.album} required>
+                                    <Form.Select 
+                                        name="album" 
+                                        defaultValue={pjesma.album} 
+                                        required
+                                        onChange={handleAlbumChange} // Dodano
+                                    >
+                                        <option value="">Odaberite album</option>
                                         {albumi.map(a => (
                                             <option key={a.sifra} value={a.sifra}>{a.naziv}</option>
                                         ))}
@@ -145,7 +175,6 @@ export default function PjesmaPromjena() {
                         </Card>
                     </Col>
 
-                    {/* DESNA STRANA: Odabir žanrova */}
                     <Col md={6}>
                         <Card className="shadow-sm">
                             <Card.Body>
@@ -155,7 +184,7 @@ export default function PjesmaPromjena() {
                                     <Form.Label className="fw-bold">Dodaj žanr</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="Pretraži žanrove (npr. Rock...)"
+                                        placeholder="Pretraži žanrove..."
                                         value={pretragaZanrova}
                                         onChange={(e) => {
                                             setPretragaZanrova(e.target.value);
@@ -169,7 +198,7 @@ export default function PjesmaPromjena() {
                                             {filtrirajZanrove().map((z, index) => (
                                                 <div
                                                     key={z.sifra}
-                                                    className="p-2 cursor-pointer"
+                                                    className="p-2"
                                                     style={{
                                                         cursor: 'pointer',
                                                         backgroundColor: index === odabraniIndex ? '#0d6efd' : 'white',
@@ -195,9 +224,9 @@ export default function PjesmaPromjena() {
                                     <tbody>
                                         {odabraniZanrovi.map(z => (
                                             <tr key={z.sifra}>
-                                                <td>{z.naziv}</td>
+                                                <td className="align-middle">{z.naziv}</td>
                                                 <td>
-                                                    <Button variant="danger" size="sm" onClick={() => ukloniZanr(z.sifra)}>
+                                                    <Button variant="outline-danger" size="sm" onClick={() => ukloniZanr(z.sifra)}>
                                                         Ukloni
                                                     </Button>
                                                 </td>
@@ -205,13 +234,13 @@ export default function PjesmaPromjena() {
                                         ))}
                                     </tbody>
                                 </Table>
-                                {odabraniZanrovi.length === 0 && <p className="text-muted">Nema odabranih žanrova.</p>}
+                                {odabraniZanrovi.length === 0 && <p className="text-muted small">Nema odabranih žanrova.</p>}
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
 
-                <div className="d-flex justify-content-end gap-2 mt-4">
+                <div className="d-flex justify-content-end gap-2 mt-4 mb-5">
                     <Link to={RouteNames.PJESME} className="btn btn-secondary px-4">Odustani</Link>
                     <Button type="submit" variant="success" className="px-4">Spremi izmjene</Button>
                 </div>
