@@ -90,7 +90,7 @@ export default function IzvodacPromjena() {
                                             variant="success" 
                                             className="w-100 py-2 shadow-sm fw-bold rounded-pill"
                                         >
-                                            Spremi izmjene
+                                            Spremi
                                         </Button>
                                     </Col>
                                 </Row>

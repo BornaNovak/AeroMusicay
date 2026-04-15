@@ -129,7 +129,7 @@ export default function AlbumPromjena(){
                                             variant="success" 
                                             className="w-100 py-2 shadow-sm fw-bold rounded-pill"
                                         >
-                                            Spremi promjene
+                                            Spremi
                                         </Button>
                                     </Col>
                                 </Row>
