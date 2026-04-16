@@ -1,7 +1,13 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
 import FormatDatuma from "../../components/FormatDatuma";
 
-export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNazivIzvodaca }) {
+export default function AlbumPregledGrid({ 
+    albumi, 
+    navigate, 
+    brisanje, 
+    dohvatiNazivIzvodaca,
+    generirajPDF // <-- Dodano u propse
+}) {
     return (
         <Container className="py-3 px-0">
             <Row>
@@ -43,6 +49,15 @@ export default function AlbumPregledGrid({ albumi, navigate, brisanje, dohvatiNa
                                     onClick={() => brisanje(album.sifra)}
                                 >
                                     Obriši
+                                </Button>
+                                {/* NOVI GUMB ZA PDF */}
+                                <Button
+                                    size="sm"
+                                    variant="info"
+                                    className="flex-fill text-white"
+                                    onClick={() => generirajPDF(album)}
+                                >
+                                    PDF
                                 </Button>
                             </Card.Footer>
                         </Card>

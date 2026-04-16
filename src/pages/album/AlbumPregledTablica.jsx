@@ -5,7 +5,8 @@ export default function AlbumPregledTablica({
     albumi, 
     navigate, 
     brisanje, 
-    dohvatiNazivIzvodaca
+    dohvatiNazivIzvodaca,
+    generirajPDF
 }) {
     
     return (
@@ -44,6 +45,12 @@ export default function AlbumPregledTablica({
                                 onClick={() => brisanje(album.sifra)}
                             >
                                 Obriši
+                            </Button>
+                            <Button 
+                            size="sm"
+                            variant="info" 
+                            onClick={() => generirajPDF(album)}>
+                                PDF
                             </Button>
                         </td>
                     </tr>

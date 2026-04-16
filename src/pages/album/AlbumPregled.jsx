@@ -7,6 +7,7 @@ import PjesmaService from "../../services/pjesme/PjesmaService"
 import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
+import AlbumPDFGenerator from "../../components/AlbumPDFGenerator" 
 
 export default function AlbumPregled() {
 
@@ -26,30 +27,26 @@ export default function AlbumPregled() {
     }
 
     async function ucitajAlbume() {
-        await AlbumService.get().then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije moguće učitati albume');
-                return;
-            }
-            setAlbumi(odgovor.data);
-        })
+        const odgovor = await AlbumService.get();
+        if (!odgovor.success) {
+            alert('Nije moguće učitati albume');
+            return;
+        }
+        setAlbumi(odgovor.data);
     }
 
     async function ucitajIzvodace() {
-        await IzvodacService.get().then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije moguće učitati izvođače');
-                return;
-            }
-            setIzvodaci(odgovor.data);
-        })
+        const odgovor = await IzvodacService.get();
+        if (!odgovor.success) {
+            alert('Nije moguće učitati izvođače');
+            return;
+        }
+        setIzvodaci(odgovor.data);
     }
 
-    // PAMETNIJE BRISANJE (provjera pjesama prije brisanja albuma)
     async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati album?')) return;
 
-        // Provjeri postoje li pjesme povezane s ovim albumom
         const pjesmeRezultat = await PjesmaService.get();
         if (pjesmeRezultat.success) {
             const pjesmeNaAlbumu = pjesmeRezultat.data.filter(pjesma => pjesma.album === sifra);
@@ -60,14 +57,46 @@ export default function AlbumPregled() {
             }
         }
 
-        // Ako nema pjesama, obriši album
-        await AlbumService.obrisi(sifra);
+        const odgovor = await AlbumService.obrisi(sifra);
+        // Provjera ako servis vraća success, ako ne, samo osvježi
+        if (odgovor && odgovor.success === false) {
+             alert('Greška pri brisanju');
+        }
         ucitajAlbume();
     }
 
     function dohvatiNazivIzvodaca(sifraIzvodaca) {
-        const izvodac = izvodaci.find(i => i.sifra == sifraIzvodaca)
+        const s = Array.isArray(sifraIzvodaca) ? sifraIzvodaca[0] : sifraIzvodaca;
+        const izvodac = izvodaci.find(i => i.sifra == s)
         return izvodac ? izvodac.naziv : 'Nepoznat izvođač'
+    }
+
+    async function generirajPDFZaAlbum(album) {
+        // 1. Pronađi izvođača
+        const s = Array.isArray(album.izvodac) ? album.izvodac[0] : album.izvodac;
+        const izvodac = izvodaci.find(i => i.sifra == s);
+        
+        if (!izvodac) {
+            alert('Izvođač nije pronađen');
+            return;
+        }
+
+        // 2. Dohvati pjesme i filtriraj
+        const odgovorPjesme = await PjesmaService.get();
+        if (!odgovorPjesme.success) {
+            alert('Nije moguće dohvatiti pjesme');
+            return;
+        }
+
+        const pjesmeAlbuma = odgovorPjesme.data.filter(p => p.album === album.sifra);
+
+        // 3. Pokreni generator
+        const generiraj = AlbumPDFGenerator({ 
+            album, 
+            izvodac, 
+            pjesme: pjesmeAlbuma 
+        });
+        await generiraj();
     }
 
     return (
@@ -77,13 +106,14 @@ export default function AlbumPregled() {
                 Dodavanje novog albuma
             </Link>
 
-            {/* Responzivni prikaz: Grid za mobitele/tablete, Tablica za desktop */}
+            {/* Responzivni prikaz */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <AlbumPregledGrid 
                     albumi={albumi} 
                     navigate={navigate} 
                     brisanje={brisanje} 
                     dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
+                    generirajPDF={generirajPDFZaAlbum} 
                 />
             ) : (
                 <AlbumPregledTablica
@@ -91,6 +121,7 @@ export default function AlbumPregled() {
                     navigate={navigate} 
                     brisanje={brisanje} 
                     dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
+                    generirajPDF={generirajPDFZaAlbum} 
                 />
             )}
         </>
