@@ -12,7 +12,7 @@ export default function IzvodacPregledTablica({
             <thead>
                 <tr>
                     <th>Naziv izvođača</th>
-                    <th>Žanr</th> {/* Novi stupac */}
+                    <th>Dominantni žanr</th> {/* Novi stupac */}
                     <th className="text-center">Akcije</th>
                 </tr>
             </thead>

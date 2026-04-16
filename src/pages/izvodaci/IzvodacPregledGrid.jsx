@@ -19,7 +19,7 @@ export default function IzvodacPregledGrid({
                                 
                                 {/* Prikaz žanra diskretnijim stilom */}
                                 <div className="text-muted small">
-                                    Žanr: <span className="fw-semibold text-secondary">
+                                    Dominantni žanr: <span className="fw-semibold text-secondary">
                                         {dohvatiNazivZanra(izvodac.dominantniZanr)}
                                     </span>
                                 </div>
