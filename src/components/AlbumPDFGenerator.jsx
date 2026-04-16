@@ -14,6 +14,13 @@ export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
         });
     };
 
+    const formatirajTrajanje = (ukupnoSekundi) => {
+        if (!ukupnoSekundi) return "0:00"
+        const minute = Math.floor(ukupnoSekundi / 60)
+        const sekunde = ukupnoSekundi % 60
+        return `${minute}:${sekunde.toString().padStart(2, '0')}`
+    }
+
     const generirajPDF = async () => {
         // Provjera postoje li fontovi u tvom public/fonts folderu
         const [regBase64, boldBase64] = await Promise.all([
@@ -86,8 +93,8 @@ export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
         if (pjesme && pjesme.length > 0) {
             const tableData = pjesme.map((pjesma, index) => [
                 index + 1,
-                pjesma.naslov,
-                pjesma.trajanje || '-' // Ako imaš trajanje u sekundama/minutama
+                pjesma.naziv,
+                formatirajTrajanje(pjesma.trajanje) || '-' // Ako imaš trajanje u sekundama/minutama
             ]);
 
             autoTable(doc, {

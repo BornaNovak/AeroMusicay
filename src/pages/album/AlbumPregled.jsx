@@ -90,6 +90,8 @@ export default function AlbumPregled() {
 
         const pjesmeAlbuma = odgovorPjesme.data.filter(p => p.album === album.sifra);
 
+        console.table(pjesmeAlbuma)
+
         // 3. Pokreni generator
         const generiraj = AlbumPDFGenerator({ 
             album, 

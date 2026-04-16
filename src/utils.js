@@ -1,0 +1,1 @@
+// ovdje dođu funkcije koje koristim na više mjesta
