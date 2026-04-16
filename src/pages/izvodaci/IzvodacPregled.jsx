@@ -55,6 +55,11 @@ export default function IzvodacPregled() {
             }
         }
 
+        // rjesenja a
+        // await IzvodacService.obrisi(sifra).then(()=>{
+        //     ucitajPodatke(); // Ponovno učitaj sve
+        // });
+
         const odgovor = await IzvodacService.obrisi(sifra);
         if (odgovor.success) {
             ucitajPodatke(); // Ponovno učitaj sve

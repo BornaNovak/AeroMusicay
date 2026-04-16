@@ -35,7 +35,7 @@ async function obrisi(sifra){
     if( index > -1){
         izvodaci.splice(index,1);
     }
-    return;
+    return {success: true, data: null};
 }
 
 
