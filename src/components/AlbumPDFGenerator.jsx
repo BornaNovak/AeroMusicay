@@ -81,7 +81,7 @@ export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
         doc.setFontSize(11);
         doc.setFont('Roboto', 'normal');
         // Pretpostavljamo da izvodac objekt ima property 'naziv'
-        doc.text(`Ime/Naziv izvođača: ${izvodac ? izvodac.naziv : 'Nepoznato'}`, 25, yPosition);
+        doc.text(`${izvodac ? izvodac.naziv : 'Nepoznato'}`, 25, yPosition);
         yPosition += 20;
 
         // Popis pjesama na albumu
