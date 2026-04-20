@@ -7,31 +7,39 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import IzvodacPregledGrid from "./IzvodacPregledGrid"
 import IzvodacPregledTablica from "./IzvodacPregledTablica"
 import ZanrService from '../../services/zanrovi/ZanrService'
+import { Pagination, Container } from "react-bootstrap" // Dodan Pagination i Container
 
 export default function IzvodacPregled() {
     const [izvodaci, setIzvodaci] = useState([])
-    const [zanrovi, setZanrovi] = useState([]) // 2. State za žanrove
+    const [zanrovi, setZanrovi] = useState([]) 
+    
+    // NOVO: State za straničenje
+    const [stranica, setStranica] = useState(1);
+    const [ukupnoStranica, setUkupnoStranica] = useState(0);
+
     const navigate = useNavigate();
     const sirina = useBreakpoint();
 
+    // useEffect sada prati promjenu stranice
     useEffect(() => {
         ucitajPodatke()
-    }, [])
+    }, [stranica])
 
     async function ucitajPodatke() {
-        // 3. Učitavamo paralelno izvođače i žanrove
+        // 1. Učitavamo žanrove (trebaju nam svi za lookup naziva)
         const resZanrovi = await ZanrService.get();
         if (resZanrovi.success) setZanrovi(resZanrovi.data);
 
-        const resIzvodaci = await IzvodacService.get();
+        // 2. Pozivamo getPage umjesto get za izvođače
+        const resIzvodaci = await IzvodacService.getPage(stranica, 8);
         if (resIzvodaci.success) {
             setIzvodaci(resIzvodaci.data);
+            setUkupnoStranica(resIzvodaci.totalPages); // Spremamo broj stranica
         } else {
             alert('Nije moguće učitati izvođače');
         }
     }
 
-    // 4. Pomoćna funkcija koju šaljemo u Grid i Tablicu
     const dohvatiNazivZanra = (sifraZanra) => {
         if (!sifraZanra) return 'Nema žanra';
         const zanr = zanrovi.find(z => z.sifra == sifraZanra);
@@ -55,19 +63,28 @@ export default function IzvodacPregled() {
             }
         }
 
-        // rjesenja a
-        // await IzvodacService.obrisi(sifra).then(()=>{
-        //     ucitajPodatke(); // Ponovno učitaj sve
-        // });
-
         const odgovor = await IzvodacService.obrisi(sifra);
         if (odgovor.success) {
-            ucitajPodatke(); // Ponovno učitaj sve
+            ucitajPodatke(); 
         }
     }
 
+    // Generiranje elemenata straničenja
+    let items = [];
+    for (let number = 1; number <= ukupnoStranica; number++) {
+        items.push(
+            <Pagination.Item 
+                key={number} 
+                active={number === stranica} 
+                onClick={() => setStranica(number)}
+            >
+                {number}
+            </Pagination.Item>,
+        );
+    }
+
     return (
-        <>
+        <Container>
             <Link to={RouteNames.IZVODACI_NOVI} className="btn btn-success w-100 my-3">
                 Dodavanje novog izvođača
             </Link>
@@ -77,16 +94,23 @@ export default function IzvodacPregled() {
                     izvodaci={izvodaci} 
                     navigate={navigate} 
                     brisanje={brisanje}
-                    dohvatiNazivZanra={dohvatiNazivZanra} // 5. Proslijedi funkciju
+                    dohvatiNazivZanra={dohvatiNazivZanra} 
                 />
             ) : (
                 <IzvodacPregledTablica
                     izvodaci={izvodaci} 
                     navigate={navigate} 
                     brisanje={brisanje}
-                    dohvatiNazivZanra={dohvatiNazivZanra} // 5. Proslijedi funkciju
+                    dohvatiNazivZanra={dohvatiNazivZanra} 
                 />
             )}
-        </>
+
+            {/* Prikaz navigacije na dnu */}
+            {ukupnoStranica > 1 && (
+                <div className="d-flex justify-content-center my-4">
+                    <Pagination>{items}</Pagination>
+                </div>
+            )}
+        </Container>
     )
 }

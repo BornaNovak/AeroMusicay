@@ -1,25 +1,34 @@
 import { useEffect, useState } from 'react'
-import { Button, Table } from 'react-bootstrap'
+import { Button, Table, Pagination, Container } from 'react-bootstrap' // Dodani Pagination i Container
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
 import ZanrService from '../../services/zanrovi/ZanrService'
 
 export default function ZanrPregled() {
     const [zanrovi, setZanrovi] = useState([])
+    
+    // NOVO: State za straničenje
+    const [stranica, setStranica] = useState(1);
+    const [ukupnoStranica, setUkupnoStranica] = useState(0);
+    
     const navigate = useNavigate();
 
+    // Reagiraj na promjenu stranice
     useEffect(() => {
         ucitajZanrove()
-    }, [])
+    }, [stranica])
 
     async function ucitajZanrove() {
-        await ZanrService.get().then((odgovor) => {
-            if (!odgovor.success) {
-                alert('Nije moguće učitati žanrove.')
-                return
-            }
-            setZanrovi(odgovor.data)
-        })
+        // Koristimo getPage umjesto get (8 žanrova po stranici)
+        const odgovor = await ZanrService.getPage(stranica, 8);
+        
+        if (!odgovor.success) {
+            alert('Nije moguće učitati žanrove.')
+            return
+        }
+        
+        setZanrovi(odgovor.data);
+        setUkupnoStranica(odgovor.totalPages); // Spremamo informaciju o ukupnom broju stranica
     }
 
     async function obrisi(sifra) {
@@ -30,11 +39,26 @@ export default function ZanrPregled() {
         ucitajZanrove()
     }
 
+    // Generiranje brojeva stranica za Pagination
+    let items = [];
+    for (let number = 1; number <= ukupnoStranica; number++) {
+        items.push(
+            <Pagination.Item 
+                key={number} 
+                active={number === stranica} 
+                onClick={() => setStranica(number)}
+            >
+                {number}
+            </Pagination.Item>,
+        );
+    }
+
     return (
-        <>
+        <Container>
             <Link to={RouteNames.ZANR_NOVI} className="btn btn-success w-100 my-3">
                 Dodavanje novog žanra
             </Link>
+            
             <Table striped hover responsive>
                 <thead>
                     <tr>
@@ -59,6 +83,13 @@ export default function ZanrPregled() {
                     ))}
                 </tbody>
             </Table>
-        </>
+
+            {/* Prikaz navigacije stranica na sredini */}
+            {ukupnoStranica > 1 && (
+                <div className="d-flex justify-content-center">
+                    <Pagination>{items}</Pagination>
+                </div>
+            )}
+        </Container>
     )
 }

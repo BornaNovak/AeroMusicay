@@ -8,6 +8,7 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
 import AlbumPDFGenerator from "../../components/AlbumPDFGenerator" 
+import { Pagination, Container } from "react-bootstrap" // Dodan Pagination i Container
 
 export default function AlbumPregled() {
 
@@ -17,9 +18,14 @@ export default function AlbumPregled() {
     const [albumi, setAlbumi] = useState([])
     const [izvodaci, setIzvodaci] = useState([])
 
+    // NOVO: State za straničenje
+    const [stranica, setStranica] = useState(1);
+    const [ukupnoStranica, setUkupnoStranica] = useState(0);
+
+    // useEffect prati promjenu stranice
     useEffect(() => {
         ucitajPodatke();
-    }, [])
+    }, [stranica])
 
     async function ucitajPodatke() {
         await ucitajIzvodace();
@@ -27,12 +33,14 @@ export default function AlbumPregled() {
     }
 
     async function ucitajAlbume() {
-        const odgovor = await AlbumService.get();
+        // Koristimo getPage umjesto get
+        const odgovor = await AlbumService.getPage(stranica, 8);
         if (!odgovor.success) {
             alert('Nije moguće učitati albume');
             return;
         }
         setAlbumi(odgovor.data);
+        setUkupnoStranica(odgovor.totalPages); // Spremamo info o ukupno stranica
     }
 
     async function ucitajIzvodace() {
@@ -58,7 +66,6 @@ export default function AlbumPregled() {
         }
 
         const odgovor = await AlbumService.obrisi(sifra);
-        // Provjera ako servis vraća success, ako ne, samo osvježi
         if (odgovor && odgovor.success === false) {
              alert('Greška pri brisanju');
         }
@@ -72,7 +79,6 @@ export default function AlbumPregled() {
     }
 
     async function generirajPDFZaAlbum(album) {
-        // 1. Pronađi izvođača
         const s = Array.isArray(album.izvodac) ? album.izvodac[0] : album.izvodac;
         const izvodac = izvodaci.find(i => i.sifra == s);
         
@@ -81,7 +87,6 @@ export default function AlbumPregled() {
             return;
         }
 
-        // 2. Dohvati pjesme i filtriraj
         const odgovorPjesme = await PjesmaService.get();
         if (!odgovorPjesme.success) {
             alert('Nije moguće dohvatiti pjesme');
@@ -90,9 +95,6 @@ export default function AlbumPregled() {
 
         const pjesmeAlbuma = odgovorPjesme.data.filter(p => p.album === album.sifra);
 
-        console.table(pjesmeAlbuma)
-
-        // 3. Pokreni generator
         const generiraj = AlbumPDFGenerator({ 
             album, 
             izvodac, 
@@ -101,8 +103,22 @@ export default function AlbumPregled() {
         await generiraj();
     }
 
+    // Generiranje elemenata straničenja
+    let items = [];
+    for (let number = 1; number <= ukupnoStranica; number++) {
+        items.push(
+            <Pagination.Item 
+                key={number} 
+                active={number === stranica} 
+                onClick={() => setStranica(number)}
+            >
+                {number}
+            </Pagination.Item>,
+        );
+    }
+
     return (
-        <>
+        <Container>
             <Link to={RouteNames.ALBUMI_NOVI}
                 className="btn btn-success w-100 my-3">
                 Dodavanje novog albuma
@@ -126,6 +142,13 @@ export default function AlbumPregled() {
                     generirajPDF={generirajPDFZaAlbum} 
                 />
             )}
-        </>
+
+            {/* Prikaz navigacije na dnu */}
+            {ukupnoStranica > 1 && (
+                <div className="d-flex justify-content-center my-4">
+                    <Pagination>{items}</Pagination>
+                </div>
+            )}
+        </Container>
     )
 }
