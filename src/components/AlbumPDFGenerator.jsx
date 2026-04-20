@@ -1,5 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
+// DODANO: Import tvoje funkcije iz utils.js
+import { formatirajTrajanje } from '../utils';
 
 export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
 
@@ -14,15 +16,8 @@ export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
         });
     };
 
-    const formatirajTrajanje = (ukupnoSekundi) => {
-        if (!ukupnoSekundi) return "0:00"
-        const minute = Math.floor(ukupnoSekundi / 60)
-        const sekunde = ukupnoSekundi % 60
-        return `${minute}:${sekunde.toString().padStart(2, '0')}`
-    }
 
     const generirajPDF = async () => {
-        // Provjera postoje li fontovi u tvom public/fonts folderu
         const [regBase64, boldBase64] = await Promise.all([
             fetchFontAsBase64('/fonts/Roboto-Regular.ttf'),
             fetchFontAsBase64('/fonts/Roboto-Bold.ttf')
@@ -80,11 +75,9 @@ export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
 
         doc.setFontSize(11);
         doc.setFont('Roboto', 'normal');
-        // Pretpostavljamo da izvodac objekt ima property 'naziv'
         doc.text(`${izvodac ? izvodac.naziv : 'Nepoznato'}`, 25, yPosition);
         yPosition += 20;
 
-        // Popis pjesama na albumu
         doc.setFontSize(14);
         doc.setFont('Roboto', 'bold');
         doc.text('Popis pjesama na albumu:', 20, yPosition);
@@ -94,7 +87,7 @@ export default function AlbumPDFGenerator({ album, izvodac, pjesme }) {
             const tableData = pjesme.map((pjesma, index) => [
                 index + 1,
                 pjesma.naziv,
-                formatirajTrajanje(pjesma.trajanje) || '-' // Ako imaš trajanje u sekundama/minutama
+                formatirajTrajanje(pjesma.trajanje) || '-' 
             ]);
 
             autoTable(doc, {
