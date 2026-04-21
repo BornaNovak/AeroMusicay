@@ -23,8 +23,8 @@ const PrazanServis = {
     dodaj: async (album) => { console.error("AlbumService: Servis nije učitan"); },
     promjeni: async (sifra, album) => { console.error("AlbumService: Servis nije učitan"); },
     obrisi: async (sifra) => { console.error("AlbumService: Servis nije učitan"); },
-    // Dodano za straničenje
-    getPage: async (page, pageSize) => ({ 
+    // IZMJENA: getPage sada prima sortColumn i sortDirection
+    getPage: async (page, pageSize, sortColumn, sortDirection) => ({ 
         success: false, 
         data: [], 
         totalPages: 0, 
@@ -42,6 +42,7 @@ export default {
     dodaj: (album) => AktivniServis.dodaj(album),
     promjeni: (sifra, album) => AktivniServis.promjeni(sifra, album),
     obrisi: (sifra) => AktivniServis.obrisi(sifra),
-    // Dodano za straničenje
-    getPage: (page, pageSize) => AktivniServis.getPage(page, pageSize)
+    // IZMJENA: Proslijeđivanje parametara za sortiranje aktivnom servisu
+    getPage: (page, pageSize, sortColumn, sortDirection) => 
+        AktivniServis.getPage(page, pageSize, sortColumn, sortDirection)
 };

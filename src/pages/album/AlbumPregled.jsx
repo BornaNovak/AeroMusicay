@@ -8,7 +8,7 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
 import AlbumPDFGenerator from "../../components/AlbumPDFGenerator" 
-import { Pagination, Container } from "react-bootstrap" // Dodan Pagination i Container
+import { Pagination, Container } from "react-bootstrap"
 
 export default function AlbumPregled() {
 
@@ -18,14 +18,16 @@ export default function AlbumPregled() {
     const [albumi, setAlbumi] = useState([])
     const [izvodaci, setIzvodaci] = useState([])
 
-    // NOVO: State za straničenje
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
 
-    // useEffect prati promjenu stranice
+    // NOVO: State za praćenje stupca i smjera sortiranja
+    const [sortiranje, setSortiranje] = useState({ stupac: 'naziv', smjer: 'asc' });
+
+    // useEffect prati promjenu stranice I promjenu sortiranja
     useEffect(() => {
         ucitajPodatke();
-    }, [stranica])
+    }, [stranica, sortiranje])
 
     async function ucitajPodatke() {
         await ucitajIzvodace();
@@ -33,14 +35,14 @@ export default function AlbumPregled() {
     }
 
     async function ucitajAlbume() {
-        // Koristimo getPage umjesto get
-        const odgovor = await AlbumService.getPage(stranica, 8);
+        // Proslijeđujemo parametre sortiranja servisu
+        const odgovor = await AlbumService.getPage(stranica, 8, sortiranje.stupac, sortiranje.smjer);
         if (!odgovor.success) {
             alert('Nije moguće učitati albume');
             return;
         }
         setAlbumi(odgovor.data);
-        setUkupnoStranica(odgovor.totalPages); // Spremamo info o ukupno stranica
+        setUkupnoStranica(odgovor.totalPages);
     }
 
     async function ucitajIzvodace() {
@@ -50,6 +52,15 @@ export default function AlbumPregled() {
             return;
         }
         setIzvodaci(odgovor.data);
+    }
+
+    // Funkcija koja mijenja sortiranje i vraća na prvu stranicu
+    function promjeniSortiranje(noviStupac) {
+        setSortiranje(prev => ({
+            stupac: noviStupac,
+            smjer: prev.stupac === noviStupac && prev.smjer === 'asc' ? 'desc' : 'asc'
+        }));
+        setStranica(1); 
     }
 
     async function brisanje(sifra) {
@@ -103,7 +114,6 @@ export default function AlbumPregled() {
         await generiraj();
     }
 
-    // Generiranje elemenata straničenja
     let items = [];
     for (let number = 1; number <= ukupnoStranica; number++) {
         items.push(
@@ -124,7 +134,6 @@ export default function AlbumPregled() {
                 Dodavanje novog albuma
             </Link>
 
-            {/* Responzivni prikaz */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <AlbumPregledGrid 
                     albumi={albumi} 
@@ -139,11 +148,12 @@ export default function AlbumPregled() {
                     navigate={navigate} 
                     brisanje={brisanje} 
                     dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
-                    generirajPDF={generirajPDFZaAlbum} 
+                    generirajPDF={generirajPDFZaAlbum}
+                    sortConfig={sortiranje}
+                    onSort={promjeniSortiranje}
                 />
             )}
 
-            {/* Prikaz navigacije na dnu */}
             {ukupnoStranica > 1 && (
                 <div className="d-flex justify-content-center my-4">
                     <Pagination>{items}</Pagination>

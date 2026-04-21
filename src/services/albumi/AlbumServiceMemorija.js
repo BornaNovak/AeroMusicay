@@ -19,7 +19,7 @@ async function dodaj(album) {
         album.sifra = albumi[albumi.length - 1].sifra + 1;
     }
     albumi.push(album);
-    return { success: true, data: album }; // Usklađeno da vraća objekt
+    return { success: true, data: album }; 
 }
 
 // 3/4 Update - promjeni postojeći album
@@ -47,15 +47,37 @@ async function obrisi(sifra) {
     return { success: false, message: 'Album nije pronađen' };
 }
 
-// NOVO: Straničenje (Paginacija)
-async function getPage(page = 1, pageSize = 8) {
+// IZMJEŠTENO: Straničenje s sortiranjem
+async function getPage(page = 1, pageSize = 8, sortColumn = 'naziv', sortDirection = 'asc') {
+    
+    // 1. Napravi kopiju niza da ne mijenjaš originalni uvoz iz AlbumPodaci trajno
+    let privremeniAlbumi = [...albumi];
+
+    // 2. SORTIRANJE (prije rezanja)
+    if (sortColumn && sortDirection) {
+        privremeniAlbumi.sort((a, b) => {
+            let aValue = a[sortColumn];
+            let bValue = b[sortColumn];
+
+            // Datum sortiranje
+            if (sortColumn === 'datumIzdavanja') {
+                const dateA = new Date(aValue || 0);
+                const dateB = new Date(bValue || 0);
+                return sortDirection === 'asc' ? dateA - dateB : dateB - dateA;
+            }
+
+            // Tekstualno sortiranje (Hrvatska abeceda)
+            const result = String(aValue || '').localeCompare(String(bValue || ''), 'hr', { sensitivity: 'accent' });
+            return sortDirection === 'asc' ? result : -result;
+        });
+    }
+
+    // 3. REZANJE (Paginacija)
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
+    const paginatedData = privremeniAlbumi.slice(startIndex, endIndex);
     
-    // Rezanje niza za trenutnu stranicu
-    const paginatedData = albumi.slice(startIndex, endIndex);
-    
-    const totalItems = albumi.length;
+    const totalItems = privremeniAlbumi.length;
     const totalPages = Math.ceil(totalItems / pageSize);
 
     return {
@@ -74,5 +96,5 @@ export default {
     getBySifra,
     promjeni,
     obrisi,
-    getPage // Dodano u export
+    getPage 
 };
