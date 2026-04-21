@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import AlbumService from "../../services/albumi/AlbumService"
-import IzvodacService from "../../services/izvodaci/IzvodacService"
 import PjesmaService from "../../services/pjesme/PjesmaService"
 import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
@@ -16,7 +15,6 @@ export default function AlbumPregled() {
     const sirina = useBreakpoint();
 
     const [albumi, setAlbumi] = useState([])
-    const [izvodaci, setIzvodaci] = useState([])
 
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
@@ -30,7 +28,6 @@ export default function AlbumPregled() {
     }, [stranica, sortiranje])
 
     async function ucitajPodatke() {
-        await ucitajIzvodace();
         await ucitajAlbume();
     }
 
@@ -45,14 +42,6 @@ export default function AlbumPregled() {
         setUkupnoStranica(odgovor.totalPages);
     }
 
-    async function ucitajIzvodace() {
-        const odgovor = await IzvodacService.get();
-        if (!odgovor.success) {
-            alert('Nije moguće učitati izvođače');
-            return;
-        }
-        setIzvodaci(odgovor.data);
-    }
 
     // Funkcija koja mijenja sortiranje i vraća na prvu stranicu
     function promjeniSortiranje(noviStupac) {
@@ -61,6 +50,7 @@ export default function AlbumPregled() {
             smjer: prev.stupac === noviStupac && prev.smjer === 'asc' ? 'desc' : 'asc'
         }));
         setStranica(1); 
+        ucitajAlbume()
     }
 
     async function brisanje(sifra) {
@@ -81,12 +71,6 @@ export default function AlbumPregled() {
              alert('Greška pri brisanju');
         }
         ucitajAlbume();
-    }
-
-    function dohvatiNazivIzvodaca(sifraIzvodaca) {
-        const s = Array.isArray(sifraIzvodaca) ? sifraIzvodaca[0] : sifraIzvodaca;
-        const izvodac = izvodaci.find(i => i.sifra == s)
-        return izvodac ? izvodac.naziv : 'Nepoznat izvođač'
     }
 
     async function generirajPDFZaAlbum(album) {
@@ -139,7 +123,6 @@ export default function AlbumPregled() {
                     albumi={albumi} 
                     navigate={navigate} 
                     brisanje={brisanje} 
-                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
                     generirajPDF={generirajPDFZaAlbum} 
                 />
             ) : (
@@ -147,7 +130,6 @@ export default function AlbumPregled() {
                     albumi={albumi} 
                     navigate={navigate} 
                     brisanje={brisanje} 
-                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
                     generirajPDF={generirajPDFZaAlbum}
                     sortConfig={sortiranje}
                     onSort={promjeniSortiranje}

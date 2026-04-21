@@ -49,7 +49,7 @@ export default function AlbumPromjena(){
         const podaci = new FormData(e.target)
         promjeni({
             naziv: podaci.get('naziv'),
-            izvodac: podaci.get('izvodac'),
+            izvodac: parseInt(podaci.get('izvodac')),
             datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
         })
     }

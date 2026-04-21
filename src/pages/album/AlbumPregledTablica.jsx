@@ -5,7 +5,6 @@ export default function AlbumPregledTablica({
     albumi, 
     navigate, 
     brisanje, 
-    dohvatiNazivIzvodaca,
     generirajPDF,
     sortConfig, // Dobivamo iz roditelja
     onSort      // Dobivamo iz roditelja
@@ -48,7 +47,7 @@ export default function AlbumPregledTablica({
                     albumi.map((album) => (
                         <tr key={album.sifra}>
                             <td className="align-middle">{album.naziv}</td>
-                            <td className="align-middle">{dohvatiNazivIzvodaca(album.izvodac)}</td>
+                            <td className="align-middle">{album.izvodac}</td>
                             <td className="text-center align-middle">
                                 <FormatDatuma datum={album.datumIzdavanja} />
                             </td>

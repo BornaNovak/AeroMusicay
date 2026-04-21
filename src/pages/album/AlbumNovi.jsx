@@ -42,7 +42,7 @@ export default function AlbumNovi() {
         const podaci = new FormData(e.target);
         dodaj({
             naziv: podaci.get('naziv'),
-            izvodac: podaci.get('izvodac'),
+            izvodac: parseInt(podaci.get('izvodac')),
             datumIzdavanja: new Date(podaci.get('datumIzdavanja')).toISOString(),
         });
     }

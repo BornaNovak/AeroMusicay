@@ -5,7 +5,6 @@ export default function AlbumPregledGrid({
     albumi, 
     navigate, 
     brisanje, 
-    dohvatiNazivIzvodaca,
     generirajPDF // <-- Dodano u propse
 }) {
     return (
@@ -22,7 +21,7 @@ export default function AlbumPregledGrid({
                                 <div className="mb-2">
                                     <span className="text-muted">Izvođač: </span>
                                     <span className="fw-semibold">
-                                        {dohvatiNazivIzvodaca(album.izvodac)}
+                                        {album.izvodac}
                                     </span>
                                 </div>
 

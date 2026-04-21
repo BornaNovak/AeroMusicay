@@ -1,3 +1,4 @@
+import IzvodacService from "../izvodaci/IzvodacService";
 import { albumi } from "./AlbumPodaci";
 
 // 1/4 Read - dohvati sve
@@ -53,8 +54,27 @@ async function getPage(page = 1, pageSize = 8, sortColumn = 'naziv', sortDirecti
     // 1. Napravi kopiju niza da ne mijenjaš originalni uvoz iz AlbumPodaci trajno
     let privremeniAlbumi = [...albumi];
 
+    // umjesto šifri izvođača staviti nazive
+    const izvodjaciPodaci = await IzvodacService.get()
+
+    const izvodjaci = izvodjaciPodaci.data
+    
+    privremeniAlbumi = privremeniAlbumi.map(album => {
+    // Pronađi izvođača čija se šifra podudara s album.izvodjac
+    const izvodjacObj = izvodjaci.find(i => i.sifra === album.izvodac);
+    
+    return {
+        ...album,
+        // Ako je izvođač pronađen, stavi njegov naziv, inače ostavi staru vrijednost ili "Nepoznato"
+        izvodac: izvodjacObj ? izvodjacObj.naziv : "Nepoznat izvođač"
+    };
+});
+
     // 2. SORTIRANJE (prije rezanja)
     if (sortColumn && sortDirection) {
+        //console.log('sortColumn: ' + sortColumn)
+       // console.log('sortDirection: ' + sortDirection)
+      //  console.table(privremeniAlbumi)
         privremeniAlbumi.sort((a, b) => {
             let aValue = a[sortColumn];
             let bValue = b[sortColumn];
