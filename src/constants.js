@@ -20,4 +20,4 @@ export const RouteNames = {
     PJESME_PROMJENA: '/pjesme/:sifra',
 }
 
-export const DATA_SOURCE = 'memorija';
+export const DATA_SOURCE = 'localStorage';
