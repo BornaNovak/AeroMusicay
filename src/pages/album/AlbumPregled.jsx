@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import AlbumService from "../../services/albumi/AlbumService"
 import PjesmaService from "../../services/pjesme/PjesmaService"
+import IzvodacService from "../../services/izvodaci/IzvodacService" // DODANO
 import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
@@ -15,24 +16,31 @@ export default function AlbumPregled() {
     const sirina = useBreakpoint();
 
     const [albumi, setAlbumi] = useState([])
+    const [izvodaci, setIzvodaci] = useState([]); // DODANO: State za izvođače
 
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
 
-    // NOVO: State za praćenje stupca i smjera sortiranja
     const [sortiranje, setSortiranje] = useState({ stupac: 'naziv', smjer: 'asc' });
 
-    // useEffect prati promjenu stranice I promjenu sortiranja
     useEffect(() => {
         ucitajPodatke();
     }, [stranica, sortiranje])
 
     async function ucitajPodatke() {
+        // Prvo dohvaćamo izvođače kako bi ih imali spremne za prikaz u tablici
+        await ucitajIzvodace();
         await ucitajAlbume();
     }
 
+    async function ucitajIzvodace() {
+        const odgovor = await IzvodacService.get();
+        if (odgovor.success) {
+            setIzvodaci(odgovor.data);
+        }
+    }
+
     async function ucitajAlbume() {
-        // Proslijeđujemo parametre sortiranja servisu
         const odgovor = await AlbumService.getPage(stranica, 8, sortiranje.stupac, sortiranje.smjer);
         if (!odgovor.success) {
             alert('Nije moguće učitati albume');
@@ -42,15 +50,20 @@ export default function AlbumPregled() {
         setUkupnoStranica(odgovor.totalPages);
     }
 
+    // DODANO: Funkcija koja pretvara šifru izvođača u njegovo ime
+    const dohvatiNazivIzvodaca = (sifra) => {
+        // LocalStorage nekad sprema kao [1] umjesto 1, pa čistimo ID
+        const id = Array.isArray(sifra) ? sifra[0] : sifra;
+        const izvodac = izvodaci.find(i => i.sifra == id);
+        return izvodac ? izvodac.naziv : 'Nepoznato';
+    };
 
-    // Funkcija koja mijenja sortiranje i vraća na prvu stranicu
     function promjeniSortiranje(noviStupac) {
         setSortiranje(prev => ({
             stupac: noviStupac,
             smjer: prev.stupac === noviStupac && prev.smjer === 'asc' ? 'desc' : 'asc'
         }));
         setStranica(1); 
-        ucitajAlbume()
     }
 
     async function brisanje(sifra) {
@@ -133,6 +146,7 @@ export default function AlbumPregled() {
                     generirajPDF={generirajPDFZaAlbum}
                     sortConfig={sortiranje}
                     onSort={promjeniSortiranje}
+                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca} // DODANO
                 />
             )}
 

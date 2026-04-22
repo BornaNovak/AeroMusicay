@@ -6,11 +6,11 @@ export default function AlbumPregledTablica({
     navigate, 
     brisanje, 
     generirajPDF,
-    sortConfig, // Dobivamo iz roditelja
-    onSort      // Dobivamo iz roditelja
+    dohvatiNazivIzvodaca, // 1. DODAJ OVO (Mora biti ovdje da bi je tablica vidjela)
+    sortConfig,
+    onSort 
 }) {
 
-    // Pomoćna funkcija za strelice
     const getSortIndicator = (stupac) => {
         if (sortConfig.stupac !== stupac) return " ↕";
         return sortConfig.smjer === 'asc' ? " ↑" : " ↓";
@@ -47,7 +47,12 @@ export default function AlbumPregledTablica({
                     albumi.map((album) => (
                         <tr key={album.sifra}>
                             <td className="align-middle">{album.naziv}</td>
-                            <td className="align-middle">{album.izvodac}</td>
+                            
+                            {/* 2. PROMIJENI OVU LINIJU ISPOD: */}
+                            <td className="align-middle">
+                                {dohvatiNazivIzvodaca(album.izvodac)}
+                            </td>
+
                             <td className="text-center align-middle">
                                 <FormatDatuma datum={album.datumIzdavanja} />
                             </td>

@@ -45,4 +45,36 @@ async function obrisi(sifra) {
     return { success: true };
 }
 
-export default { get, getBySifra, dodaj, promjeni, obrisi };
+// --- NOVO: DODANA FUNKCIJA KOJA NEDOSTAJE ---
+async function getPage(page = 1, pageSize = 8, sortColumn = 'naziv', sortDirection = 'asc') {
+    let sviAlbumi = dohvatiSveIzStorage();
+
+    // 1. Sortiranje (Globalno - na svim podacima)
+    sviAlbumi.sort((a, b) => {
+        let aVal = a[sortColumn];
+        let bVal = b[sortColumn];
+
+        let res = 0;
+        if (sortColumn === 'datumIzdavanja') {
+            res = new Date(aVal || 0) - new Date(bVal || 0);
+        } else {
+            res = String(aVal || "").localeCompare(String(bVal || ""), 'hr');
+        }
+
+        return sortDirection === 'asc' ? res : -res;
+    });
+
+    // 2. Paginacija
+    const start = (page - 1) * pageSize;
+    const podaciZaStranicu = sviAlbumi.slice(start, start + pageSize);
+
+    return {
+        success: true,
+        data: podaciZaStranicu,
+        totalPages: Math.ceil(sviAlbumi.length / pageSize),
+        totalItems: sviAlbumi.length
+    };
+}
+
+// NE ZABORAVI DODATI getPage U EXPORT!
+export default { get, getBySifra, dodaj, promjeni, obrisi, getPage };
