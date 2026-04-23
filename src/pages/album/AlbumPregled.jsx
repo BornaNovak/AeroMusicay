@@ -166,6 +166,7 @@ export default function AlbumPregled() {
                     navigate={navigate} 
                     brisanje={brisanje} 
                     generirajPDF={generirajPDFZaAlbum} 
+                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
                 />
             ) : (
                 <AlbumPregledTablica

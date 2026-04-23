@@ -4,6 +4,7 @@ import IzvodacService from "../services/izvodaci/IzvodacService";
 import AlbumService from "../services/albumi/AlbumService";
 import PjesmaService from "../services/pjesme/PjesmaService";
 import ZanrService from "../services/zanrovi/ZanrService"; 
+import { zanrovi } from "../services/zanrovi/ZanrPodaci";
 
 export default function GeneriranjeGlazbe() {
     const [status, setStatus] = useState({ tip: '', poruka: '' });
@@ -62,7 +63,7 @@ export default function GeneriranjeGlazbe() {
                 // Provjeri u IzvodacService koristi li se ključ 'zanr' ili 'zanrSifra'
                 const rez = await IzvodacService.dodaj({ 
                     naziv: naziv, 
-                    zanr: zanrSifra 
+                    dominantniZanr: zanrSifra 
                 });
                 
                 if (rez.success) spremljeneIzvodacSifre.push(rez.data.sifra);
@@ -98,10 +99,14 @@ export default function GeneriranjeGlazbe() {
                     naslov = pomocni.pjesme[i % pomocni.pjesme.length];
                     albumSifra = spremljeneAlbumSifre[Math.floor(Math.random() * spremljeneAlbumSifre.length)];
                 }
+                // ovdje pripremi niz od 2-3 elementa koji sadrže slučajne žanrove iz spremljeniZanroviSifre
+                const slucajniZanrovi = [1,2]
                 await PjesmaService.dodaj({
-                    naslov,
+                    naziv: naslov,
                     trajanje: Math.floor(Math.random() * 180) + 120,
-                    album: albumSifra
+                    album: albumSifra,
+                    zanr: slucajniZanrovi,
+                    slika: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII'
                 });
             }
 
