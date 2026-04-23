@@ -4,7 +4,6 @@ import IzvodacService from "../services/izvodaci/IzvodacService";
 import AlbumService from "../services/albumi/AlbumService";
 import PjesmaService from "../services/pjesme/PjesmaService";
 import ZanrService from "../services/zanrovi/ZanrService"; 
-import { zanrovi } from "../services/zanrovi/ZanrPodaci";
 
 export default function GeneriranjeGlazbe() {
     const [status, setStatus] = useState({ tip: '', poruka: '' });
@@ -40,7 +39,6 @@ export default function GeneriranjeGlazbe() {
             for (let i = 0; i < 20; i++) {
                 const naziv = listaZanrova[i % listaZanrova.length]; 
                 const rez = await ZanrService.dodaj({ naziv });
-                // Bitno: spremamo sifru žanra da je možemo dodijeliti izvođaču
                 if (rez.success) {
                     spremljeniZanroviSifre.push(rez.data.sifra);
                 }
@@ -55,12 +53,9 @@ export default function GeneriranjeGlazbe() {
                     zanrSifra = spremljeniZanroviSifre[i % 2]; 
                 } else {
                     naziv = pomocni.izvodaci[i % pomocni.izvodaci.length];
-                    // Nasumično dodijeli jedan od generiranih žanrova
                     zanrSifra = spremljeniZanroviSifre[Math.floor(Math.random() * spremljeniZanroviSifre.length)];
                 }
 
-                // PAŽNJA: Šaljemo 'zanrSifra' kako bi backend/servis znao povezati
-                // Provjeri u IzvodacService koristi li se ključ 'zanr' ili 'zanrSifra'
                 const rez = await IzvodacService.dodaj({ 
                     naziv: naziv, 
                     dominantniZanr: zanrSifra 
@@ -99,18 +94,28 @@ export default function GeneriranjeGlazbe() {
                     naslov = pomocni.pjesme[i % pomocni.pjesme.length];
                     albumSifra = spremljeneAlbumSifre[Math.floor(Math.random() * spremljeneAlbumSifre.length)];
                 }
-                // ovdje pripremi niz od 2-3 elementa koji sadrže slučajne žanrove iz spremljeniZanroviSifre
-                const slucajniZanrovi = [1,2]
+
+                // LOGIKA ZA SLUČAJNE ŽANROVE (2-3 unikatna žanra po pjesmi)
+                const brojZanrova = Math.floor(Math.random() * 2) + 2; 
+                const odabraniZanroviSet = new Set();
+
+                while(odabraniZanroviSet.size < brojZanrova && spremljeniZanroviSifre.length > 0) {
+                    const slucajniIndeks = Math.floor(Math.random() * spremljeniZanroviSifre.length);
+                    odabraniZanroviSet.add(spremljeniZanroviSifre[slucajniIndeks]);
+                }
+                
+                const slucajniZanrovi = Array.from(odabraniZanroviSet);
+
                 await PjesmaService.dodaj({
                     naziv: naslov,
                     trajanje: Math.floor(Math.random() * 180) + 120,
                     album: albumSifra,
-                    zanr: slucajniZanrovi,
+                    zanr: slucajniZanrovi, // Niz npr. [102, 105]
                     slika: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII'
                 });
             }
 
-            setStatus({ tip: 'success', poruka: 'Uspješno generirano! Žanrovi su ispravno dodijeljeni.' });
+            setStatus({ tip: 'success', poruka: 'Uspješno generirano! Žanrovi su ispravno dodijeljeni pjesmama.' });
         } catch (error) {
             console.error(error);
             setStatus({ tip: 'danger', poruka: 'Greška pri generiranju.' });
@@ -126,9 +131,9 @@ export default function GeneriranjeGlazbe() {
                     <h3 className="mb-0">Generator Glazbe</h3>
                 </Card.Header>
                 <Card.Body className="py-5">
-                    <Card.Title className="mb-4">Želite automatski povezane žanrove?</Card.Title>
+                    <Card.Title className="mb-4">Želite generirati glazbu jer Vam se ne da kucati?</Card.Title>
                     <Card.Text className="text-muted mb-4">
-                        Ovaj alat će kreirati podatke i <strong>automatski povezati izvođače s njihovim dominantnim žanrovima</strong> tako da više ne piše "Nema žanra".
+                        Ovaj alat će kreirati podatke i <strong>sam ih staviti na odgovarajuće mjesto umjesto Vas</strong> kako ne biste morali ručno unositi.
                     </Card.Text>
                     
                     {status.poruka && (
