@@ -18,6 +18,8 @@ export const RouteNames = {
     PJESME: '/pjesme',
     PJESME_NOVI: '/pjesme/novi',
     PJESME_PROMJENA: '/pjesme/:sifra',
+
+    GENERIRANJE_GLAZBE: '/generiranje-glazbe'
 }
 
 export const DATA_SOURCE = 'localStorage';

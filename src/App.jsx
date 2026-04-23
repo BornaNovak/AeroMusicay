@@ -18,6 +18,7 @@ import PjesmaPromjena from './pages/Pjesma/PjesmaPromjena';
 import ZanrPregled from './pages/zanr/ZanrPregled';
 import ZanrNovi from './pages/zanr/ZanrNovi';
 import ZanrPromjena from './pages/zanr/ZanrPromjena';
+import GeneriranjeGlazbe from './pages/GeneriranjeGlazbe';
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
           <Route path={RouteNames.PJESME} element={<PjesmaPregled />} />
           <Route path={RouteNames.PJESME_NOVI} element={<PjesmaNovi />} />
           <Route path={RouteNames.PJESME_PROMJENA} element={<PjesmaPromjena />}/>
+
+          <Route path={RouteNames.GENERIRANJE_GLAZBE} element={<GeneriranjeGlazbe />} />
         </Routes>
       </Container>
       <footer className="fixed-bottom text-center py-3 bg-light">
