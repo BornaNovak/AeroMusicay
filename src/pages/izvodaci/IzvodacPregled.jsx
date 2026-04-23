@@ -7,34 +7,30 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import IzvodacPregledGrid from "./IzvodacPregledGrid"
 import IzvodacPregledTablica from "./IzvodacPregledTablica"
 import ZanrService from '../../services/zanrovi/ZanrService'
-import { Pagination, Container } from "react-bootstrap" // Dodan Pagination i Container
+import { Pagination, Container } from "react-bootstrap"
 
 export default function IzvodacPregled() {
     const [izvodaci, setIzvodaci] = useState([])
     const [zanrovi, setZanrovi] = useState([]) 
     
-    // NOVO: State za straničenje
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
 
     const navigate = useNavigate();
     const sirina = useBreakpoint();
 
-    // useEffect sada prati promjenu stranice
     useEffect(() => {
         ucitajPodatke()
     }, [stranica])
 
     async function ucitajPodatke() {
-        // 1. Učitavamo žanrove (trebaju nam svi za lookup naziva)
         const resZanrovi = await ZanrService.get();
         if (resZanrovi.success) setZanrovi(resZanrovi.data);
 
-        // 2. Pozivamo getPage umjesto get za izvođače
         const resIzvodaci = await IzvodacService.getPage(stranica, 8);
         if (resIzvodaci.success) {
             setIzvodaci(resIzvodaci.data);
-            setUkupnoStranica(resIzvodaci.totalPages); // Spremamo broj stranica
+            setUkupnoStranica(resIzvodaci.totalPages);
         } else {
             alert('Nije moguće učitati izvođače');
         }
@@ -69,9 +65,30 @@ export default function IzvodacPregled() {
         }
     }
 
-    // Generiranje elemenata straničenja
+    // --- POPRAVLJENA DINAMIČKA LOGIKA PAGINACIJE ---
     let items = [];
-    for (let number = 1; number <= ukupnoStranica; number++) {
+    
+    // Određujemo centralnih 5 stranica
+    let startPage = Math.max(1, stranica - 2);
+    let endPage = Math.min(ukupnoStranica, startPage + 4);
+
+    // Balansiranje ako smo blizu kraja
+    if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+    }
+
+    // 1. LIJEVI DINAMIČKI RASPON
+    if (startPage > 1) {
+        const rangeText = startPage - 1 === 1 ? "1" : `1-${startPage - 1}`;
+        items.push(
+            <Pagination.Item key="left-range" onClick={() => setStranica(1)}>
+                {rangeText}
+            </Pagination.Item>
+        );
+    }
+
+    // 2. CENTRALNI BLOK
+    for (let number = startPage; number <= endPage; number++) {
         items.push(
             <Pagination.Item 
                 key={number} 
@@ -79,7 +96,17 @@ export default function IzvodacPregled() {
                 onClick={() => setStranica(number)}
             >
                 {number}
-            </Pagination.Item>,
+            </Pagination.Item>
+        );
+    }
+
+    // 3. DESNI DINAMIČKI RASPON
+    if (endPage < ukupnoStranica) {
+        const rangeText = endPage + 1 === ukupnoStranica ? `${ukupnoStranica}` : `${endPage + 1}-${ukupnoStranica}`;
+        items.push(
+            <Pagination.Item key="right-range" onClick={() => setStranica(ukupnoStranica)}>
+                {rangeText}
+            </Pagination.Item>
         );
     }
 
@@ -105,10 +132,25 @@ export default function IzvodacPregled() {
                 />
             )}
 
-            {/* Prikaz navigacije na dnu */}
             {ukupnoStranica > 1 && (
                 <div className="d-flex justify-content-center my-4">
-                    <Pagination>{items}</Pagination>
+                    <Pagination>
+                        <Pagination.Prev 
+                            disabled={stranica === 1} 
+                            onClick={() => setStranica(stranica - 1)}
+                        >
+                            « PREVIOUS
+                        </Pagination.Prev>
+
+                        {items}
+
+                        <Pagination.Next 
+                            disabled={stranica === ukupnoStranica} 
+                            onClick={() => setStranica(stranica + 1)}
+                        >
+                            NEXT »
+                        </Pagination.Next>
+                    </Pagination>
                 </div>
             )}
         </Container>

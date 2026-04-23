@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Table, Pagination, Container } from 'react-bootstrap' // Dodani Pagination i Container
+import { Button, Table, Pagination, Container } from 'react-bootstrap'
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
 import ZanrService from '../../services/zanrovi/ZanrService'
@@ -7,7 +7,7 @@ import ZanrService from '../../services/zanrovi/ZanrService'
 export default function ZanrPregled() {
     const [zanrovi, setZanrovi] = useState([])
     
-    // NOVO: State za straničenje
+    // State za straničenje
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
     
@@ -19,7 +19,6 @@ export default function ZanrPregled() {
     }, [stranica])
 
     async function ucitajZanrove() {
-        // Koristimo getPage umjesto get (8 žanrova po stranici)
         const odgovor = await ZanrService.getPage(stranica, 8);
         
         if (!odgovor.success) {
@@ -28,7 +27,7 @@ export default function ZanrPregled() {
         }
         
         setZanrovi(odgovor.data);
-        setUkupnoStranica(odgovor.totalPages); // Spremamo informaciju o ukupnom broju stranica
+        setUkupnoStranica(odgovor.totalPages);
     }
 
     async function obrisi(sifra) {
@@ -39,9 +38,30 @@ export default function ZanrPregled() {
         ucitajZanrove()
     }
 
-    // Generiranje brojeva stranica za Pagination
+    // --- ISPRAVLJENA LOGIKA ZA DINAMIČKE GUMBE PAGINACIJE ---
     let items = [];
-    for (let number = 1; number <= ukupnoStranica; number++) {
+    
+    // Određujemo granice centralnog bloka (5 stranica)
+    let startPage = Math.max(1, stranica - 2);
+    let endPage = Math.min(ukupnoStranica, startPage + 4);
+
+    // Balansiranje ako smo blizu kraja da uvijek vidimo 5 brojeva
+    if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+    }
+
+    // 1. LIJEVI DINAMIČKI RASPON: Prikazuje od 1 do (startPage - 1)
+    if (startPage > 1) {
+        const rangeText = startPage - 1 === 1 ? "1" : `1-${startPage - 1}`;
+        items.push(
+            <Pagination.Item key="left-range" onClick={() => setStranica(1)}>
+                {rangeText}
+            </Pagination.Item>
+        );
+    }
+
+    // 2. CENTRALNI BLOK (do 5 brojeva)
+    for (let number = startPage; number <= endPage; number++) {
         items.push(
             <Pagination.Item 
                 key={number} 
@@ -49,7 +69,17 @@ export default function ZanrPregled() {
                 onClick={() => setStranica(number)}
             >
                 {number}
-            </Pagination.Item>,
+            </Pagination.Item>
+        );
+    }
+
+    // 3. DESNI DINAMIČKI RASPON: Prikazuje od (endPage + 1) do zadnje stranice
+    if (endPage < ukupnoStranica) {
+        const rangeText = endPage + 1 === ukupnoStranica ? `${ukupnoStranica}` : `${endPage + 1}-${ukupnoStranica}`;
+        items.push(
+            <Pagination.Item key="right-range" onClick={() => setStranica(ukupnoStranica)}>
+                {rangeText}
+            </Pagination.Item>
         );
     }
 
@@ -63,14 +93,14 @@ export default function ZanrPregled() {
                 <thead>
                     <tr>
                         <th>Naziv žanra</th>
-                        <th>Akcije</th>
+                        <th className="text-center">Akcije</th>
                     </tr>
                 </thead>
                 <tbody>
                     {zanrovi && zanrovi.map((z) => (
                         <tr key={z.sifra}>
-                            <td>{z.naziv}</td>
-                            <td>
+                            <td className="align-middle">{z.naziv}</td>
+                            <td className="text-center align-middle">
                                 <Button size="sm" onClick={() => { navigate(`/zanrovi/${z.sifra}`) }}>
                                     Promjeni
                                 </Button>
@@ -84,10 +114,26 @@ export default function ZanrPregled() {
                 </tbody>
             </Table>
 
-            {/* Prikaz navigacije stranica na sredini */}
+            {/* Prikaz ispravljene navigacije stranica */}
             {ukupnoStranica > 1 && (
-                <div className="d-flex justify-content-center">
-                    <Pagination>{items}</Pagination>
+                <div className="d-flex justify-content-center my-4">
+                    <Pagination>
+                        <Pagination.Prev 
+                            disabled={stranica === 1} 
+                            onClick={() => setStranica(stranica - 1)}
+                        >
+                            « PREVIOUS
+                        </Pagination.Prev>
+
+                        {items}
+
+                        <Pagination.Next 
+                            disabled={stranica === ukupnoStranica} 
+                            onClick={() => setStranica(stranica + 1)}
+                        >
+                            NEXT »
+                        </Pagination.Next>
+                    </Pagination>
                 </div>
             )}
         </Container>

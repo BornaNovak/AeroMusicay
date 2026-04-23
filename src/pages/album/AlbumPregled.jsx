@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import AlbumService from "../../services/albumi/AlbumService"
 import PjesmaService from "../../services/pjesme/PjesmaService"
-import IzvodacService from "../../services/izvodaci/IzvodacService" // DODANO
+import IzvodacService from "../../services/izvodaci/IzvodacService"
 import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
@@ -16,7 +16,7 @@ export default function AlbumPregled() {
     const sirina = useBreakpoint();
 
     const [albumi, setAlbumi] = useState([])
-    const [izvodaci, setIzvodaci] = useState([]); // DODANO: State za izvođače
+    const [izvodaci, setIzvodaci] = useState([]); 
 
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
@@ -28,7 +28,6 @@ export default function AlbumPregled() {
     }, [stranica, sortiranje])
 
     async function ucitajPodatke() {
-        // Prvo dohvaćamo izvođače kako bi ih imali spremne za prikaz u tablici
         await ucitajIzvodace();
         await ucitajAlbume();
     }
@@ -50,9 +49,7 @@ export default function AlbumPregled() {
         setUkupnoStranica(odgovor.totalPages);
     }
 
-    // DODANO: Funkcija koja pretvara šifru izvođača u njegovo ime
     const dohvatiNazivIzvodaca = (sifra) => {
-        // LocalStorage nekad sprema kao [1] umjesto 1, pa čistimo ID
         const id = Array.isArray(sifra) ? sifra[0] : sifra;
         const izvodac = izvodaci.find(i => i.sifra == id);
         return izvodac ? izvodac.naziv : 'Nepoznato';
@@ -111,8 +108,30 @@ export default function AlbumPregled() {
         await generiraj();
     }
 
+    // --- POPRAVLJENA DINAMIČKA LOGIKA PAGINACIJE ---
     let items = [];
-    for (let number = 1; number <= ukupnoStranica; number++) {
+    
+    // Određujemo granice središnjih 5 brojeva
+    let startPage = Math.max(1, stranica - 2);
+    let endPage = Math.min(ukupnoStranica, startPage + 4);
+
+    // Ako smo blizu kraja, povlačimo početak unazad da uvijek imamo do 5 brojeva
+    if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+    }
+
+    // 1. LIJEVI RASPON: Ako startPage nije 1, prikaži gumb od 1 do (startPage - 1)
+    if (startPage > 1) {
+        const rangeText = startPage - 1 === 1 ? "1" : `1-${startPage - 1}`;
+        items.push(
+            <Pagination.Item key="left-range" onClick={() => setStranica(1)}>
+                {rangeText}
+            </Pagination.Item>
+        );
+    }
+
+    // 2. SREDIŠNJI BROJEVI
+    for (let number = startPage; number <= endPage; number++) {
         items.push(
             <Pagination.Item 
                 key={number} 
@@ -120,7 +139,17 @@ export default function AlbumPregled() {
                 onClick={() => setStranica(number)}
             >
                 {number}
-            </Pagination.Item>,
+            </Pagination.Item>
+        );
+    }
+
+    // 3. DESNI RASPON: Ako endPage nije zadnja stranica, prikaži od (endPage + 1) do ukupno
+    if (endPage < ukupnoStranica) {
+        const rangeText = endPage + 1 === ukupnoStranica ? `${ukupnoStranica}` : `${endPage + 1}-${ukupnoStranica}`;
+        items.push(
+            <Pagination.Item key="right-range" onClick={() => setStranica(ukupnoStranica)}>
+                {rangeText}
+            </Pagination.Item>
         );
     }
 
@@ -146,13 +175,29 @@ export default function AlbumPregled() {
                     generirajPDF={generirajPDFZaAlbum}
                     sortConfig={sortiranje}
                     onSort={promjeniSortiranje}
-                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca} // DODANO
+                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
                 />
             )}
 
             {ukupnoStranica > 1 && (
                 <div className="d-flex justify-content-center my-4">
-                    <Pagination>{items}</Pagination>
+                    <Pagination>
+                        <Pagination.Prev 
+                            disabled={stranica === 1} 
+                            onClick={() => setStranica(stranica - 1)}
+                        >
+                            « PREVIOUS
+                        </Pagination.Prev>
+
+                        {items}
+
+                        <Pagination.Next 
+                            disabled={stranica === ukupnoStranica} 
+                            onClick={() => setStranica(stranica + 1)}
+                        >
+                            NEXT »
+                        </Pagination.Next>
+                    </Pagination>
                 </div>
             )}
         </Container>
