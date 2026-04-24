@@ -3,7 +3,7 @@ import { RouteNames } from "../../constants";
 import PjesmaService from "../../services/pjesme/PjesmaService";
 import AlbumService from "../../services/albumi/AlbumService";
 import ZanrService from "../../services/zanrovi/ZanrService";
-import IzvodacService from "../../services/izvodaci/IzvodacService"; // 1. Uvezi IzvodacService
+import IzvodacService from "../../services/izvodaci/IzvodacService";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -32,27 +32,20 @@ export default function PjesmaNovi() {
         if (odgovor.success) setZanrovi(odgovor.data);
     }
 
-    // --- NOVA LOGIKA: Automatsko dodavanje dominantnog žanra ---
     async function handleAlbumChange(e) {
         const albumSifra = parseInt(e.target.value);
         if (!albumSifra) return;
 
-        // 1. Pronađi odabrani album u listi
         const album = albumi.find(a => a.sifra === albumSifra);
         
         if (album && album.izvodac) {
-            // 2. Dohvati podatke o izvođaču tog albuma
-            // Napomena: album.izvodac je obično šifra izvođača
             const resIzvodac = await IzvodacService.getBySifra(album.izvodac);
-            
             if (resIzvodac.success) {
                 const izvodac = resIzvodac.data;
-                
-                // 3. Ako izvođač ima dominantniZanr, pronađi taj žanr u listi žanrova
                 if (izvodac.dominantniZanr) {
                     const domZanr = zanrovi.find(z => z.sifra == izvodac.dominantniZanr);
                     if (domZanr) {
-                        dodajZanr(domZanr); // Automatski ga dodaj u tablicu desno
+                        dodajZanr(domZanr);
                     }
                 }
             }
@@ -68,7 +61,6 @@ export default function PjesmaNovi() {
         setOdabraniIndex(-1);
     }
 
-    // ... (ostatak funkcija ukloniZanr, filtrirajZanrove, handleKeyDown ostaje isti) ...
     function ukloniZanr(sifra) {
         setOdabraniZanrovi(odabraniZanrovi.filter(z => z.sifra !== sifra));
     }
@@ -114,11 +106,26 @@ export default function PjesmaNovi() {
             return;
         }
 
+        const trajanjeValue = podaci.get('trajanje');
+        const trajanje = parseInt(trajanjeValue);
+
+        // Provjera ako je broj u minusu ili nije broj
+        if (isNaN(trajanje) || trajanje < 0 || trajanjeValue.includes('-')) {
+            alert('Trajanje glazbe ne može biti u minusu!');
+            return;
+        }
+
+        // Dodatna provjera za nulu ako želiš da pjesma mora trajati bar 1 sekundu
+        if (trajanje === 0) {
+            alert('Trajanje glazbe mora biti veće od 0!');
+            return;
+        }
+
         dodaj({
             naziv: podaci.get('naziv'),
             album: parseInt(podaci.get('album')), 
             zanr: odabraniZanrovi.map(z => z.sifra), 
-            trajanje: parseInt(podaci.get('trajanje')) || 0
+            trajanje: trajanje
         });
     }
 
@@ -144,7 +151,6 @@ export default function PjesmaNovi() {
 
                                 <Form.Group className="mb-3">
                                     <Form.Label className="fw-bold">Album</Form.Label>
-                                    {/* DODANO: onChange={handleAlbumChange} */}
                                     <Form.Select 
                                         name="album" 
                                         required 
@@ -163,6 +169,14 @@ export default function PjesmaNovi() {
                                         type="number" 
                                         name="trajanje" 
                                         placeholder="npr. 240"
+                                        min="0"
+                                        required
+                                        onKeyDown={(e) => {
+                                            // Onemogućuje unos znaka minus direktno na tipkovnici
+                                            if (e.key === '-') {
+                                                e.preventDefault();
+                                            }
+                                        }}
                                     />
                                 </Form.Group>
                             </Card.Body>

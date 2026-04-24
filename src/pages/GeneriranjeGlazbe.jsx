@@ -35,7 +35,7 @@ export default function GeneriranjeGlazbe() {
             const spremljeneIzvodacSifre = [];
             const spremljeneAlbumSifre = [];
 
-            // 1. GENERIRAJ 20 ŽANROVA
+            // 1. GENERIRAJ ŽANROVE
             for (let i = 0; i < 20; i++) {
                 const naziv = listaZanrova[i % listaZanrova.length]; 
                 const rez = await ZanrService.dodaj({ naziv });
@@ -44,12 +44,11 @@ export default function GeneriranjeGlazbe() {
                 }
             }
 
-            // 2. GENERIRAJ 60 IZVOĐAČA
+            // 2. GENERIRAJ IZVOĐAČE
             for (let i = 0; i < 60; i++) {
                 let naziv, zanrSifra;
                 if (i < 3) {
                     naziv = obavezni[i].izvodac;
-                    // Pridruži Rock ili Metal (prva dva žanra)
                     zanrSifra = spremljeniZanroviSifre[i % 2]; 
                 } else {
                     naziv = pomocni.izvodaci[i % pomocni.izvodaci.length];
@@ -64,7 +63,7 @@ export default function GeneriranjeGlazbe() {
                 if (rez.success) spremljeneIzvodacSifre.push(rez.data.sifra);
             }
 
-            // 3. GENERIRAJ 80 ALBUMA
+            // 3. GENERIRAJ ALBUME
             for (let i = 0; i < 80; i++) {
                 let naziv, izvodacSifra, datum;
                 if (i < 3) {
@@ -84,18 +83,20 @@ export default function GeneriranjeGlazbe() {
                 if (rez.success) spremljeneAlbumSifre.push(rez.data.sifra);
             }
 
-            // 4. GENERIRAJ 200 PJESAMA
+            // 4. GENERIRAJ PJESAME
             for (let i = 0; i < 200; i++) {
-                let naslov, albumSifra;
+                let naslov, albumSifra, trajanje;
                 if (i < 3) {
                     naslov = obavezni[i].pjesma;
                     albumSifra = spremljeneAlbumSifre[i];
+                    trajanje = 240; // Fiksno trajanje za obavezne
                 } else {
                     naslov = pomocni.pjesme[i % pomocni.pjesme.length];
                     albumSifra = spremljeneAlbumSifre[Math.floor(Math.random() * spremljeneAlbumSifre.length)];
+                    // Slučajno trajanje između 120 i 300 sekundi
+                    trajanje = Math.floor(Math.random() * 181) + 120;
                 }
 
-                // LOGIKA ZA SLUČAJNE ŽANROVE (2-3 unikatna žanra po pjesmi)
                 const brojZanrova = Math.floor(Math.random() * 2) + 2; 
                 const odabraniZanroviSet = new Set();
 
@@ -108,14 +109,13 @@ export default function GeneriranjeGlazbe() {
 
                 await PjesmaService.dodaj({
                     naziv: naslov,
-                    trajanje: Math.floor(Math.random() * 180) + 120,
+                    trajanje: trajanje,
                     album: albumSifra,
-                    zanr: slucajniZanrovi, // Niz npr. [102, 105]
-                    slika: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII'
+                    zanr: slucajniZanrovi
                 });
             }
 
-            setStatus({ tip: 'success', poruka: 'Uspješno generirano! Žanrovi su ispravno dodijeljeni pjesmama.' });
+            setStatus({ tip: 'success', poruka: 'Uspješno generirano bez slika i s ispravnim trajanjem!' });
         } catch (error) {
             console.error(error);
             setStatus({ tip: 'danger', poruka: 'Greška pri generiranju.' });
@@ -131,10 +131,7 @@ export default function GeneriranjeGlazbe() {
                     <h3 className="mb-0">Generator Glazbe</h3>
                 </Card.Header>
                 <Card.Body className="py-5">
-                    <Card.Title className="mb-4">Želite generirati glazbu jer Vam se ne da kucati?</Card.Title>
-                    <Card.Text className="text-muted mb-4">
-                        Ovaj alat će kreirati podatke i <strong>sam ih staviti na odgovarajuće mjesto umjesto Vas</strong> kako ne biste morali ručno unositi.
-                    </Card.Text>
+                    <Card.Title className="mb-4">Generiranje glazbe</Card.Title>
                     
                     {status.poruka && (
                         <Alert variant={status.tip} className="mb-4">
@@ -149,12 +146,9 @@ export default function GeneriranjeGlazbe() {
                         size="lg"
                         className="px-5 shadow"
                     >
-                        {ucitavanje ? 'Povezivanje podataka...' : 'Pokreni Generator'}
+                        {ucitavanje ? 'Generiranje...' : 'Pokreni Generator'}
                     </Button>
                 </Card.Body>
-                <Card.Footer className="text-muted small">
-                    Putanja: src/pages/GeneriranjeGlazbe.jsx
-                </Card.Footer>
             </Card>
         </Container>
     );

@@ -1,8 +1,8 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PjesmaService from "../../services/pjesme/PjesmaService";
-import AlbumService from "../../services/albumi/AlbumService"; // Dodano
-import IzvodacService from "../../services/izvodaci/IzvodacService"; // Dodano
-import ZanrService from "../../services/zanrovi/ZanrService"; // Dodano
+import AlbumService from "../../services/albumi/AlbumService"; 
+import IzvodacService from "../../services/izvodaci/IzvodacService"; 
+import ZanrService from "../../services/zanrovi/ZanrService"; 
 import { RouteNames } from "../../constants";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row, Container, Card, Table } from "react-bootstrap";
@@ -12,8 +12,8 @@ export default function PjesmaPromjena() {
     const params = useParams();
     
     const [pjesma, setPjesma] = useState(null);
-    const [albumi, setAlbumi] = useState([]); // Prebačeno na state
-    const [sviZanrovi, setSviZanrovi] = useState([]); // Prebačeno na state
+    const [albumi, setAlbumi] = useState([]); 
+    const [sviZanrovi, setSviZanrovi] = useState([]); 
     const [odabraniZanrovi, setOdabraniZanrovi] = useState([]);
     const [pretragaZanrova, setPretragaZanrova] = useState('');
     const [prikaziAutocomplete, setPrikaziAutocomplete] = useState(false);
@@ -24,7 +24,6 @@ export default function PjesmaPromjena() {
     }, []);
 
     async function ucitajPodatke() {
-        // Učitavamo sve paralelno
         const [resPjesma, resAlbumi, resZanrovi] = await Promise.all([
             PjesmaService.getBySifra(params.sifra),
             AlbumService.get(),
@@ -36,7 +35,6 @@ export default function PjesmaPromjena() {
 
         if (resPjesma.success) {
             setPjesma(resPjesma.data);
-            // Inicijalizacija odabranih žanrova iz baze
             if (resPjesma.data.zanr && resZanrovi.success) {
                 const postojeci = resZanrovi.data.filter(z => resPjesma.data.zanr.includes(z.sifra));
                 setOdabraniZanrovi(postojeci);
@@ -46,12 +44,10 @@ export default function PjesmaPromjena() {
         }
     }
 
-    // --- NOVA LOGIKA: Automatsko dodavanje kod promjene albuma ---
     async function handleAlbumChange(e) {
         const albumSifra = parseInt(e.target.value);
         if (!albumSifra) return;
 
-        // Pronađi album da dobijemo šifru izvođača
         const album = albumi.find(a => a.sifra === albumSifra);
         
         if (album && album.izvodac) {
@@ -106,6 +102,8 @@ export default function PjesmaPromjena() {
         const odgovor = await PjesmaService.promjeni(params.sifra, pjesmaPodaci);
         if (odgovor.success) {
             navigate(RouteNames.PJESME);
+        } else {
+            alert('Došlo je do greške kod spremanja na server.');
         }
     }
 
@@ -113,16 +111,26 @@ export default function PjesmaPromjena() {
         e.preventDefault();
         const podaci = new FormData(e.target);
 
+        // Provjera naziva
         if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 2) {
             alert('Naziv pjesme mora imati najmanje 2 znaka!');
             return;
         }
 
+        // --- KLJUČNA IZMJENA ZA TRAJANJE ---
+        const trajanje = parseInt(podaci.get('trajanje'));
+
+        if (isNaN(trajanje) || trajanje < 1) {
+            alert('Greška: Trajanje pjesme mora biti pozitivan broj (minimalno 1 sekunda)!');
+            return; // Ovdje prekidamo i funkcija "promjeni" se nikada ne pozove
+        }
+        // ------------------------------------
+
         promjeni({
             naziv: podaci.get('naziv'),
             album: parseInt(podaci.get('album')),
             zanr: odabraniZanrovi.map(z => z.sifra), 
-            trajanje: parseInt(podaci.get('trajanje')) || 0
+            trajanje: trajanje
         });
     }
 
@@ -154,7 +162,7 @@ export default function PjesmaPromjena() {
                                         name="album" 
                                         defaultValue={pjesma.album} 
                                         required
-                                        onChange={handleAlbumChange} // Dodano
+                                        onChange={handleAlbumChange}
                                     >
                                         <option value="">Odaberite album</option>
                                         {albumi.map(a => (
@@ -169,6 +177,8 @@ export default function PjesmaPromjena() {
                                         type="number" 
                                         name="trajanje" 
                                         defaultValue={pjesma.trajanje} 
+                                        min="1" // HTML5 validacija (vizualno)
+                                        required 
                                     />
                                 </Form.Group>
                             </Card.Body>
@@ -189,6 +199,7 @@ export default function PjesmaPromjena() {
                                         onChange={(e) => {
                                             setPretragaZanrova(e.target.value);
                                             setPrikaziAutocomplete(e.target.value.length > 0);
+                                            setOdabraniIndex(-1);
                                         }}
                                         onKeyDown={handleKeyDown}
                                     />

@@ -127,10 +127,7 @@ export default function PjesmaPregled() {
                     {pjesme && pjesme.map((pjesma) => (
                         <tr key={pjesma.sifra}>
                             
-                            <td className="align-middle">
-                                <img src={pjesma.slika} alt='Slika' />
-                                {pjesma.naziv}
-                            </td>
+                            <td className="align-middle">{pjesma.naziv}</td>
                             <td className="align-middle">{dohvatiNazivAlbuma(pjesma.album)}</td>
                             <td className="align-middle">{dohvatiNaziveZanrova(pjesma.zanr)}</td>
                             <td className="align-middle">{formatirajTrajanje(pjesma.trajanje)}</td>
