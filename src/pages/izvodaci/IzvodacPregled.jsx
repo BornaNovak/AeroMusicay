@@ -139,7 +139,7 @@ export default function IzvodacPregled() {
                             disabled={stranica === 1} 
                             onClick={() => setStranica(stranica - 1)}
                         >
-                            « PREVIOUS
+                            «
                         </Pagination.Prev>
 
                         {items}
@@ -148,7 +148,7 @@ export default function IzvodacPregled() {
                             disabled={stranica === ukupnoStranica} 
                             onClick={() => setStranica(stranica + 1)}
                         >
-                            NEXT »
+                            »
                         </Pagination.Next>
                     </Pagination>
                 </div>

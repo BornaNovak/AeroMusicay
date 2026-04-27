@@ -187,7 +187,7 @@ export default function AlbumPregled() {
                             disabled={stranica === 1} 
                             onClick={() => setStranica(stranica - 1)}
                         >
-                            « PREVIOUS
+                            «
                         </Pagination.Prev>
 
                         {items}
@@ -196,7 +196,7 @@ export default function AlbumPregled() {
                             disabled={stranica === ukupnoStranica} 
                             onClick={() => setStranica(stranica + 1)}
                         >
-                            NEXT »
+                            »
                         </Pagination.Next>
                     </Pagination>
                 </div>
