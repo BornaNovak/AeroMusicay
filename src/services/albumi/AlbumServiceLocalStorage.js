@@ -1,3 +1,5 @@
+import IzvodacService from "../izvodaci/IzvodacService";
+
 const STORAGE_KEY = 'albumi';
 
 function dohvatiSveIzStorage() {
@@ -48,6 +50,21 @@ async function obrisi(sifra) {
 // --- NOVO: DODANA FUNKCIJA KOJA NEDOSTAJE ---
 async function getPage(page = 1, pageSize = 8, sortColumn = 'naziv', sortDirection = 'asc') {
     let sviAlbumi = dohvatiSveIzStorage();
+
+    const izvodjacOdgovor = await IzvodacService.get();
+
+    const izvodacPodaci = izvodjacOdgovor.data
+
+    sviAlbumi = sviAlbumi.map(album => {
+        // Pronađi izvođača čija se šifra podudara s onom u albumu
+        const pronadjeniIzvodac = izvodacPodaci.find(i => i.sifra === album.izvodac);
+        
+        return {
+            ...album,
+            // Ako je izvođač pronađen, stavi njegov naziv, inače zadrži staru vrijednost ili stavi 'Nepoznato'
+            izvodac: pronadjeniIzvodac ? pronadjeniIzvodac.naziv : album.izvodac
+        };
+    });
 
     // 1. Sortiranje (Globalno - na svim podacima)
     sviAlbumi.sort((a, b) => {

@@ -50,7 +50,7 @@ export default function AlbumPregledTablica({
                             
                             {/* 2. PROMIJENI OVU LINIJU ISPOD: */}
                             <td className="align-middle">
-                                {dohvatiNazivIzvodaca(album.izvodac)}
+                                {album.izvodac}
                             </td>
 
                             <td className="text-center align-middle">

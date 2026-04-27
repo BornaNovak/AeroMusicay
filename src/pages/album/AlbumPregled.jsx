@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import AlbumService from "../../services/albumi/AlbumService"
 import PjesmaService from "../../services/pjesme/PjesmaService"
-import IzvodacService from "../../services/izvodaci/IzvodacService"
 import useBreakpoint from "../../hooks/useBreakpoint"
 import AlbumPregledGrid from "./AlbumPregledGrid"
 import AlbumPregledTablica from "./AlbumPregledTablica"
@@ -28,16 +27,9 @@ export default function AlbumPregled() {
     }, [stranica, sortiranje])
 
     async function ucitajPodatke() {
-        await ucitajIzvodace();
         await ucitajAlbume();
     }
 
-    async function ucitajIzvodace() {
-        const odgovor = await IzvodacService.get();
-        if (odgovor.success) {
-            setIzvodaci(odgovor.data);
-        }
-    }
 
     async function ucitajAlbume() {
         const odgovor = await AlbumService.getPage(stranica, 8, sortiranje.stupac, sortiranje.smjer);
@@ -48,12 +40,6 @@ export default function AlbumPregled() {
         setAlbumi(odgovor.data);
         setUkupnoStranica(odgovor.totalPages);
     }
-
-    const dohvatiNazivIzvodaca = (sifra) => {
-        const id = Array.isArray(sifra) ? sifra[0] : sifra;
-        const izvodac = izvodaci.find(i => i.sifra == id);
-        return izvodac ? izvodac.naziv : 'Nepoznato';
-    };
 
     function promjeniSortiranje(noviStupac) {
         setSortiranje(prev => ({
@@ -166,7 +152,6 @@ export default function AlbumPregled() {
                     navigate={navigate} 
                     brisanje={brisanje} 
                     generirajPDF={generirajPDFZaAlbum} 
-                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
                 />
             ) : (
                 <AlbumPregledTablica
@@ -176,7 +161,6 @@ export default function AlbumPregled() {
                     generirajPDF={generirajPDFZaAlbum}
                     sortConfig={sortiranje}
                     onSort={promjeniSortiranje}
-                    dohvatiNazivIzvodaca={dohvatiNazivIzvodaca}
                 />
             )}
 
