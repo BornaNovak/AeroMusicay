@@ -6,18 +6,23 @@ import { formatirajTrajanje } from '../../utils'
 import { Button, Table, Container, Pagination } from 'react-bootstrap'
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
+import useBreakpoint from '../../hooks/useBreakpoint'
+import PjesmaPregledGrid from './PjesmaPregledGrid'
+import PjesmaPregledTablica from './PjesmaPregledTablica'
 
 
 export default function PjesmaPregled() {
     const [pjesme, setPjesme] = useState([])
     const [albumi, setAlbumi] = useState([])
-    const [zanrovi, setZanrovi] = useState([]) 
-    
+    const [zanrovi, setZanrovi] = useState([])
+
     // State za straničenje
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
-    
+
     const navigate = useNavigate();
+
+    const sirina = useBreakpoint();
 
     // useEffect prati promjenu 'stranica'
     useEffect(() => {
@@ -57,7 +62,7 @@ export default function PjesmaPregled() {
                     return z ? z.naziv : null;
                 })
                 .filter(n => n !== null)
-                .join(', '); 
+                .join(', ');
         }
         const zanr = zanrovi.find(z => z.sifra === parseInt(pjesmaZanrovi));
         return zanr ? zanr.naziv : 'Nepoznat žanr';
@@ -65,7 +70,7 @@ export default function PjesmaPregled() {
 
     // --- NOVA DINAMIČKA LOGIKA PAGINACIJE ---
     let items = [];
-    
+
     // Definiramo granice centralnog bloka
     let startPage = Math.max(1, stranica - 2);
     let endPage = Math.min(ukupnoStranica, startPage + 4);
@@ -87,14 +92,22 @@ export default function PjesmaPregled() {
     // 2. CENTRALNIH 5 STRANICA
     for (let number = startPage; number <= endPage; number++) {
         items.push(
-            <Pagination.Item 
-                key={number} 
-                active={number === stranica} 
+            <Pagination.Item
+                key={number}
+                active={number === stranica}
                 onClick={() => setStranica(number)}
             >
                 {number}
             </Pagination.Item>
         );
+    }
+
+
+     async function brisanje(sifra) {
+        if (!confirm('Sigurno obrisati?')) return;
+
+        await PjesmaService.obrisi(sifra);
+        ucitajPodatke()
     }
 
     // 3. DESNI RASPON: Dinamički prikazuje od (endPage + 1) do kraja
@@ -112,45 +125,34 @@ export default function PjesmaPregled() {
             <Link to={RouteNames.PJESME_NOVI} className="btn btn-success w-100 my-3">
                 Dodavanje nove pjesme
             </Link>
-            
-            <Table striped hover responsive>
-                <thead>
-                    <tr>
-                        <th>Naziv pjesme</th>
-                        <th>Album</th>
-                        <th>Žanrovi</th>
-                        <th>Trajanje</th>
-                        <th className="text-center">Akcije</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {pjesme && pjesme.map((pjesma) => (
-                        <tr key={pjesma.sifra}>
-                            
-                            <td className="align-middle">{pjesma.naziv}</td>
-                            <td className="align-middle">{dohvatiNazivAlbuma(pjesma.album)}</td>
-                            <td className="align-middle">{dohvatiNaziveZanrova(pjesma.zanr)}</td>
-                            <td className="align-middle">{formatirajTrajanje(pjesma.trajanje)}</td>
-                            <td className="text-center align-middle">
-                                <Button size="sm" onClick={() => { navigate(`/pjesme/${pjesma.sifra}`) }}>
-                                    Promjeni
-                                </Button>
-                                &nbsp;&nbsp;
-                                <Button size="sm" variant="danger" onClick={() => { obrisi(pjesma.sifra) }}>
-                                    Obriši
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+
+            {/* tableti prema manje */}
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <PjesmaPregledGrid
+                    pjesme={pjesme}
+                    navigate={navigate}
+                    brisanje={brisanje}
+                    dohvatiNazivAlbuma={dohvatiNazivAlbuma}
+                    dohvatiNaziveZanrova={dohvatiNaziveZanrova}
+                />
+            ) : (
+                <PjesmaPregledTablica
+                    pjesme={pjesme}
+                    navigate={navigate}
+                    brisanje={brisanje}
+                    dohvatiNazivAlbuma={dohvatiNazivAlbuma}
+                    dohvatiNaziveZanrova={dohvatiNaziveZanrova}
+                />
+            )}
+
+           
 
             {/* PRIKAZ NAPREDNE PAGINACIJE NA DNU */}
             {ukupnoStranica > 1 && (
                 <div className="d-flex justify-content-center my-4">
                     <Pagination>
-                        <Pagination.Prev 
-                            disabled={stranica === 1} 
+                        <Pagination.Prev
+                            disabled={stranica === 1}
                             onClick={() => setStranica(stranica - 1)}
                         >
                             «
@@ -158,8 +160,8 @@ export default function PjesmaPregled() {
 
                         {items}
 
-                        <Pagination.Next 
-                            disabled={stranica === ukupnoStranica} 
+                        <Pagination.Next
+                            disabled={stranica === ukupnoStranica}
                             onClick={() => setStranica(stranica + 1)}
                         >
                             »

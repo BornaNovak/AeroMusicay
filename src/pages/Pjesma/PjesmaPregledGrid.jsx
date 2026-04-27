@@ -5,7 +5,6 @@ export default function PjesmaPregledGrid({
     pjesme, 
     navigate, 
     brisanje, 
-    generirajPDF, 
     dohvatiNazivAlbuma,
     dohvatiNaziveZanrova
 }) {
@@ -61,14 +60,6 @@ export default function PjesmaPregledGrid({
                                         onClick={() => brisanje(pjesma.sifra)}
                                     >
                                         Obriši
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        variant="info"
-                                        className="flex-fill shadow-sm text-white"
-                                        onClick={() => generirajPDF(pjesma)}
-                                    >
-                                        PDF
                                     </Button>
                                 </div>
                             </Card.Body>

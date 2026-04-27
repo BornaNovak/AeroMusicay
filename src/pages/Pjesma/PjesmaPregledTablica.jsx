@@ -5,43 +5,26 @@ export default function PjesmaPregledTablica({
     pjesme, 
     navigate, 
     brisanje, 
-    generirajPDF,
     dohvatiNazivAlbuma,
-    dohvatiNaziveZanrova,
-    sortConfig,
-    onSort 
+    dohvatiNaziveZanrova
 }) {
 
-    const getSortIndicator = (stupac) => {
-        if (sortConfig.stupac !== stupac) return " ↕";
-        return sortConfig.smjer === 'asc' ? " ↑" : " ↓";
-    };
 
     return (
         <Table striped hover responsive className="shadow-sm">
             <thead>
                 <tr>
-                    <th 
-                        onClick={() => onSort('naziv')} 
-                        style={{ cursor: 'pointer', userSelect: 'none' }}
-                    >
-                        Naziv pjesme {getSortIndicator('naziv')}
+                    <th>
+                        Naziv pjesme 
                     </th>
-                    <th 
-                        onClick={() => onSort('album')} 
-                        style={{ cursor: 'pointer', userSelect: 'none' }}
-                    >
-                        Album {getSortIndicator('album')}
+                    <th>
+                        Album 
                     </th>
                     <th>
                         Žanrovi
                     </th>
-                    <th 
-                        onClick={() => onSort('trajanje')} 
-                        className="text-center"
-                        style={{ cursor: 'pointer', userSelect: 'none' }}
-                    >
-                        Trajanje {getSortIndicator('trajanje')}
+                    <th>
+                        Trajanje
                     </th>
                     <th className="text-center">Akcije</th>
                 </tr>
@@ -71,10 +54,6 @@ export default function PjesmaPregledTablica({
                                 &nbsp;&nbsp;
                                 <Button size="sm" variant="danger" onClick={() => brisanje(pjesma.sifra)}>
                                     Obriši
-                                </Button>
-                                &nbsp;&nbsp;
-                                <Button size="sm" variant="info" className="text-white" onClick={() => generirajPDF(pjesma)}>
-                                    PDF
                                 </Button>
                             </td>
                         </tr>
