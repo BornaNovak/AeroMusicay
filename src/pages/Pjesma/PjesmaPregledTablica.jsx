@@ -1,31 +1,54 @@
 import { Button, Table } from "react-bootstrap";
-import { formatirajTrajanje } from "../../utils"; // Pripazi na točnu putanju do utils-a
+import { formatirajTrajanje } from "../../utils";
 
 export default function PjesmaPregledTablica({ 
     pjesme, 
     navigate, 
     brisanje, 
     dohvatiNazivAlbuma,
-    dohvatiNaziveZanrova
+    dohvatiNaziveZanrova,
+    sortConfig, // Primljeno iz PjesmaPregled.jsx (to je onaj state 'sortiranje')
+    onSort      // Primljeno iz PjesmaPregled.jsx (funkcija 'promjeniSortiranje')
 }) {
 
+    // Funkcija koja odlučuje koju strelicu prikazati pored naslova
+    const getSortIndicator = (columnKey) => {
+        if (sortConfig.stupac !== columnKey) {
+            return " ↕"; // Nije sortirano po ovom stupcu
+        }
+        return sortConfig.smjer === 'asc' ? " ↑" : " ↓";
+    };
 
     return (
         <Table striped hover responsive className="shadow-sm">
             <thead>
                 <tr>
-                    <th>
-                        Naziv pjesme 
+                    {/* Na klik zovemo onSort koji u roditelju mijenja state i pokreće novi API poziv */}
+                    <th 
+                        onClick={() => onSort('naziv')} 
+                        style={{ cursor: 'pointer', userSelect: 'none' }}
+                    >
+                        Naziv pjesme {getSortIndicator('naziv')}
                     </th>
-                    <th>
-                        Album 
+                    
+                    <th 
+                        onClick={() => onSort('album')} 
+                        style={{ cursor: 'pointer', userSelect: 'none' }}
+                    >
+                        Album {getSortIndicator('album')}
                     </th>
+
                     <th>
                         Žanrovi
                     </th>
-                    <th>
-                        Trajanje
+
+                    <th 
+                        onClick={() => onSort('trajanje')} 
+                        style={{ cursor: 'pointer', userSelect: 'none' }}
+                    >
+                        Trajanje {getSortIndicator('trajanje')}
                     </th>
+
                     <th className="text-center">Akcije</th>
                 </tr>
             </thead>

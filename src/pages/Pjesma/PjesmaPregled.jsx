@@ -10,7 +10,6 @@ import useBreakpoint from '../../hooks/useBreakpoint'
 import PjesmaPregledGrid from './PjesmaPregledGrid'
 import PjesmaPregledTablica from './PjesmaPregledTablica'
 
-
 export default function PjesmaPregled() {
     const [pjesme, setPjesme] = useState([])
     const [albumi, setAlbumi] = useState([])
@@ -20,17 +19,20 @@ export default function PjesmaPregled() {
     const [stranica, setStranica] = useState(1);
     const [ukupnoStranica, setUkupnoStranica] = useState(0);
 
-    const navigate = useNavigate();
+    // NOVO: State za sortiranje (po uzoru na albume)
+    const [sortiranje, setSortiranje] = useState({ stupac: 'naziv', smjer: 'asc' });
 
+    const navigate = useNavigate();
     const sirina = useBreakpoint();
 
-    // useEffect prati promjenu 'stranica'
+    // useEffect prati promjenu 'stranica' I 'sortiranje'
     useEffect(() => {
         ucitajPodatke()
-    }, [stranica])
+    }, [stranica, sortiranje]) // Dodano sortiranje u dependency array
 
     async function ucitajPodatke() {
-        const resPjesme = await PjesmaService.getPage(stranica, 8);
+        // PROMJENA: getPage sada prima i parametre sortiranja
+        const resPjesme = await PjesmaService.getPage(stranica, 8, sortiranje.stupac, sortiranje.smjer);
         const resAlbumi = await AlbumService.get();
         const resZanrovi = await ZanrService.get();
 
@@ -42,8 +44,17 @@ export default function PjesmaPregled() {
         if (resZanrovi.success) setZanrovi(resZanrovi.data);
     }
 
-    async function obrisi(sifra) {
-        if (!confirm('Jeste li sigurni da želite obrisati?')) return;
+    // NOVO: Funkcija za promjenu sortiranja (identična onoj iz albuma)
+    function promjeniSortiranje(noviStupac) {
+        setSortiranje(prev => ({
+            stupac: noviStupac,
+            smjer: prev.stupac === noviStupac && prev.smjer === 'asc' ? 'desc' : 'asc'
+        }));
+        setStranica(1); // Resetiraj na prvu stranicu kod promjene sortiranja
+    }
+
+    async function brisanje(sifra) {
+        if (!confirm('Sigurno obrisati?')) return;
         await PjesmaService.obrisi(sifra);
         ucitajPodatke();
     }
@@ -68,10 +79,8 @@ export default function PjesmaPregled() {
         return zanr ? zanr.naziv : 'Nepoznat žanr';
     }
 
-    // --- NOVA DINAMIČKA LOGIKA PAGINACIJE ---
+    // --- DINAMIČKA LOGIKA PAGINACIJE ---
     let items = [];
-
-    // Definiramo granice centralnog bloka
     let startPage = Math.max(1, stranica - 2);
     let endPage = Math.min(ukupnoStranica, startPage + 4);
 
@@ -79,7 +88,6 @@ export default function PjesmaPregled() {
         startPage = Math.max(1, endPage - 4);
     }
 
-    // 1. LIJEVI RASPON: Dinamički prikazuje od 1 do (startPage - 1)
     if (startPage > 1) {
         const rangeText = startPage - 1 === 1 ? "1" : `1-${startPage - 1}`;
         items.push(
@@ -89,7 +97,6 @@ export default function PjesmaPregled() {
         );
     }
 
-    // 2. CENTRALNIH 5 STRANICA
     for (let number = startPage; number <= endPage; number++) {
         items.push(
             <Pagination.Item
@@ -102,15 +109,6 @@ export default function PjesmaPregled() {
         );
     }
 
-
-     async function brisanje(sifra) {
-        if (!confirm('Sigurno obrisati?')) return;
-
-        await PjesmaService.obrisi(sifra);
-        ucitajPodatke()
-    }
-
-    // 3. DESNI RASPON: Dinamički prikazuje od (endPage + 1) do kraja
     if (endPage < ukupnoStranica) {
         const rangeText = endPage + 1 === ukupnoStranica ? `${ukupnoStranica}` : `${endPage + 1}-${ukupnoStranica}`;
         items.push(
@@ -126,7 +124,6 @@ export default function PjesmaPregled() {
                 Dodavanje nove pjesme
             </Link>
 
-            {/* tableti prema manje */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <PjesmaPregledGrid
                     pjesme={pjesme}
@@ -140,14 +137,13 @@ export default function PjesmaPregled() {
                     pjesme={pjesme}
                     navigate={navigate}
                     brisanje={brisanje}
+                    sortConfig={sortiranje} // DODANO: Šaljemo trenutni sort u tablicu
+                    onSort={promjeniSortiranje} // DODANO: Šaljemo funkciju za klik na naslov
                     dohvatiNazivAlbuma={dohvatiNazivAlbuma}
                     dohvatiNaziveZanrova={dohvatiNaziveZanrova}
                 />
             )}
 
-           
-
-            {/* PRIKAZ NAPREDNE PAGINACIJE NA DNU */}
             {ukupnoStranica > 1 && (
                 <div className="d-flex justify-content-center my-4">
                     <Pagination>
@@ -157,9 +153,7 @@ export default function PjesmaPregled() {
                         >
                             «
                         </Pagination.Prev>
-
                         {items}
-
                         <Pagination.Next
                             disabled={stranica === ukupnoStranica}
                             onClick={() => setStranica(stranica + 1)}
