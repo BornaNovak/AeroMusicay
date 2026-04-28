@@ -1,4 +1,5 @@
 import { PrefixStorage } from "../../constants";
+import IzvodacService from "../izvodaci/IzvodacService";
 
 function dohvatiSveIzStorage() {
     const podaci = localStorage.getItem(PrefixStorage.ALBUMI);
