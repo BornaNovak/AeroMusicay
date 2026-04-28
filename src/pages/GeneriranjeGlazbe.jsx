@@ -6,7 +6,6 @@ import PjesmaService from "../services/pjesme/PjesmaService";
 import ZanrService from "../services/zanrovi/ZanrService"; 
 import { DATA_SOURCE, PrefixStorage } from '../constants';
 
-// IMPORTI PODATAKA IZ MEMORIJE (JS datoteke sa sirovim podacima)
 import izvodaciMemorija from '../services/izvodaci/IzvodacPodaci';
 import albumiMemorija from '../services/albumi/AlbumPodaci';
 import pjesmeMemorija from '../services/pjesme/PjesmaPodaci';
@@ -33,7 +32,7 @@ export default function GeneriranjeGlazbe() {
         pjesme: ["Intro", "Midnight Sky", "Desert Rose", "Electric Dreams", "Final Countdown", "The End", "Shadows", "Neon Lights", "The Wall"]
     };
 
-    // FUNKCIJA ZA PRESIPIVANJE IZ MEMORIJE (JS) U LOCALSTORAGE
+    // FUNKCIJA ZA PRESIPIVANJE IZ MEMORIJE U LOCALSTORAGE
     const handleMemorijaULocalStorage = async () => {
         if (!window.confirm('Jeste li sigurni da želite pretočiti iz memorije u localStorage?')) {
             return;
@@ -43,7 +42,6 @@ export default function GeneriranjeGlazbe() {
         setStatus({ tip: '', poruka: '' });
 
         try {
-            // Spremanje niza podataka u localStorage pod ključevima iz constants.js
             localStorage.setItem(PrefixStorage.IZVODACI, JSON.stringify(izvodaciMemorija.izvodaci));
             localStorage.setItem(PrefixStorage.ALBUMI, JSON.stringify(albumiMemorija.albumi));
             localStorage.setItem(PrefixStorage.PJESME, JSON.stringify(pjesmeMemorija.pjesme));
@@ -63,28 +61,21 @@ export default function GeneriranjeGlazbe() {
         }
     };
 
-    const handleMemorijaUFirebase = async () => {
-        alert('Firebase integracija stiže uskoro!');
-    };
-
-    // TVOJA POSTOJEĆA FUNKCIJA ZA GENERIRANJE PREKO SERVISA
     async function generiraj() {
         setUcitavanje(true);
-        setStatus({ tip: 'info', poruka: 'Generiranje podataka putem API-ja/Servisa...' });
+        setStatus({ tip: 'info', poruka: 'Generiranje podataka putem servisa...' });
 
         try {
             const spremljeniZanroviSifre = [];
             const spremljeneIzvodacSifre = [];
             const spremljeneAlbumSifre = [];
 
-            // 1. ŽANROVI
             for (let i = 0; i < 20; i++) {
                 const naziv = listaZanrova[i % listaZanrova.length]; 
                 const rez = await ZanrService.dodaj({ naziv });
                 if (rez.success) spremljeniZanroviSifre.push(rez.data.sifra);
             }
 
-            // 2. IZVOĐAČE
             for (let i = 0; i < 60; i++) {
                 let naziv, zanrSifra;
                 if (i < 3) {
@@ -98,7 +89,6 @@ export default function GeneriranjeGlazbe() {
                 if (rez.success) spremljeneIzvodacSifre.push(rez.data.sifra);
             }
 
-            // 3. ALBUME
             for (let i = 0; i < 80; i++) {
                 let naziv, izvodacSifra, datum;
                 if (i < 3) {
@@ -114,7 +104,6 @@ export default function GeneriranjeGlazbe() {
                 if (rez.success) spremljeneAlbumSifre.push(rez.data.sifra);
             }
 
-            // 4. PJESME
             for (let i = 0; i < 200; i++) {
                 let naslov, albumSifra, trajanje;
                 if (i < 3) {
@@ -164,7 +153,6 @@ export default function GeneriranjeGlazbe() {
                         </Alert>
                     )}
 
-                    {/* GLAVNI GUMB ZA GENERIRANJE NOVIH PODATAKA */}
                     <Button 
                         variant="success" 
                         onClick={generiraj} 
@@ -175,30 +163,19 @@ export default function GeneriranjeGlazbe() {
                         {ucitavanje ? 'Generiranje...' : 'Pokreni Generator'}
                     </Button>
 
-                    {/* SEKCIJA ZA PRETAKANJE - VIDLJIVA SAMO AKO IZVOR NIJE MEMORIJA */}
                     {DATA_SOURCE !== 'memorija' && (
                         <div className="mt-5">
                             <hr />
-                            <h4 className="my-4 text-muted">Pretakanje podataka iz memorije</h4>
+                            <h4 className="my-4 text-muted">Pretakanje podataka</h4>
                             <Row className="justify-content-center">
-                                <Col md={5}>
+                                <Col md={6}>
                                     <Button
                                         variant="outline-success"
                                         onClick={handleMemorijaULocalStorage}
                                         disabled={ucitavanje}
-                                        className="w-100 mb-2 py-3"
+                                        className="w-100 py-3"
                                     >
-                                        {ucitavanje ? 'Presipavanje...' : 'Memorija -> LocalStorage'}
-                                    </Button>
-                                </Col>
-                                <Col md={5}>
-                                    <Button
-                                        variant="outline-primary"
-                                        onClick={handleMemorijaUFirebase}
-                                        disabled={ucitavanje}
-                                        className="w-100 mb-2 py-3"
-                                    >
-                                        {ucitavanje ? 'Presipavanje...' : 'Memorija -> Firebase'}
+                                        {ucitavanje ? 'Presipavanje...' : 'Iz memorije u localStorage'}
                                     </Button>
                                 </Col>
                             </Row>
