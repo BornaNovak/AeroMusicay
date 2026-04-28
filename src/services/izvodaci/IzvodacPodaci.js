@@ -50,3 +50,7 @@ export const izvodaci = [
     { sifra: 99, dominantniZanr: 8, naziv: 'Eddie Rabbitt' },
     { sifra: 100, dominantniZanr: 8, naziv: 'Country Family' }
 ];
+
+export default {
+    izvodaci
+}

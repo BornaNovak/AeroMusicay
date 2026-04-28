@@ -22,4 +22,12 @@ export const RouteNames = {
     GENERIRANJE_GLAZBE: '/generiranje-glazbe'
 }
 
-export const DATA_SOURCE = 'localStorage';
+
+export const DATA_SOURCE = 'localstorage';
+
+export const PrefixStorage = {
+    ZANROVI: 'zanrovi',
+    IZVODACI: 'izvodaci',
+    ALBUMI: 'albumi',
+    PJESME: 'pjesme'
+}

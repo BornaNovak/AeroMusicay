@@ -56,3 +56,7 @@ export const zanrovi = [
         naziv: 'Soft Rock'
     }
 ];
+
+export default {
+    zanrovi
+}

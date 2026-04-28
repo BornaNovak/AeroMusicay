@@ -1,14 +1,14 @@
-const STORAGE_KEY = 'izvodaci';
+import { PrefixStorage } from "../../constants";
 
 // Pomoćna funkcija za dohvaćanje podataka iz local storage-a
 function dohvatiSveIzStorage() {
-    const podaci = localStorage.getItem(STORAGE_KEY);
+    const podaci = localStorage.getItem(PrefixStorage.IZVODACI);
     return podaci ? JSON.parse(podaci) : [];
 }
 
 // Pomoćna funkcija za spremanje podataka u local storage
 function spremiUStorage(podaci) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(podaci));
+    localStorage.setItem(PrefixStorage.IZVODACI, JSON.stringify(podaci));
 }
 
 // 1/4 Read - dohvati sve izvođače

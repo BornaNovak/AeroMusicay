@@ -1,14 +1,12 @@
-import IzvodacService from "../izvodaci/IzvodacService";
-
-const STORAGE_KEY = 'albumi';
+import { PrefixStorage } from "../../constants";
 
 function dohvatiSveIzStorage() {
-    const podaci = localStorage.getItem(STORAGE_KEY);
+    const podaci = localStorage.getItem(PrefixStorage.ALBUMI);
     return podaci ? JSON.parse(podaci) : [];
 }
 
 function spremiUStorage(podaci) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(podaci));
+    localStorage.setItem(PrefixStorage.ALBUMI, JSON.stringify(podaci));
 }
 
 async function get() {

@@ -34,3 +34,7 @@ export const pjesme = [
     { sifra: 32, album: 32, naziv: 'My Way', zanr: [4, 5], trajanje: 275, slika: 'data:' },
     { sifra: 33, album: 33, naziv: 'Ring of Fire', zanr: [8, 1], trajanje: 157, slika: 'data:' }
 ];
+
+export default {
+    pjesme
+}

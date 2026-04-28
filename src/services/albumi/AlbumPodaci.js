@@ -33,3 +33,7 @@ export const albumi = [
     { sifra: 32, naziv: 'My Way', izvodac: 87, datumIzdavanja: '1969-03-01T00:00:00' },
     { sifra: 33, naziv: 'Ring of Fire', izvodac: 90, datumIzdavanja: '1963-03-25T00:00:00' }
 ];
+
+export default {
+    albumi
+}

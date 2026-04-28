@@ -1,9 +1,16 @@
-import { Button, Container, Card, Alert } from "react-bootstrap";
+import { Button, Container, Card, Alert, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import IzvodacService from "../services/izvodaci/IzvodacService";
 import AlbumService from "../services/albumi/AlbumService";
 import PjesmaService from "../services/pjesme/PjesmaService";
 import ZanrService from "../services/zanrovi/ZanrService"; 
+import { DATA_SOURCE, PrefixStorage } from '../constants';
+
+// IMPORTI PODATAKA IZ MEMORIJE (JS datoteke sa sirovim podacima)
+import izvodaciMemorija from '../services/izvodaci/IzvodacPodaci';
+import albumiMemorija from '../services/albumi/AlbumPodaci';
+import pjesmeMemorija from '../services/pjesme/PjesmaPodaci';
+import zanroviMemorija from '../services/zanrovi/ZanrPodaci';
 
 export default function GeneriranjeGlazbe() {
     const [status, setStatus] = useState({ tip: '', poruka: '' });
@@ -26,25 +33,58 @@ export default function GeneriranjeGlazbe() {
         pjesme: ["Intro", "Midnight Sky", "Desert Rose", "Electric Dreams", "Final Countdown", "The End", "Shadows", "Neon Lights", "The Wall"]
     };
 
+    // FUNKCIJA ZA PRESIPIVANJE IZ MEMORIJE (JS) U LOCALSTORAGE
+    const handleMemorijaULocalStorage = async () => {
+        if (!window.confirm('Jeste li sigurni da želite pretočiti iz memorije u localStorage?')) {
+            return;
+        }
+
+        setUcitavanje(true);
+        setStatus({ tip: '', poruka: '' });
+
+        try {
+            // Spremanje niza podataka u localStorage pod ključevima iz constants.js
+            localStorage.setItem(PrefixStorage.IZVODACI, JSON.stringify(izvodaciMemorija.izvodaci));
+            localStorage.setItem(PrefixStorage.ALBUMI, JSON.stringify(albumiMemorija.albumi));
+            localStorage.setItem(PrefixStorage.PJESME, JSON.stringify(pjesmeMemorija.pjesme));
+            localStorage.setItem(PrefixStorage.ZANROVI, JSON.stringify(zanroviMemorija.zanrovi));
+
+            setStatus({
+                tip: 'success',
+                poruka: `Uspješno presipano iz memorije u localStorage!`
+            });
+        } catch (error) {
+            setStatus({
+                tip: 'danger',
+                poruka: 'Greška pri presipavanju: ' + error.message
+            });
+        } finally {
+            setUcitavanje(false);
+        }
+    };
+
+    const handleMemorijaUFirebase = async () => {
+        alert('Firebase integracija stiže uskoro!');
+    };
+
+    // TVOJA POSTOJEĆA FUNKCIJA ZA GENERIRANJE PREKO SERVISA
     async function generiraj() {
         setUcitavanje(true);
-        setStatus({ tip: 'info', poruka: 'Generiranje 20 žanrova, 60 izvođača, 80 albuma i 200 pjesama...' });
+        setStatus({ tip: 'info', poruka: 'Generiranje podataka putem API-ja/Servisa...' });
 
         try {
             const spremljeniZanroviSifre = [];
             const spremljeneIzvodacSifre = [];
             const spremljeneAlbumSifre = [];
 
-            // 1. GENERIRAJ ŽANROVE
+            // 1. ŽANROVI
             for (let i = 0; i < 20; i++) {
                 const naziv = listaZanrova[i % listaZanrova.length]; 
                 const rez = await ZanrService.dodaj({ naziv });
-                if (rez.success) {
-                    spremljeniZanroviSifre.push(rez.data.sifra);
-                }
+                if (rez.success) spremljeniZanroviSifre.push(rez.data.sifra);
             }
 
-            // 2. GENERIRAJ IZVOĐAČE
+            // 2. IZVOĐAČE
             for (let i = 0; i < 60; i++) {
                 let naziv, zanrSifra;
                 if (i < 3) {
@@ -54,16 +94,11 @@ export default function GeneriranjeGlazbe() {
                     naziv = pomocni.izvodaci[i % pomocni.izvodaci.length];
                     zanrSifra = spremljeniZanroviSifre[Math.floor(Math.random() * spremljeniZanroviSifre.length)];
                 }
-
-                const rez = await IzvodacService.dodaj({ 
-                    naziv: naziv, 
-                    dominantniZanr: zanrSifra 
-                });
-                
+                const rez = await IzvodacService.dodaj({ naziv, dominantniZanr: zanrSifra });
                 if (rez.success) spremljeneIzvodacSifre.push(rez.data.sifra);
             }
 
-            // 3. GENERIRAJ ALBUME
+            // 3. ALBUME
             for (let i = 0; i < 80; i++) {
                 let naziv, izvodacSifra, datum;
                 if (i < 3) {
@@ -75,49 +110,39 @@ export default function GeneriranjeGlazbe() {
                     izvodacSifra = spremljeneIzvodacSifre[Math.floor(Math.random() * spremljeneIzvodacSifre.length)];
                     datum = "2024-01-01";
                 }
-                const rez = await AlbumService.dodaj({ 
-                    naziv: naziv, 
-                    izvodac: izvodacSifra, 
-                    datumIzdavanja: datum 
-                });
+                const rez = await AlbumService.dodaj({ naziv, izvodac: izvodacSifra, datumIzdavanja: datum });
                 if (rez.success) spremljeneAlbumSifre.push(rez.data.sifra);
             }
 
-            // 4. GENERIRAJ PJESAME
+            // 4. PJESME
             for (let i = 0; i < 200; i++) {
                 let naslov, albumSifra, trajanje;
                 if (i < 3) {
                     naslov = obavezni[i].pjesma;
                     albumSifra = spremljeneAlbumSifre[i];
-                    trajanje = 240; // Fiksno trajanje za obavezne
+                    trajanje = 240;
                 } else {
                     naslov = pomocni.pjesme[i % pomocni.pjesme.length];
                     albumSifra = spremljeneAlbumSifre[Math.floor(Math.random() * spremljeneAlbumSifre.length)];
-                    // Slučajno trajanje između 120 i 300 sekundi
                     trajanje = Math.floor(Math.random() * 181) + 120;
                 }
 
                 const brojZanrova = Math.floor(Math.random() * 2) + 2; 
                 const odabraniZanroviSet = new Set();
-
                 while(odabraniZanroviSet.size < brojZanrova && spremljeniZanroviSifre.length > 0) {
-                    const slucajniIndeks = Math.floor(Math.random() * spremljeniZanroviSifre.length);
-                    odabraniZanroviSet.add(spremljeniZanroviSifre[slucajniIndeks]);
+                    odabraniZanroviSet.add(spremljeniZanroviSifre[Math.floor(Math.random() * spremljeniZanroviSifre.length)]);
                 }
-                
-                const slucajniZanrovi = Array.from(odabraniZanroviSet);
 
                 await PjesmaService.dodaj({
                     naziv: naslov,
                     trajanje: trajanje,
                     album: albumSifra,
-                    zanr: slucajniZanrovi
+                    zanr: Array.from(odabraniZanroviSet)
                 });
             }
 
-            setStatus({ tip: 'success', poruka: 'Uspješno generirano bez slika i s ispravnim trajanjem!' });
+            setStatus({ tip: 'success', poruka: 'Uspješno generirano sve!' });
         } catch (error) {
-            console.error(error);
             setStatus({ tip: 'danger', poruka: 'Greška pri generiranju.' });
         } finally {
             setUcitavanje(false);
@@ -131,7 +156,7 @@ export default function GeneriranjeGlazbe() {
                     <h3 className="mb-0">Generator Glazbe</h3>
                 </Card.Header>
                 <Card.Body className="py-5">
-                    <Card.Title className="mb-4">Generiranje glazbe</Card.Title>
+                    <Card.Title className="mb-4">Upravljanje Podacima</Card.Title>
                     
                     {status.poruka && (
                         <Alert variant={status.tip} className="mb-4">
@@ -139,15 +164,46 @@ export default function GeneriranjeGlazbe() {
                         </Alert>
                     )}
 
+                    {/* GLAVNI GUMB ZA GENERIRANJE NOVIH PODATAKA */}
                     <Button 
                         variant="success" 
                         onClick={generiraj} 
                         disabled={ucitavanje}
                         size="lg"
-                        className="px-5 shadow"
+                        className="px-5 shadow mb-4"
                     >
                         {ucitavanje ? 'Generiranje...' : 'Pokreni Generator'}
                     </Button>
+
+                    {/* SEKCIJA ZA PRETAKANJE - VIDLJIVA SAMO AKO IZVOR NIJE MEMORIJA */}
+                    {DATA_SOURCE !== 'memorija' && (
+                        <div className="mt-5">
+                            <hr />
+                            <h4 className="my-4 text-muted">Pretakanje podataka iz memorije</h4>
+                            <Row className="justify-content-center">
+                                <Col md={5}>
+                                    <Button
+                                        variant="outline-success"
+                                        onClick={handleMemorijaULocalStorage}
+                                        disabled={ucitavanje}
+                                        className="w-100 mb-2 py-3"
+                                    >
+                                        {ucitavanje ? 'Presipavanje...' : 'Memorija -> LocalStorage'}
+                                    </Button>
+                                </Col>
+                                <Col md={5}>
+                                    <Button
+                                        variant="outline-primary"
+                                        onClick={handleMemorijaUFirebase}
+                                        disabled={ucitavanje}
+                                        className="w-100 mb-2 py-3"
+                                    >
+                                        {ucitavanje ? 'Presipavanje...' : 'Memorija -> Firebase'}
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </div>
+                    )}
                 </Card.Body>
             </Card>
         </Container>
