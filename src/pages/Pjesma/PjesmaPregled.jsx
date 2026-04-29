@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useBreakpoint from '../../hooks/useBreakpoint'
 import PjesmaPregledGrid from './PjesmaPregledGrid'
 import PjesmaPregledTablica from './PjesmaPregledTablica'
-import { FaSearch } from 'react-bootstrap-icons';
+import { FaSearch } from 'react-icons/fa'
 
 export default function PjesmaPregled() {
     const [pjesme, setPjesme] = useState([])
@@ -46,9 +46,10 @@ export default function PjesmaPregled() {
         if (resZanrovi.success) setZanrovi(resZanrovi.data);
     }
 
-    function handlajPromjenuPretrage(e) {
+    async function handlajPromjenuPretrage(e) {
         setPretraga(e.target.value);
         setStranica(1); // Resetiraj na prvu stranicu kod promjene pretrage
+        await ucitajPodatke()
     }
 
     // NOVO: Funkcija za promjenu sortiranja (identična onoj iz albuma)
@@ -131,7 +132,7 @@ export default function PjesmaPregled() {
                 Dodavanje nove pjesme
             </Link>
 
-            <inputGroup className="mb-4">
+            <InputGroup className="mb-4">
                 <InputGroup.Text>
                     <FaSearch />
                 </InputGroup.Text>
@@ -142,7 +143,7 @@ export default function PjesmaPregled() {
                     value={pretraga}
                     onChange={handlajPromjenuPretrage}
                 />
-            </inputGroup>
+            </InputGroup>
 
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <PjesmaPregledGrid

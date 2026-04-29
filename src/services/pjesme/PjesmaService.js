@@ -36,5 +36,5 @@ export default {
     dodaj: (pjesma) => AktivniServis.dodaj(pjesma),
     promjeni: (sifra, pjesma) => AktivniServis.promjeni(sifra, pjesma),
     obrisi: (sifra) => AktivniServis.obrisi(sifra), // Ovdje ostaje
-    getPage: (page, pageSize, pretraga) => AktivniServis.getPage(page, pageSize, pretraga) // Dodano
+    getPage: (page, pageSize, stupac, smjer, pretraga) => AktivniServis.getPage(page, pageSize, stupac, smjer, pretraga) // Dodano
 };

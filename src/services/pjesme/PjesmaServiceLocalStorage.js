@@ -55,6 +55,16 @@ async function obrisi(sifra) {
 async function getPage(page = 1, pageSize = 8, stupac = 'naziv', smjer = 'asc', pretraga = '') {
     let pjesme = dohvatiSveIzStorage();
 
+    // 1. FILTRIRANJE (Pretraga)
+    // Filtriramo odmah na početku kako bi sortiranje i paginacija radili nad točnim podacima
+
+    if (pretraga && pretraga.trim() !== '') {
+        const query = pretraga.toLowerCase();
+        pjesme = pjesme.filter(p => 
+            p.naziv && p.naziv.toLowerCase().includes(query)
+        );
+    }
+
     // Sortiramo CIJELI NIZ iz storage-a prije rezanja na stranice
     if (stupac) {
         pjesme.sort((a, b) => {
