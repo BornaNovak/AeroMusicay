@@ -52,7 +52,7 @@ async function obrisi(sifra) {
 }
 
 // --- POPRAVLJENO: Straničenje sa sortiranjem ---
-async function getPage(page = 1, pageSize = 8, stupac = 'naziv', smjer = 'asc') {
+async function getPage(page = 1, pageSize = 8, stupac = 'naziv', smjer = 'asc', pretraga = '') {
     let pjesme = dohvatiSveIzStorage();
 
     // Sortiramo CIJELI NIZ iz storage-a prije rezanja na stranice

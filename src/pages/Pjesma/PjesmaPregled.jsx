@@ -3,12 +3,13 @@ import PjesmaService from '../../services/pjesme/PjesmaService'
 import AlbumService from '../../services/albumi/AlbumService'
 import ZanrService from '../../services/zanrovi/ZanrService'
 import { formatirajTrajanje } from '../../utils'
-import { Button, Table, Container, Pagination } from 'react-bootstrap'
+import { Row, Col, Card, Button, Container, Pagination, Form, InputGroup } from "react-bootstrap"
 import { RouteNames } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
 import useBreakpoint from '../../hooks/useBreakpoint'
 import PjesmaPregledGrid from './PjesmaPregledGrid'
 import PjesmaPregledTablica from './PjesmaPregledTablica'
+import { FaSearch } from 'react-bootstrap-icons';
 
 export default function PjesmaPregled() {
     const [pjesme, setPjesme] = useState([])
@@ -24,15 +25,16 @@ export default function PjesmaPregled() {
 
     const navigate = useNavigate();
     const sirina = useBreakpoint();
+    const [pretraga, setPretraga] = useState('');
 
     // useEffect prati promjenu 'stranica' I 'sortiranje'
     useEffect(() => {
         ucitajPodatke()
-    }, [stranica, sortiranje]) // Dodano sortiranje u dependency array
+    }, [stranica, sortiranje, pretraga]) // Dodano sortiranje i pretraga u dependency array
 
     async function ucitajPodatke() {
         // PROMJENA: getPage sada prima i parametre sortiranja
-        const resPjesme = await PjesmaService.getPage(stranica, 8, sortiranje.stupac, sortiranje.smjer);
+        const resPjesme = await PjesmaService.getPage(stranica, 8, sortiranje.stupac, sortiranje.smjer, pretraga);
         const resAlbumi = await AlbumService.get();
         const resZanrovi = await ZanrService.get();
 
@@ -42,6 +44,11 @@ export default function PjesmaPregled() {
         }
         if (resAlbumi.success) setAlbumi(resAlbumi.data);
         if (resZanrovi.success) setZanrovi(resZanrovi.data);
+    }
+
+    function handlajPromjenuPretrage(e) {
+        setPretraga(e.target.value);
+        setStranica(1); // Resetiraj na prvu stranicu kod promjene pretrage
     }
 
     // NOVO: Funkcija za promjenu sortiranja (identična onoj iz albuma)
@@ -123,6 +130,19 @@ export default function PjesmaPregled() {
             <Link to={RouteNames.PJESME_NOVI} className="btn btn-success w-100 my-3">
                 Dodavanje nove pjesme
             </Link>
+
+            <inputGroup className="mb-4">
+                <InputGroup.Text>
+                    <FaSearch />
+                </InputGroup.Text>
+
+                <Form.Control
+                    type="text"
+                    placeholder="Pretraži pjesme..."
+                    value={pretraga}
+                    onChange={handlajPromjenuPretrage}
+                />
+            </inputGroup>
 
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <PjesmaPregledGrid

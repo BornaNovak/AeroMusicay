@@ -48,14 +48,27 @@ async function obrisi(sifra) {
 }
 
 // --- NOVO: Straničenje (Paginacija) ---
-async function getPage(page = 1, pageSize = 8) {
+async function getPage(page = 1, pageSize = 8, pretraga = '') {
+    let filtriranePjesme = [...pjesme];
+
+    if (pretraga && pretraga.trim() !== '') {
+            const pretragaLower = pretraga.toLowerCase().trim();
+            
+            filtriranePjesme = filtriranePjesme.filter(pjesma => {
+                // Sigurnosna provjera: osiguravamo da naziv postoji prije poziva toLowerCase()
+                const naziv = pjesma.naziv ? pjesma.naziv.toLowerCase() : '';
+                
+                // Provjeravamo sadrži li naziv pojam pretrage
+                return naziv.includes(pretragaLower);
+            });
+        }
+
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     
     // slice uzima dio niza od startIndex do endIndex
-    const paginatedData = pjesme.slice(startIndex, endIndex);
-    
-    const totalItems = pjesme.length;
+    const paginatedData = filtriranePjesme.slice(startIndex, endIndex);
+    const totalItems = filtriranePjesme.length;
     const totalPages = Math.ceil(totalItems / pageSize);
 
     return {
